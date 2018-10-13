@@ -2,9 +2,9 @@
 
 Team Members:
 
-Debarnab Mitra
-Prakirt Jhunjhunwala
-Varunesh Goyal
+1.Debarnab Mitra
+2.Prakirt Jhunjhunwala
+3.Varunesh Goyal
 
 Repository contains codes, block diagrams and other important files related to the Non Linear junction detector, build as part of the Electronic Design Lab at EE, IIT Bombay. 
 
