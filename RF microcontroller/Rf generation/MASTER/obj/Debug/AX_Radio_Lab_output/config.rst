@@ -1,0 +1,5324 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.6.0 #9615 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module config
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _axradio_sync_slave_rxtimeout
+                                     12 	.globl _axradio_sync_slave_rxwindow
+                                     13 	.globl _axradio_sync_slave_rxadvance
+                                     14 	.globl _axradio_sync_slave_nrrx
+                                     15 	.globl _axradio_sync_slave_resyncloss
+                                     16 	.globl _axradio_sync_slave_maxperiod
+                                     17 	.globl _axradio_sync_slave_syncpause
+                                     18 	.globl _axradio_sync_slave_initialsyncwindow
+                                     19 	.globl _axradio_sync_slave_syncwindow
+                                     20 	.globl _axradio_sync_xoscstartup
+                                     21 	.globl _axradio_sync_period
+                                     22 	.globl _axradio_wor_period
+                                     23 	.globl _axradio_framing_minpayloadlen
+                                     24 	.globl _axradio_framing_ack_seqnrpos
+                                     25 	.globl _axradio_framing_ack_retransmissions
+                                     26 	.globl _axradio_framing_ack_delay
+                                     27 	.globl _axradio_framing_ack_timeout
+                                     28 	.globl _axradio_framing_enable_sfdcallback
+                                     29 	.globl _axradio_framing_syncflags
+                                     30 	.globl _axradio_framing_syncword
+                                     31 	.globl _axradio_framing_synclen
+                                     32 	.globl _axradio_framing_swcrclen
+                                     33 	.globl _axradio_framing_lenmask
+                                     34 	.globl _axradio_framing_lenoffs
+                                     35 	.globl _axradio_framing_lenpos
+                                     36 	.globl _axradio_framing_sourceaddrpos
+                                     37 	.globl _axradio_framing_destaddrpos
+                                     38 	.globl _axradio_framing_addrlen
+                                     39 	.globl _axradio_framing_maclen
+                                     40 	.globl _axradio_phy_preamble_appendpattern
+                                     41 	.globl _axradio_phy_preamble_appendbits
+                                     42 	.globl _axradio_phy_preamble_flags
+                                     43 	.globl _axradio_phy_preamble_byte
+                                     44 	.globl _axradio_phy_preamble_len
+                                     45 	.globl _axradio_phy_preamble_longlen
+                                     46 	.globl _axradio_phy_preamble_wor_len
+                                     47 	.globl _axradio_phy_preamble_wor_longlen
+                                     48 	.globl _axradio_phy_lbt_forcetx
+                                     49 	.globl _axradio_phy_lbt_retries
+                                     50 	.globl _axradio_phy_cs_enabled
+                                     51 	.globl _axradio_phy_cs_period
+                                     52 	.globl _axradio_phy_channelbusy
+                                     53 	.globl _axradio_phy_rssireference
+                                     54 	.globl _axradio_phy_rssioffset
+                                     55 	.globl _axradio_phy_maxfreqoffset
+                                     56 	.globl _axradio_phy_vcocalib
+                                     57 	.globl _axradio_phy_chanvcoiinit
+                                     58 	.globl _axradio_phy_chanpllrnginit
+                                     59 	.globl _axradio_phy_chanfreq
+                                     60 	.globl _axradio_phy_nrchannels
+                                     61 	.globl _axradio_phy_pn9
+                                     62 	.globl _axradio_phy_innerfreqloop
+                                     63 	.globl _axradio_byteconv_buffer
+                                     64 	.globl _axradio_byteconv
+                                     65 	.globl _crc_crc16
+                                     66 	.globl _PORTC_7
+                                     67 	.globl _PORTC_6
+                                     68 	.globl _PORTC_5
+                                     69 	.globl _PORTC_4
+                                     70 	.globl _PORTC_3
+                                     71 	.globl _PORTC_2
+                                     72 	.globl _PORTC_1
+                                     73 	.globl _PORTC_0
+                                     74 	.globl _PORTB_7
+                                     75 	.globl _PORTB_6
+                                     76 	.globl _PORTB_5
+                                     77 	.globl _PORTB_4
+                                     78 	.globl _PORTB_3
+                                     79 	.globl _PORTB_2
+                                     80 	.globl _PORTB_1
+                                     81 	.globl _PORTB_0
+                                     82 	.globl _PORTA_7
+                                     83 	.globl _PORTA_6
+                                     84 	.globl _PORTA_5
+                                     85 	.globl _PORTA_4
+                                     86 	.globl _PORTA_3
+                                     87 	.globl _PORTA_2
+                                     88 	.globl _PORTA_1
+                                     89 	.globl _PORTA_0
+                                     90 	.globl _PINC_7
+                                     91 	.globl _PINC_6
+                                     92 	.globl _PINC_5
+                                     93 	.globl _PINC_4
+                                     94 	.globl _PINC_3
+                                     95 	.globl _PINC_2
+                                     96 	.globl _PINC_1
+                                     97 	.globl _PINC_0
+                                     98 	.globl _PINB_7
+                                     99 	.globl _PINB_6
+                                    100 	.globl _PINB_5
+                                    101 	.globl _PINB_4
+                                    102 	.globl _PINB_3
+                                    103 	.globl _PINB_2
+                                    104 	.globl _PINB_1
+                                    105 	.globl _PINB_0
+                                    106 	.globl _PINA_7
+                                    107 	.globl _PINA_6
+                                    108 	.globl _PINA_5
+                                    109 	.globl _PINA_4
+                                    110 	.globl _PINA_3
+                                    111 	.globl _PINA_2
+                                    112 	.globl _PINA_1
+                                    113 	.globl _PINA_0
+                                    114 	.globl _CY
+                                    115 	.globl _AC
+                                    116 	.globl _F0
+                                    117 	.globl _RS1
+                                    118 	.globl _RS0
+                                    119 	.globl _OV
+                                    120 	.globl _F1
+                                    121 	.globl _P
+                                    122 	.globl _IP_7
+                                    123 	.globl _IP_6
+                                    124 	.globl _IP_5
+                                    125 	.globl _IP_4
+                                    126 	.globl _IP_3
+                                    127 	.globl _IP_2
+                                    128 	.globl _IP_1
+                                    129 	.globl _IP_0
+                                    130 	.globl _EA
+                                    131 	.globl _IE_7
+                                    132 	.globl _IE_6
+                                    133 	.globl _IE_5
+                                    134 	.globl _IE_4
+                                    135 	.globl _IE_3
+                                    136 	.globl _IE_2
+                                    137 	.globl _IE_1
+                                    138 	.globl _IE_0
+                                    139 	.globl _EIP_7
+                                    140 	.globl _EIP_6
+                                    141 	.globl _EIP_5
+                                    142 	.globl _EIP_4
+                                    143 	.globl _EIP_3
+                                    144 	.globl _EIP_2
+                                    145 	.globl _EIP_1
+                                    146 	.globl _EIP_0
+                                    147 	.globl _EIE_7
+                                    148 	.globl _EIE_6
+                                    149 	.globl _EIE_5
+                                    150 	.globl _EIE_4
+                                    151 	.globl _EIE_3
+                                    152 	.globl _EIE_2
+                                    153 	.globl _EIE_1
+                                    154 	.globl _EIE_0
+                                    155 	.globl _E2IP_7
+                                    156 	.globl _E2IP_6
+                                    157 	.globl _E2IP_5
+                                    158 	.globl _E2IP_4
+                                    159 	.globl _E2IP_3
+                                    160 	.globl _E2IP_2
+                                    161 	.globl _E2IP_1
+                                    162 	.globl _E2IP_0
+                                    163 	.globl _E2IE_7
+                                    164 	.globl _E2IE_6
+                                    165 	.globl _E2IE_5
+                                    166 	.globl _E2IE_4
+                                    167 	.globl _E2IE_3
+                                    168 	.globl _E2IE_2
+                                    169 	.globl _E2IE_1
+                                    170 	.globl _E2IE_0
+                                    171 	.globl _B_7
+                                    172 	.globl _B_6
+                                    173 	.globl _B_5
+                                    174 	.globl _B_4
+                                    175 	.globl _B_3
+                                    176 	.globl _B_2
+                                    177 	.globl _B_1
+                                    178 	.globl _B_0
+                                    179 	.globl _ACC_7
+                                    180 	.globl _ACC_6
+                                    181 	.globl _ACC_5
+                                    182 	.globl _ACC_4
+                                    183 	.globl _ACC_3
+                                    184 	.globl _ACC_2
+                                    185 	.globl _ACC_1
+                                    186 	.globl _ACC_0
+                                    187 	.globl _WTSTAT
+                                    188 	.globl _WTIRQEN
+                                    189 	.globl _WTEVTD
+                                    190 	.globl _WTEVTD1
+                                    191 	.globl _WTEVTD0
+                                    192 	.globl _WTEVTC
+                                    193 	.globl _WTEVTC1
+                                    194 	.globl _WTEVTC0
+                                    195 	.globl _WTEVTB
+                                    196 	.globl _WTEVTB1
+                                    197 	.globl _WTEVTB0
+                                    198 	.globl _WTEVTA
+                                    199 	.globl _WTEVTA1
+                                    200 	.globl _WTEVTA0
+                                    201 	.globl _WTCNTR1
+                                    202 	.globl _WTCNTB
+                                    203 	.globl _WTCNTB1
+                                    204 	.globl _WTCNTB0
+                                    205 	.globl _WTCNTA
+                                    206 	.globl _WTCNTA1
+                                    207 	.globl _WTCNTA0
+                                    208 	.globl _WTCFGB
+                                    209 	.globl _WTCFGA
+                                    210 	.globl _WDTRESET
+                                    211 	.globl _WDTCFG
+                                    212 	.globl _U1STATUS
+                                    213 	.globl _U1SHREG
+                                    214 	.globl _U1MODE
+                                    215 	.globl _U1CTRL
+                                    216 	.globl _U0STATUS
+                                    217 	.globl _U0SHREG
+                                    218 	.globl _U0MODE
+                                    219 	.globl _U0CTRL
+                                    220 	.globl _T2STATUS
+                                    221 	.globl _T2PERIOD
+                                    222 	.globl _T2PERIOD1
+                                    223 	.globl _T2PERIOD0
+                                    224 	.globl _T2MODE
+                                    225 	.globl _T2CNT
+                                    226 	.globl _T2CNT1
+                                    227 	.globl _T2CNT0
+                                    228 	.globl _T2CLKSRC
+                                    229 	.globl _T1STATUS
+                                    230 	.globl _T1PERIOD
+                                    231 	.globl _T1PERIOD1
+                                    232 	.globl _T1PERIOD0
+                                    233 	.globl _T1MODE
+                                    234 	.globl _T1CNT
+                                    235 	.globl _T1CNT1
+                                    236 	.globl _T1CNT0
+                                    237 	.globl _T1CLKSRC
+                                    238 	.globl _T0STATUS
+                                    239 	.globl _T0PERIOD
+                                    240 	.globl _T0PERIOD1
+                                    241 	.globl _T0PERIOD0
+                                    242 	.globl _T0MODE
+                                    243 	.globl _T0CNT
+                                    244 	.globl _T0CNT1
+                                    245 	.globl _T0CNT0
+                                    246 	.globl _T0CLKSRC
+                                    247 	.globl _SPSTATUS
+                                    248 	.globl _SPSHREG
+                                    249 	.globl _SPMODE
+                                    250 	.globl _SPCLKSRC
+                                    251 	.globl _RADIOSTAT
+                                    252 	.globl _RADIOSTAT1
+                                    253 	.globl _RADIOSTAT0
+                                    254 	.globl _RADIODATA
+                                    255 	.globl _RADIODATA3
+                                    256 	.globl _RADIODATA2
+                                    257 	.globl _RADIODATA1
+                                    258 	.globl _RADIODATA0
+                                    259 	.globl _RADIOADDR
+                                    260 	.globl _RADIOADDR1
+                                    261 	.globl _RADIOADDR0
+                                    262 	.globl _RADIOACC
+                                    263 	.globl _OC1STATUS
+                                    264 	.globl _OC1PIN
+                                    265 	.globl _OC1MODE
+                                    266 	.globl _OC1COMP
+                                    267 	.globl _OC1COMP1
+                                    268 	.globl _OC1COMP0
+                                    269 	.globl _OC0STATUS
+                                    270 	.globl _OC0PIN
+                                    271 	.globl _OC0MODE
+                                    272 	.globl _OC0COMP
+                                    273 	.globl _OC0COMP1
+                                    274 	.globl _OC0COMP0
+                                    275 	.globl _NVSTATUS
+                                    276 	.globl _NVKEY
+                                    277 	.globl _NVDATA
+                                    278 	.globl _NVDATA1
+                                    279 	.globl _NVDATA0
+                                    280 	.globl _NVADDR
+                                    281 	.globl _NVADDR1
+                                    282 	.globl _NVADDR0
+                                    283 	.globl _IC1STATUS
+                                    284 	.globl _IC1MODE
+                                    285 	.globl _IC1CAPT
+                                    286 	.globl _IC1CAPT1
+                                    287 	.globl _IC1CAPT0
+                                    288 	.globl _IC0STATUS
+                                    289 	.globl _IC0MODE
+                                    290 	.globl _IC0CAPT
+                                    291 	.globl _IC0CAPT1
+                                    292 	.globl _IC0CAPT0
+                                    293 	.globl _PORTR
+                                    294 	.globl _PORTC
+                                    295 	.globl _PORTB
+                                    296 	.globl _PORTA
+                                    297 	.globl _PINR
+                                    298 	.globl _PINC
+                                    299 	.globl _PINB
+                                    300 	.globl _PINA
+                                    301 	.globl _DIRR
+                                    302 	.globl _DIRC
+                                    303 	.globl _DIRB
+                                    304 	.globl _DIRA
+                                    305 	.globl _DBGLNKSTAT
+                                    306 	.globl _DBGLNKBUF
+                                    307 	.globl _CODECONFIG
+                                    308 	.globl _CLKSTAT
+                                    309 	.globl _CLKCON
+                                    310 	.globl _ANALOGCOMP
+                                    311 	.globl _ADCCONV
+                                    312 	.globl _ADCCLKSRC
+                                    313 	.globl _ADCCH3CONFIG
+                                    314 	.globl _ADCCH2CONFIG
+                                    315 	.globl _ADCCH1CONFIG
+                                    316 	.globl _ADCCH0CONFIG
+                                    317 	.globl __XPAGE
+                                    318 	.globl _XPAGE
+                                    319 	.globl _SP
+                                    320 	.globl _PSW
+                                    321 	.globl _PCON
+                                    322 	.globl _IP
+                                    323 	.globl _IE
+                                    324 	.globl _EIP
+                                    325 	.globl _EIE
+                                    326 	.globl _E2IP
+                                    327 	.globl _E2IE
+                                    328 	.globl _DPS
+                                    329 	.globl _DPTR1
+                                    330 	.globl _DPTR0
+                                    331 	.globl _DPL1
+                                    332 	.globl _DPL
+                                    333 	.globl _DPH1
+                                    334 	.globl _DPH
+                                    335 	.globl _B
+                                    336 	.globl _ACC
+                                    337 	.globl _axradio_phy_chanvcoi
+                                    338 	.globl _axradio_phy_chanpllrng
+                                    339 	.globl _AX5043_XTALAMPL
+                                    340 	.globl _AX5043_XTALOSC
+                                    341 	.globl _AX5043_MODCFGP
+                                    342 	.globl _AX5043_POWCTRL1
+                                    343 	.globl _AX5043_REF
+                                    344 	.globl _AX5043_0xF44
+                                    345 	.globl _AX5043_0xF35
+                                    346 	.globl _AX5043_0xF34
+                                    347 	.globl _AX5043_0xF33
+                                    348 	.globl _AX5043_0xF32
+                                    349 	.globl _AX5043_0xF31
+                                    350 	.globl _AX5043_0xF30
+                                    351 	.globl _AX5043_0xF26
+                                    352 	.globl _AX5043_0xF23
+                                    353 	.globl _AX5043_0xF22
+                                    354 	.globl _AX5043_0xF21
+                                    355 	.globl _AX5043_0xF1C
+                                    356 	.globl _AX5043_0xF18
+                                    357 	.globl _AX5043_0xF11
+                                    358 	.globl _AX5043_0xF10
+                                    359 	.globl _AX5043_0xF0C
+                                    360 	.globl _AX5043_0xF00
+                                    361 	.globl _AX5043_TIMEGAIN3NB
+                                    362 	.globl _AX5043_TIMEGAIN2NB
+                                    363 	.globl _AX5043_TIMEGAIN1NB
+                                    364 	.globl _AX5043_TIMEGAIN0NB
+                                    365 	.globl _AX5043_RXPARAMSETSNB
+                                    366 	.globl _AX5043_RXPARAMCURSETNB
+                                    367 	.globl _AX5043_PKTMAXLENNB
+                                    368 	.globl _AX5043_PKTLENOFFSETNB
+                                    369 	.globl _AX5043_PKTLENCFGNB
+                                    370 	.globl _AX5043_PKTADDRMASK3NB
+                                    371 	.globl _AX5043_PKTADDRMASK2NB
+                                    372 	.globl _AX5043_PKTADDRMASK1NB
+                                    373 	.globl _AX5043_PKTADDRMASK0NB
+                                    374 	.globl _AX5043_PKTADDRCFGNB
+                                    375 	.globl _AX5043_PKTADDR3NB
+                                    376 	.globl _AX5043_PKTADDR2NB
+                                    377 	.globl _AX5043_PKTADDR1NB
+                                    378 	.globl _AX5043_PKTADDR0NB
+                                    379 	.globl _AX5043_PHASEGAIN3NB
+                                    380 	.globl _AX5043_PHASEGAIN2NB
+                                    381 	.globl _AX5043_PHASEGAIN1NB
+                                    382 	.globl _AX5043_PHASEGAIN0NB
+                                    383 	.globl _AX5043_FREQUENCYLEAKNB
+                                    384 	.globl _AX5043_FREQUENCYGAIND3NB
+                                    385 	.globl _AX5043_FREQUENCYGAIND2NB
+                                    386 	.globl _AX5043_FREQUENCYGAIND1NB
+                                    387 	.globl _AX5043_FREQUENCYGAIND0NB
+                                    388 	.globl _AX5043_FREQUENCYGAINC3NB
+                                    389 	.globl _AX5043_FREQUENCYGAINC2NB
+                                    390 	.globl _AX5043_FREQUENCYGAINC1NB
+                                    391 	.globl _AX5043_FREQUENCYGAINC0NB
+                                    392 	.globl _AX5043_FREQUENCYGAINB3NB
+                                    393 	.globl _AX5043_FREQUENCYGAINB2NB
+                                    394 	.globl _AX5043_FREQUENCYGAINB1NB
+                                    395 	.globl _AX5043_FREQUENCYGAINB0NB
+                                    396 	.globl _AX5043_FREQUENCYGAINA3NB
+                                    397 	.globl _AX5043_FREQUENCYGAINA2NB
+                                    398 	.globl _AX5043_FREQUENCYGAINA1NB
+                                    399 	.globl _AX5043_FREQUENCYGAINA0NB
+                                    400 	.globl _AX5043_FREQDEV13NB
+                                    401 	.globl _AX5043_FREQDEV12NB
+                                    402 	.globl _AX5043_FREQDEV11NB
+                                    403 	.globl _AX5043_FREQDEV10NB
+                                    404 	.globl _AX5043_FREQDEV03NB
+                                    405 	.globl _AX5043_FREQDEV02NB
+                                    406 	.globl _AX5043_FREQDEV01NB
+                                    407 	.globl _AX5043_FREQDEV00NB
+                                    408 	.globl _AX5043_FOURFSK3NB
+                                    409 	.globl _AX5043_FOURFSK2NB
+                                    410 	.globl _AX5043_FOURFSK1NB
+                                    411 	.globl _AX5043_FOURFSK0NB
+                                    412 	.globl _AX5043_DRGAIN3NB
+                                    413 	.globl _AX5043_DRGAIN2NB
+                                    414 	.globl _AX5043_DRGAIN1NB
+                                    415 	.globl _AX5043_DRGAIN0NB
+                                    416 	.globl _AX5043_BBOFFSRES3NB
+                                    417 	.globl _AX5043_BBOFFSRES2NB
+                                    418 	.globl _AX5043_BBOFFSRES1NB
+                                    419 	.globl _AX5043_BBOFFSRES0NB
+                                    420 	.globl _AX5043_AMPLITUDEGAIN3NB
+                                    421 	.globl _AX5043_AMPLITUDEGAIN2NB
+                                    422 	.globl _AX5043_AMPLITUDEGAIN1NB
+                                    423 	.globl _AX5043_AMPLITUDEGAIN0NB
+                                    424 	.globl _AX5043_AGCTARGET3NB
+                                    425 	.globl _AX5043_AGCTARGET2NB
+                                    426 	.globl _AX5043_AGCTARGET1NB
+                                    427 	.globl _AX5043_AGCTARGET0NB
+                                    428 	.globl _AX5043_AGCMINMAX3NB
+                                    429 	.globl _AX5043_AGCMINMAX2NB
+                                    430 	.globl _AX5043_AGCMINMAX1NB
+                                    431 	.globl _AX5043_AGCMINMAX0NB
+                                    432 	.globl _AX5043_AGCGAIN3NB
+                                    433 	.globl _AX5043_AGCGAIN2NB
+                                    434 	.globl _AX5043_AGCGAIN1NB
+                                    435 	.globl _AX5043_AGCGAIN0NB
+                                    436 	.globl _AX5043_AGCAHYST3NB
+                                    437 	.globl _AX5043_AGCAHYST2NB
+                                    438 	.globl _AX5043_AGCAHYST1NB
+                                    439 	.globl _AX5043_AGCAHYST0NB
+                                    440 	.globl _AX5043_0xF44NB
+                                    441 	.globl _AX5043_0xF35NB
+                                    442 	.globl _AX5043_0xF34NB
+                                    443 	.globl _AX5043_0xF33NB
+                                    444 	.globl _AX5043_0xF32NB
+                                    445 	.globl _AX5043_0xF31NB
+                                    446 	.globl _AX5043_0xF30NB
+                                    447 	.globl _AX5043_0xF26NB
+                                    448 	.globl _AX5043_0xF23NB
+                                    449 	.globl _AX5043_0xF22NB
+                                    450 	.globl _AX5043_0xF21NB
+                                    451 	.globl _AX5043_0xF1CNB
+                                    452 	.globl _AX5043_0xF18NB
+                                    453 	.globl _AX5043_0xF0CNB
+                                    454 	.globl _AX5043_0xF00NB
+                                    455 	.globl _AX5043_XTALSTATUSNB
+                                    456 	.globl _AX5043_XTALOSCNB
+                                    457 	.globl _AX5043_XTALCAPNB
+                                    458 	.globl _AX5043_XTALAMPLNB
+                                    459 	.globl _AX5043_WAKEUPXOEARLYNB
+                                    460 	.globl _AX5043_WAKEUPTIMER1NB
+                                    461 	.globl _AX5043_WAKEUPTIMER0NB
+                                    462 	.globl _AX5043_WAKEUPFREQ1NB
+                                    463 	.globl _AX5043_WAKEUPFREQ0NB
+                                    464 	.globl _AX5043_WAKEUP1NB
+                                    465 	.globl _AX5043_WAKEUP0NB
+                                    466 	.globl _AX5043_TXRATE2NB
+                                    467 	.globl _AX5043_TXRATE1NB
+                                    468 	.globl _AX5043_TXRATE0NB
+                                    469 	.globl _AX5043_TXPWRCOEFFE1NB
+                                    470 	.globl _AX5043_TXPWRCOEFFE0NB
+                                    471 	.globl _AX5043_TXPWRCOEFFD1NB
+                                    472 	.globl _AX5043_TXPWRCOEFFD0NB
+                                    473 	.globl _AX5043_TXPWRCOEFFC1NB
+                                    474 	.globl _AX5043_TXPWRCOEFFC0NB
+                                    475 	.globl _AX5043_TXPWRCOEFFB1NB
+                                    476 	.globl _AX5043_TXPWRCOEFFB0NB
+                                    477 	.globl _AX5043_TXPWRCOEFFA1NB
+                                    478 	.globl _AX5043_TXPWRCOEFFA0NB
+                                    479 	.globl _AX5043_TRKRFFREQ2NB
+                                    480 	.globl _AX5043_TRKRFFREQ1NB
+                                    481 	.globl _AX5043_TRKRFFREQ0NB
+                                    482 	.globl _AX5043_TRKPHASE1NB
+                                    483 	.globl _AX5043_TRKPHASE0NB
+                                    484 	.globl _AX5043_TRKFSKDEMOD1NB
+                                    485 	.globl _AX5043_TRKFSKDEMOD0NB
+                                    486 	.globl _AX5043_TRKFREQ1NB
+                                    487 	.globl _AX5043_TRKFREQ0NB
+                                    488 	.globl _AX5043_TRKDATARATE2NB
+                                    489 	.globl _AX5043_TRKDATARATE1NB
+                                    490 	.globl _AX5043_TRKDATARATE0NB
+                                    491 	.globl _AX5043_TRKAMPLITUDE1NB
+                                    492 	.globl _AX5043_TRKAMPLITUDE0NB
+                                    493 	.globl _AX5043_TRKAFSKDEMOD1NB
+                                    494 	.globl _AX5043_TRKAFSKDEMOD0NB
+                                    495 	.globl _AX5043_TMGTXSETTLENB
+                                    496 	.globl _AX5043_TMGTXBOOSTNB
+                                    497 	.globl _AX5043_TMGRXSETTLENB
+                                    498 	.globl _AX5043_TMGRXRSSINB
+                                    499 	.globl _AX5043_TMGRXPREAMBLE3NB
+                                    500 	.globl _AX5043_TMGRXPREAMBLE2NB
+                                    501 	.globl _AX5043_TMGRXPREAMBLE1NB
+                                    502 	.globl _AX5043_TMGRXOFFSACQNB
+                                    503 	.globl _AX5043_TMGRXCOARSEAGCNB
+                                    504 	.globl _AX5043_TMGRXBOOSTNB
+                                    505 	.globl _AX5043_TMGRXAGCNB
+                                    506 	.globl _AX5043_TIMER2NB
+                                    507 	.globl _AX5043_TIMER1NB
+                                    508 	.globl _AX5043_TIMER0NB
+                                    509 	.globl _AX5043_SILICONREVISIONNB
+                                    510 	.globl _AX5043_SCRATCHNB
+                                    511 	.globl _AX5043_RXDATARATE2NB
+                                    512 	.globl _AX5043_RXDATARATE1NB
+                                    513 	.globl _AX5043_RXDATARATE0NB
+                                    514 	.globl _AX5043_RSSIREFERENCENB
+                                    515 	.globl _AX5043_RSSIABSTHRNB
+                                    516 	.globl _AX5043_RSSINB
+                                    517 	.globl _AX5043_REFNB
+                                    518 	.globl _AX5043_RADIOSTATENB
+                                    519 	.globl _AX5043_RADIOEVENTREQ1NB
+                                    520 	.globl _AX5043_RADIOEVENTREQ0NB
+                                    521 	.globl _AX5043_RADIOEVENTMASK1NB
+                                    522 	.globl _AX5043_RADIOEVENTMASK0NB
+                                    523 	.globl _AX5043_PWRMODENB
+                                    524 	.globl _AX5043_PWRAMPNB
+                                    525 	.globl _AX5043_POWSTICKYSTATNB
+                                    526 	.globl _AX5043_POWSTATNB
+                                    527 	.globl _AX5043_POWIRQMASKNB
+                                    528 	.globl _AX5043_POWCTRL1NB
+                                    529 	.globl _AX5043_PLLVCOIRNB
+                                    530 	.globl _AX5043_PLLVCOINB
+                                    531 	.globl _AX5043_PLLVCODIVNB
+                                    532 	.globl _AX5043_PLLRNGCLKNB
+                                    533 	.globl _AX5043_PLLRANGINGBNB
+                                    534 	.globl _AX5043_PLLRANGINGANB
+                                    535 	.globl _AX5043_PLLLOOPBOOSTNB
+                                    536 	.globl _AX5043_PLLLOOPNB
+                                    537 	.globl _AX5043_PLLLOCKDETNB
+                                    538 	.globl _AX5043_PLLCPIBOOSTNB
+                                    539 	.globl _AX5043_PLLCPINB
+                                    540 	.globl _AX5043_PKTSTOREFLAGSNB
+                                    541 	.globl _AX5043_PKTMISCFLAGSNB
+                                    542 	.globl _AX5043_PKTCHUNKSIZENB
+                                    543 	.globl _AX5043_PKTACCEPTFLAGSNB
+                                    544 	.globl _AX5043_PINSTATENB
+                                    545 	.globl _AX5043_PINFUNCSYSCLKNB
+                                    546 	.globl _AX5043_PINFUNCPWRAMPNB
+                                    547 	.globl _AX5043_PINFUNCIRQNB
+                                    548 	.globl _AX5043_PINFUNCDCLKNB
+                                    549 	.globl _AX5043_PINFUNCDATANB
+                                    550 	.globl _AX5043_PINFUNCANTSELNB
+                                    551 	.globl _AX5043_MODULATIONNB
+                                    552 	.globl _AX5043_MODCFGPNB
+                                    553 	.globl _AX5043_MODCFGFNB
+                                    554 	.globl _AX5043_MODCFGANB
+                                    555 	.globl _AX5043_MAXRFOFFSET2NB
+                                    556 	.globl _AX5043_MAXRFOFFSET1NB
+                                    557 	.globl _AX5043_MAXRFOFFSET0NB
+                                    558 	.globl _AX5043_MAXDROFFSET2NB
+                                    559 	.globl _AX5043_MAXDROFFSET1NB
+                                    560 	.globl _AX5043_MAXDROFFSET0NB
+                                    561 	.globl _AX5043_MATCH1PAT1NB
+                                    562 	.globl _AX5043_MATCH1PAT0NB
+                                    563 	.globl _AX5043_MATCH1MINNB
+                                    564 	.globl _AX5043_MATCH1MAXNB
+                                    565 	.globl _AX5043_MATCH1LENNB
+                                    566 	.globl _AX5043_MATCH0PAT3NB
+                                    567 	.globl _AX5043_MATCH0PAT2NB
+                                    568 	.globl _AX5043_MATCH0PAT1NB
+                                    569 	.globl _AX5043_MATCH0PAT0NB
+                                    570 	.globl _AX5043_MATCH0MINNB
+                                    571 	.globl _AX5043_MATCH0MAXNB
+                                    572 	.globl _AX5043_MATCH0LENNB
+                                    573 	.globl _AX5043_LPOSCSTATUSNB
+                                    574 	.globl _AX5043_LPOSCREF1NB
+                                    575 	.globl _AX5043_LPOSCREF0NB
+                                    576 	.globl _AX5043_LPOSCPER1NB
+                                    577 	.globl _AX5043_LPOSCPER0NB
+                                    578 	.globl _AX5043_LPOSCKFILT1NB
+                                    579 	.globl _AX5043_LPOSCKFILT0NB
+                                    580 	.globl _AX5043_LPOSCFREQ1NB
+                                    581 	.globl _AX5043_LPOSCFREQ0NB
+                                    582 	.globl _AX5043_LPOSCCONFIGNB
+                                    583 	.globl _AX5043_IRQREQUEST1NB
+                                    584 	.globl _AX5043_IRQREQUEST0NB
+                                    585 	.globl _AX5043_IRQMASK1NB
+                                    586 	.globl _AX5043_IRQMASK0NB
+                                    587 	.globl _AX5043_IRQINVERSION1NB
+                                    588 	.globl _AX5043_IRQINVERSION0NB
+                                    589 	.globl _AX5043_IFFREQ1NB
+                                    590 	.globl _AX5043_IFFREQ0NB
+                                    591 	.globl _AX5043_GPADCPERIODNB
+                                    592 	.globl _AX5043_GPADCCTRLNB
+                                    593 	.globl _AX5043_GPADC13VALUE1NB
+                                    594 	.globl _AX5043_GPADC13VALUE0NB
+                                    595 	.globl _AX5043_FSKDMIN1NB
+                                    596 	.globl _AX5043_FSKDMIN0NB
+                                    597 	.globl _AX5043_FSKDMAX1NB
+                                    598 	.globl _AX5043_FSKDMAX0NB
+                                    599 	.globl _AX5043_FSKDEV2NB
+                                    600 	.globl _AX5043_FSKDEV1NB
+                                    601 	.globl _AX5043_FSKDEV0NB
+                                    602 	.globl _AX5043_FREQB3NB
+                                    603 	.globl _AX5043_FREQB2NB
+                                    604 	.globl _AX5043_FREQB1NB
+                                    605 	.globl _AX5043_FREQB0NB
+                                    606 	.globl _AX5043_FREQA3NB
+                                    607 	.globl _AX5043_FREQA2NB
+                                    608 	.globl _AX5043_FREQA1NB
+                                    609 	.globl _AX5043_FREQA0NB
+                                    610 	.globl _AX5043_FRAMINGNB
+                                    611 	.globl _AX5043_FIFOTHRESH1NB
+                                    612 	.globl _AX5043_FIFOTHRESH0NB
+                                    613 	.globl _AX5043_FIFOSTATNB
+                                    614 	.globl _AX5043_FIFOFREE1NB
+                                    615 	.globl _AX5043_FIFOFREE0NB
+                                    616 	.globl _AX5043_FIFODATANB
+                                    617 	.globl _AX5043_FIFOCOUNT1NB
+                                    618 	.globl _AX5043_FIFOCOUNT0NB
+                                    619 	.globl _AX5043_FECSYNCNB
+                                    620 	.globl _AX5043_FECSTATUSNB
+                                    621 	.globl _AX5043_FECNB
+                                    622 	.globl _AX5043_ENCODINGNB
+                                    623 	.globl _AX5043_DIVERSITYNB
+                                    624 	.globl _AX5043_DECIMATIONNB
+                                    625 	.globl _AX5043_DACVALUE1NB
+                                    626 	.globl _AX5043_DACVALUE0NB
+                                    627 	.globl _AX5043_DACCONFIGNB
+                                    628 	.globl _AX5043_CRCINIT3NB
+                                    629 	.globl _AX5043_CRCINIT2NB
+                                    630 	.globl _AX5043_CRCINIT1NB
+                                    631 	.globl _AX5043_CRCINIT0NB
+                                    632 	.globl _AX5043_BGNDRSSITHRNB
+                                    633 	.globl _AX5043_BGNDRSSIGAINNB
+                                    634 	.globl _AX5043_BGNDRSSINB
+                                    635 	.globl _AX5043_BBTUNENB
+                                    636 	.globl _AX5043_BBOFFSCAPNB
+                                    637 	.globl _AX5043_AMPLFILTERNB
+                                    638 	.globl _AX5043_AGCCOUNTERNB
+                                    639 	.globl _AX5043_AFSKSPACE1NB
+                                    640 	.globl _AX5043_AFSKSPACE0NB
+                                    641 	.globl _AX5043_AFSKMARK1NB
+                                    642 	.globl _AX5043_AFSKMARK0NB
+                                    643 	.globl _AX5043_AFSKCTRLNB
+                                    644 	.globl _AX5043_TIMEGAIN3
+                                    645 	.globl _AX5043_TIMEGAIN2
+                                    646 	.globl _AX5043_TIMEGAIN1
+                                    647 	.globl _AX5043_TIMEGAIN0
+                                    648 	.globl _AX5043_RXPARAMSETS
+                                    649 	.globl _AX5043_RXPARAMCURSET
+                                    650 	.globl _AX5043_PKTMAXLEN
+                                    651 	.globl _AX5043_PKTLENOFFSET
+                                    652 	.globl _AX5043_PKTLENCFG
+                                    653 	.globl _AX5043_PKTADDRMASK3
+                                    654 	.globl _AX5043_PKTADDRMASK2
+                                    655 	.globl _AX5043_PKTADDRMASK1
+                                    656 	.globl _AX5043_PKTADDRMASK0
+                                    657 	.globl _AX5043_PKTADDRCFG
+                                    658 	.globl _AX5043_PKTADDR3
+                                    659 	.globl _AX5043_PKTADDR2
+                                    660 	.globl _AX5043_PKTADDR1
+                                    661 	.globl _AX5043_PKTADDR0
+                                    662 	.globl _AX5043_PHASEGAIN3
+                                    663 	.globl _AX5043_PHASEGAIN2
+                                    664 	.globl _AX5043_PHASEGAIN1
+                                    665 	.globl _AX5043_PHASEGAIN0
+                                    666 	.globl _AX5043_FREQUENCYLEAK
+                                    667 	.globl _AX5043_FREQUENCYGAIND3
+                                    668 	.globl _AX5043_FREQUENCYGAIND2
+                                    669 	.globl _AX5043_FREQUENCYGAIND1
+                                    670 	.globl _AX5043_FREQUENCYGAIND0
+                                    671 	.globl _AX5043_FREQUENCYGAINC3
+                                    672 	.globl _AX5043_FREQUENCYGAINC2
+                                    673 	.globl _AX5043_FREQUENCYGAINC1
+                                    674 	.globl _AX5043_FREQUENCYGAINC0
+                                    675 	.globl _AX5043_FREQUENCYGAINB3
+                                    676 	.globl _AX5043_FREQUENCYGAINB2
+                                    677 	.globl _AX5043_FREQUENCYGAINB1
+                                    678 	.globl _AX5043_FREQUENCYGAINB0
+                                    679 	.globl _AX5043_FREQUENCYGAINA3
+                                    680 	.globl _AX5043_FREQUENCYGAINA2
+                                    681 	.globl _AX5043_FREQUENCYGAINA1
+                                    682 	.globl _AX5043_FREQUENCYGAINA0
+                                    683 	.globl _AX5043_FREQDEV13
+                                    684 	.globl _AX5043_FREQDEV12
+                                    685 	.globl _AX5043_FREQDEV11
+                                    686 	.globl _AX5043_FREQDEV10
+                                    687 	.globl _AX5043_FREQDEV03
+                                    688 	.globl _AX5043_FREQDEV02
+                                    689 	.globl _AX5043_FREQDEV01
+                                    690 	.globl _AX5043_FREQDEV00
+                                    691 	.globl _AX5043_FOURFSK3
+                                    692 	.globl _AX5043_FOURFSK2
+                                    693 	.globl _AX5043_FOURFSK1
+                                    694 	.globl _AX5043_FOURFSK0
+                                    695 	.globl _AX5043_DRGAIN3
+                                    696 	.globl _AX5043_DRGAIN2
+                                    697 	.globl _AX5043_DRGAIN1
+                                    698 	.globl _AX5043_DRGAIN0
+                                    699 	.globl _AX5043_BBOFFSRES3
+                                    700 	.globl _AX5043_BBOFFSRES2
+                                    701 	.globl _AX5043_BBOFFSRES1
+                                    702 	.globl _AX5043_BBOFFSRES0
+                                    703 	.globl _AX5043_AMPLITUDEGAIN3
+                                    704 	.globl _AX5043_AMPLITUDEGAIN2
+                                    705 	.globl _AX5043_AMPLITUDEGAIN1
+                                    706 	.globl _AX5043_AMPLITUDEGAIN0
+                                    707 	.globl _AX5043_AGCTARGET3
+                                    708 	.globl _AX5043_AGCTARGET2
+                                    709 	.globl _AX5043_AGCTARGET1
+                                    710 	.globl _AX5043_AGCTARGET0
+                                    711 	.globl _AX5043_AGCMINMAX3
+                                    712 	.globl _AX5043_AGCMINMAX2
+                                    713 	.globl _AX5043_AGCMINMAX1
+                                    714 	.globl _AX5043_AGCMINMAX0
+                                    715 	.globl _AX5043_AGCGAIN3
+                                    716 	.globl _AX5043_AGCGAIN2
+                                    717 	.globl _AX5043_AGCGAIN1
+                                    718 	.globl _AX5043_AGCGAIN0
+                                    719 	.globl _AX5043_AGCAHYST3
+                                    720 	.globl _AX5043_AGCAHYST2
+                                    721 	.globl _AX5043_AGCAHYST1
+                                    722 	.globl _AX5043_AGCAHYST0
+                                    723 	.globl _AX5043_XTALSTATUS
+                                    724 	.globl _AX5043_XTALCAP
+                                    725 	.globl _AX5043_WAKEUPXOEARLY
+                                    726 	.globl _AX5043_WAKEUPTIMER1
+                                    727 	.globl _AX5043_WAKEUPTIMER0
+                                    728 	.globl _AX5043_WAKEUPFREQ1
+                                    729 	.globl _AX5043_WAKEUPFREQ0
+                                    730 	.globl _AX5043_WAKEUP1
+                                    731 	.globl _AX5043_WAKEUP0
+                                    732 	.globl _AX5043_TXRATE2
+                                    733 	.globl _AX5043_TXRATE1
+                                    734 	.globl _AX5043_TXRATE0
+                                    735 	.globl _AX5043_TXPWRCOEFFE1
+                                    736 	.globl _AX5043_TXPWRCOEFFE0
+                                    737 	.globl _AX5043_TXPWRCOEFFD1
+                                    738 	.globl _AX5043_TXPWRCOEFFD0
+                                    739 	.globl _AX5043_TXPWRCOEFFC1
+                                    740 	.globl _AX5043_TXPWRCOEFFC0
+                                    741 	.globl _AX5043_TXPWRCOEFFB1
+                                    742 	.globl _AX5043_TXPWRCOEFFB0
+                                    743 	.globl _AX5043_TXPWRCOEFFA1
+                                    744 	.globl _AX5043_TXPWRCOEFFA0
+                                    745 	.globl _AX5043_TRKRFFREQ2
+                                    746 	.globl _AX5043_TRKRFFREQ1
+                                    747 	.globl _AX5043_TRKRFFREQ0
+                                    748 	.globl _AX5043_TRKPHASE1
+                                    749 	.globl _AX5043_TRKPHASE0
+                                    750 	.globl _AX5043_TRKFSKDEMOD1
+                                    751 	.globl _AX5043_TRKFSKDEMOD0
+                                    752 	.globl _AX5043_TRKFREQ1
+                                    753 	.globl _AX5043_TRKFREQ0
+                                    754 	.globl _AX5043_TRKDATARATE2
+                                    755 	.globl _AX5043_TRKDATARATE1
+                                    756 	.globl _AX5043_TRKDATARATE0
+                                    757 	.globl _AX5043_TRKAMPLITUDE1
+                                    758 	.globl _AX5043_TRKAMPLITUDE0
+                                    759 	.globl _AX5043_TRKAFSKDEMOD1
+                                    760 	.globl _AX5043_TRKAFSKDEMOD0
+                                    761 	.globl _AX5043_TMGTXSETTLE
+                                    762 	.globl _AX5043_TMGTXBOOST
+                                    763 	.globl _AX5043_TMGRXSETTLE
+                                    764 	.globl _AX5043_TMGRXRSSI
+                                    765 	.globl _AX5043_TMGRXPREAMBLE3
+                                    766 	.globl _AX5043_TMGRXPREAMBLE2
+                                    767 	.globl _AX5043_TMGRXPREAMBLE1
+                                    768 	.globl _AX5043_TMGRXOFFSACQ
+                                    769 	.globl _AX5043_TMGRXCOARSEAGC
+                                    770 	.globl _AX5043_TMGRXBOOST
+                                    771 	.globl _AX5043_TMGRXAGC
+                                    772 	.globl _AX5043_TIMER2
+                                    773 	.globl _AX5043_TIMER1
+                                    774 	.globl _AX5043_TIMER0
+                                    775 	.globl _AX5043_SILICONREVISION
+                                    776 	.globl _AX5043_SCRATCH
+                                    777 	.globl _AX5043_RXDATARATE2
+                                    778 	.globl _AX5043_RXDATARATE1
+                                    779 	.globl _AX5043_RXDATARATE0
+                                    780 	.globl _AX5043_RSSIREFERENCE
+                                    781 	.globl _AX5043_RSSIABSTHR
+                                    782 	.globl _AX5043_RSSI
+                                    783 	.globl _AX5043_RADIOSTATE
+                                    784 	.globl _AX5043_RADIOEVENTREQ1
+                                    785 	.globl _AX5043_RADIOEVENTREQ0
+                                    786 	.globl _AX5043_RADIOEVENTMASK1
+                                    787 	.globl _AX5043_RADIOEVENTMASK0
+                                    788 	.globl _AX5043_PWRMODE
+                                    789 	.globl _AX5043_PWRAMP
+                                    790 	.globl _AX5043_POWSTICKYSTAT
+                                    791 	.globl _AX5043_POWSTAT
+                                    792 	.globl _AX5043_POWIRQMASK
+                                    793 	.globl _AX5043_PLLVCOIR
+                                    794 	.globl _AX5043_PLLVCOI
+                                    795 	.globl _AX5043_PLLVCODIV
+                                    796 	.globl _AX5043_PLLRNGCLK
+                                    797 	.globl _AX5043_PLLRANGINGB
+                                    798 	.globl _AX5043_PLLRANGINGA
+                                    799 	.globl _AX5043_PLLLOOPBOOST
+                                    800 	.globl _AX5043_PLLLOOP
+                                    801 	.globl _AX5043_PLLLOCKDET
+                                    802 	.globl _AX5043_PLLCPIBOOST
+                                    803 	.globl _AX5043_PLLCPI
+                                    804 	.globl _AX5043_PKTSTOREFLAGS
+                                    805 	.globl _AX5043_PKTMISCFLAGS
+                                    806 	.globl _AX5043_PKTCHUNKSIZE
+                                    807 	.globl _AX5043_PKTACCEPTFLAGS
+                                    808 	.globl _AX5043_PINSTATE
+                                    809 	.globl _AX5043_PINFUNCSYSCLK
+                                    810 	.globl _AX5043_PINFUNCPWRAMP
+                                    811 	.globl _AX5043_PINFUNCIRQ
+                                    812 	.globl _AX5043_PINFUNCDCLK
+                                    813 	.globl _AX5043_PINFUNCDATA
+                                    814 	.globl _AX5043_PINFUNCANTSEL
+                                    815 	.globl _AX5043_MODULATION
+                                    816 	.globl _AX5043_MODCFGF
+                                    817 	.globl _AX5043_MODCFGA
+                                    818 	.globl _AX5043_MAXRFOFFSET2
+                                    819 	.globl _AX5043_MAXRFOFFSET1
+                                    820 	.globl _AX5043_MAXRFOFFSET0
+                                    821 	.globl _AX5043_MAXDROFFSET2
+                                    822 	.globl _AX5043_MAXDROFFSET1
+                                    823 	.globl _AX5043_MAXDROFFSET0
+                                    824 	.globl _AX5043_MATCH1PAT1
+                                    825 	.globl _AX5043_MATCH1PAT0
+                                    826 	.globl _AX5043_MATCH1MIN
+                                    827 	.globl _AX5043_MATCH1MAX
+                                    828 	.globl _AX5043_MATCH1LEN
+                                    829 	.globl _AX5043_MATCH0PAT3
+                                    830 	.globl _AX5043_MATCH0PAT2
+                                    831 	.globl _AX5043_MATCH0PAT1
+                                    832 	.globl _AX5043_MATCH0PAT0
+                                    833 	.globl _AX5043_MATCH0MIN
+                                    834 	.globl _AX5043_MATCH0MAX
+                                    835 	.globl _AX5043_MATCH0LEN
+                                    836 	.globl _AX5043_LPOSCSTATUS
+                                    837 	.globl _AX5043_LPOSCREF1
+                                    838 	.globl _AX5043_LPOSCREF0
+                                    839 	.globl _AX5043_LPOSCPER1
+                                    840 	.globl _AX5043_LPOSCPER0
+                                    841 	.globl _AX5043_LPOSCKFILT1
+                                    842 	.globl _AX5043_LPOSCKFILT0
+                                    843 	.globl _AX5043_LPOSCFREQ1
+                                    844 	.globl _AX5043_LPOSCFREQ0
+                                    845 	.globl _AX5043_LPOSCCONFIG
+                                    846 	.globl _AX5043_IRQREQUEST1
+                                    847 	.globl _AX5043_IRQREQUEST0
+                                    848 	.globl _AX5043_IRQMASK1
+                                    849 	.globl _AX5043_IRQMASK0
+                                    850 	.globl _AX5043_IRQINVERSION1
+                                    851 	.globl _AX5043_IRQINVERSION0
+                                    852 	.globl _AX5043_IFFREQ1
+                                    853 	.globl _AX5043_IFFREQ0
+                                    854 	.globl _AX5043_GPADCPERIOD
+                                    855 	.globl _AX5043_GPADCCTRL
+                                    856 	.globl _AX5043_GPADC13VALUE1
+                                    857 	.globl _AX5043_GPADC13VALUE0
+                                    858 	.globl _AX5043_FSKDMIN1
+                                    859 	.globl _AX5043_FSKDMIN0
+                                    860 	.globl _AX5043_FSKDMAX1
+                                    861 	.globl _AX5043_FSKDMAX0
+                                    862 	.globl _AX5043_FSKDEV2
+                                    863 	.globl _AX5043_FSKDEV1
+                                    864 	.globl _AX5043_FSKDEV0
+                                    865 	.globl _AX5043_FREQB3
+                                    866 	.globl _AX5043_FREQB2
+                                    867 	.globl _AX5043_FREQB1
+                                    868 	.globl _AX5043_FREQB0
+                                    869 	.globl _AX5043_FREQA3
+                                    870 	.globl _AX5043_FREQA2
+                                    871 	.globl _AX5043_FREQA1
+                                    872 	.globl _AX5043_FREQA0
+                                    873 	.globl _AX5043_FRAMING
+                                    874 	.globl _AX5043_FIFOTHRESH1
+                                    875 	.globl _AX5043_FIFOTHRESH0
+                                    876 	.globl _AX5043_FIFOSTAT
+                                    877 	.globl _AX5043_FIFOFREE1
+                                    878 	.globl _AX5043_FIFOFREE0
+                                    879 	.globl _AX5043_FIFODATA
+                                    880 	.globl _AX5043_FIFOCOUNT1
+                                    881 	.globl _AX5043_FIFOCOUNT0
+                                    882 	.globl _AX5043_FECSYNC
+                                    883 	.globl _AX5043_FECSTATUS
+                                    884 	.globl _AX5043_FEC
+                                    885 	.globl _AX5043_ENCODING
+                                    886 	.globl _AX5043_DIVERSITY
+                                    887 	.globl _AX5043_DECIMATION
+                                    888 	.globl _AX5043_DACVALUE1
+                                    889 	.globl _AX5043_DACVALUE0
+                                    890 	.globl _AX5043_DACCONFIG
+                                    891 	.globl _AX5043_CRCINIT3
+                                    892 	.globl _AX5043_CRCINIT2
+                                    893 	.globl _AX5043_CRCINIT1
+                                    894 	.globl _AX5043_CRCINIT0
+                                    895 	.globl _AX5043_BGNDRSSITHR
+                                    896 	.globl _AX5043_BGNDRSSIGAIN
+                                    897 	.globl _AX5043_BGNDRSSI
+                                    898 	.globl _AX5043_BBTUNE
+                                    899 	.globl _AX5043_BBOFFSCAP
+                                    900 	.globl _AX5043_AMPLFILTER
+                                    901 	.globl _AX5043_AGCCOUNTER
+                                    902 	.globl _AX5043_AFSKSPACE1
+                                    903 	.globl _AX5043_AFSKSPACE0
+                                    904 	.globl _AX5043_AFSKMARK1
+                                    905 	.globl _AX5043_AFSKMARK0
+                                    906 	.globl _AX5043_AFSKCTRL
+                                    907 	.globl _XWTSTAT
+                                    908 	.globl _XWTIRQEN
+                                    909 	.globl _XWTEVTD
+                                    910 	.globl _XWTEVTD1
+                                    911 	.globl _XWTEVTD0
+                                    912 	.globl _XWTEVTC
+                                    913 	.globl _XWTEVTC1
+                                    914 	.globl _XWTEVTC0
+                                    915 	.globl _XWTEVTB
+                                    916 	.globl _XWTEVTB1
+                                    917 	.globl _XWTEVTB0
+                                    918 	.globl _XWTEVTA
+                                    919 	.globl _XWTEVTA1
+                                    920 	.globl _XWTEVTA0
+                                    921 	.globl _XWTCNTR1
+                                    922 	.globl _XWTCNTB
+                                    923 	.globl _XWTCNTB1
+                                    924 	.globl _XWTCNTB0
+                                    925 	.globl _XWTCNTA
+                                    926 	.globl _XWTCNTA1
+                                    927 	.globl _XWTCNTA0
+                                    928 	.globl _XWTCFGB
+                                    929 	.globl _XWTCFGA
+                                    930 	.globl _XWDTRESET
+                                    931 	.globl _XWDTCFG
+                                    932 	.globl _XU1STATUS
+                                    933 	.globl _XU1SHREG
+                                    934 	.globl _XU1MODE
+                                    935 	.globl _XU1CTRL
+                                    936 	.globl _XU0STATUS
+                                    937 	.globl _XU0SHREG
+                                    938 	.globl _XU0MODE
+                                    939 	.globl _XU0CTRL
+                                    940 	.globl _XT2STATUS
+                                    941 	.globl _XT2PERIOD
+                                    942 	.globl _XT2PERIOD1
+                                    943 	.globl _XT2PERIOD0
+                                    944 	.globl _XT2MODE
+                                    945 	.globl _XT2CNT
+                                    946 	.globl _XT2CNT1
+                                    947 	.globl _XT2CNT0
+                                    948 	.globl _XT2CLKSRC
+                                    949 	.globl _XT1STATUS
+                                    950 	.globl _XT1PERIOD
+                                    951 	.globl _XT1PERIOD1
+                                    952 	.globl _XT1PERIOD0
+                                    953 	.globl _XT1MODE
+                                    954 	.globl _XT1CNT
+                                    955 	.globl _XT1CNT1
+                                    956 	.globl _XT1CNT0
+                                    957 	.globl _XT1CLKSRC
+                                    958 	.globl _XT0STATUS
+                                    959 	.globl _XT0PERIOD
+                                    960 	.globl _XT0PERIOD1
+                                    961 	.globl _XT0PERIOD0
+                                    962 	.globl _XT0MODE
+                                    963 	.globl _XT0CNT
+                                    964 	.globl _XT0CNT1
+                                    965 	.globl _XT0CNT0
+                                    966 	.globl _XT0CLKSRC
+                                    967 	.globl _XSPSTATUS
+                                    968 	.globl _XSPSHREG
+                                    969 	.globl _XSPMODE
+                                    970 	.globl _XSPCLKSRC
+                                    971 	.globl _XRADIOSTAT
+                                    972 	.globl _XRADIOSTAT1
+                                    973 	.globl _XRADIOSTAT0
+                                    974 	.globl _XRADIODATA3
+                                    975 	.globl _XRADIODATA2
+                                    976 	.globl _XRADIODATA1
+                                    977 	.globl _XRADIODATA0
+                                    978 	.globl _XRADIOADDR1
+                                    979 	.globl _XRADIOADDR0
+                                    980 	.globl _XRADIOACC
+                                    981 	.globl _XOC1STATUS
+                                    982 	.globl _XOC1PIN
+                                    983 	.globl _XOC1MODE
+                                    984 	.globl _XOC1COMP
+                                    985 	.globl _XOC1COMP1
+                                    986 	.globl _XOC1COMP0
+                                    987 	.globl _XOC0STATUS
+                                    988 	.globl _XOC0PIN
+                                    989 	.globl _XOC0MODE
+                                    990 	.globl _XOC0COMP
+                                    991 	.globl _XOC0COMP1
+                                    992 	.globl _XOC0COMP0
+                                    993 	.globl _XNVSTATUS
+                                    994 	.globl _XNVKEY
+                                    995 	.globl _XNVDATA
+                                    996 	.globl _XNVDATA1
+                                    997 	.globl _XNVDATA0
+                                    998 	.globl _XNVADDR
+                                    999 	.globl _XNVADDR1
+                                   1000 	.globl _XNVADDR0
+                                   1001 	.globl _XIC1STATUS
+                                   1002 	.globl _XIC1MODE
+                                   1003 	.globl _XIC1CAPT
+                                   1004 	.globl _XIC1CAPT1
+                                   1005 	.globl _XIC1CAPT0
+                                   1006 	.globl _XIC0STATUS
+                                   1007 	.globl _XIC0MODE
+                                   1008 	.globl _XIC0CAPT
+                                   1009 	.globl _XIC0CAPT1
+                                   1010 	.globl _XIC0CAPT0
+                                   1011 	.globl _XPORTR
+                                   1012 	.globl _XPORTC
+                                   1013 	.globl _XPORTB
+                                   1014 	.globl _XPORTA
+                                   1015 	.globl _XPINR
+                                   1016 	.globl _XPINC
+                                   1017 	.globl _XPINB
+                                   1018 	.globl _XPINA
+                                   1019 	.globl _XDIRR
+                                   1020 	.globl _XDIRC
+                                   1021 	.globl _XDIRB
+                                   1022 	.globl _XDIRA
+                                   1023 	.globl _XDBGLNKSTAT
+                                   1024 	.globl _XDBGLNKBUF
+                                   1025 	.globl _XCODECONFIG
+                                   1026 	.globl _XCLKSTAT
+                                   1027 	.globl _XCLKCON
+                                   1028 	.globl _XANALOGCOMP
+                                   1029 	.globl _XADCCONV
+                                   1030 	.globl _XADCCLKSRC
+                                   1031 	.globl _XADCCH3CONFIG
+                                   1032 	.globl _XADCCH2CONFIG
+                                   1033 	.globl _XADCCH1CONFIG
+                                   1034 	.globl _XADCCH0CONFIG
+                                   1035 	.globl _XPCON
+                                   1036 	.globl _XIP
+                                   1037 	.globl _XIE
+                                   1038 	.globl _XDPTR1
+                                   1039 	.globl _XDPTR0
+                                   1040 	.globl _XTALREADY
+                                   1041 	.globl _XTALOSC
+                                   1042 	.globl _XTALAMPL
+                                   1043 	.globl _SILICONREV
+                                   1044 	.globl _SCRATCH3
+                                   1045 	.globl _SCRATCH2
+                                   1046 	.globl _SCRATCH1
+                                   1047 	.globl _SCRATCH0
+                                   1048 	.globl _RADIOMUX
+                                   1049 	.globl _RADIOFSTATADDR
+                                   1050 	.globl _RADIOFSTATADDR1
+                                   1051 	.globl _RADIOFSTATADDR0
+                                   1052 	.globl _RADIOFDATAADDR
+                                   1053 	.globl _RADIOFDATAADDR1
+                                   1054 	.globl _RADIOFDATAADDR0
+                                   1055 	.globl _OSCRUN
+                                   1056 	.globl _OSCREADY
+                                   1057 	.globl _OSCFORCERUN
+                                   1058 	.globl _OSCCALIB
+                                   1059 	.globl _MISCCTRL
+                                   1060 	.globl _LPXOSCGM
+                                   1061 	.globl _LPOSCREF
+                                   1062 	.globl _LPOSCREF1
+                                   1063 	.globl _LPOSCREF0
+                                   1064 	.globl _LPOSCPER
+                                   1065 	.globl _LPOSCPER1
+                                   1066 	.globl _LPOSCPER0
+                                   1067 	.globl _LPOSCKFILT
+                                   1068 	.globl _LPOSCKFILT1
+                                   1069 	.globl _LPOSCKFILT0
+                                   1070 	.globl _LPOSCFREQ
+                                   1071 	.globl _LPOSCFREQ1
+                                   1072 	.globl _LPOSCFREQ0
+                                   1073 	.globl _LPOSCCONFIG
+                                   1074 	.globl _PINSEL
+                                   1075 	.globl _PINCHGC
+                                   1076 	.globl _PINCHGB
+                                   1077 	.globl _PINCHGA
+                                   1078 	.globl _PALTRADIO
+                                   1079 	.globl _PALTC
+                                   1080 	.globl _PALTB
+                                   1081 	.globl _PALTA
+                                   1082 	.globl _INTCHGC
+                                   1083 	.globl _INTCHGB
+                                   1084 	.globl _INTCHGA
+                                   1085 	.globl _EXTIRQ
+                                   1086 	.globl _GPIOENABLE
+                                   1087 	.globl _ANALOGA
+                                   1088 	.globl _FRCOSCREF
+                                   1089 	.globl _FRCOSCREF1
+                                   1090 	.globl _FRCOSCREF0
+                                   1091 	.globl _FRCOSCPER
+                                   1092 	.globl _FRCOSCPER1
+                                   1093 	.globl _FRCOSCPER0
+                                   1094 	.globl _FRCOSCKFILT
+                                   1095 	.globl _FRCOSCKFILT1
+                                   1096 	.globl _FRCOSCKFILT0
+                                   1097 	.globl _FRCOSCFREQ
+                                   1098 	.globl _FRCOSCFREQ1
+                                   1099 	.globl _FRCOSCFREQ0
+                                   1100 	.globl _FRCOSCCTRL
+                                   1101 	.globl _FRCOSCCONFIG
+                                   1102 	.globl _DMA1CONFIG
+                                   1103 	.globl _DMA1ADDR
+                                   1104 	.globl _DMA1ADDR1
+                                   1105 	.globl _DMA1ADDR0
+                                   1106 	.globl _DMA0CONFIG
+                                   1107 	.globl _DMA0ADDR
+                                   1108 	.globl _DMA0ADDR1
+                                   1109 	.globl _DMA0ADDR0
+                                   1110 	.globl _ADCTUNE2
+                                   1111 	.globl _ADCTUNE1
+                                   1112 	.globl _ADCTUNE0
+                                   1113 	.globl _ADCCH3VAL
+                                   1114 	.globl _ADCCH3VAL1
+                                   1115 	.globl _ADCCH3VAL0
+                                   1116 	.globl _ADCCH2VAL
+                                   1117 	.globl _ADCCH2VAL1
+                                   1118 	.globl _ADCCH2VAL0
+                                   1119 	.globl _ADCCH1VAL
+                                   1120 	.globl _ADCCH1VAL1
+                                   1121 	.globl _ADCCH1VAL0
+                                   1122 	.globl _ADCCH0VAL
+                                   1123 	.globl _ADCCH0VAL1
+                                   1124 	.globl _ADCCH0VAL0
+                                   1125 	.globl _ax5043_set_registers
+                                   1126 	.globl _ax5043_set_registers_tx
+                                   1127 	.globl _ax5043_set_registers_rx
+                                   1128 	.globl _ax5043_set_registers_rxwor
+                                   1129 	.globl _ax5043_set_registers_rxcont
+                                   1130 	.globl _ax5043_set_registers_rxcont_singleparamset
+                                   1131 	.globl _axradio_setup_pincfg1
+                                   1132 	.globl _axradio_setup_pincfg2
+                                   1133 	.globl _axradio_conv_freq_fromhz
+                                   1134 	.globl _axradio_conv_freq_tohz
+                                   1135 	.globl _axradio_conv_freq_fromreg
+                                   1136 	.globl _axradio_conv_timeinterval_totimer0
+                                   1137 	.globl _axradio_framing_check_crc
+                                   1138 	.globl _axradio_framing_append_crc
+                                   1139 ;--------------------------------------------------------
+                                   1140 ; special function registers
+                                   1141 ;--------------------------------------------------------
+                                   1142 	.area RSEG    (ABS,DATA)
+      000000                       1143 	.org 0x0000
+                           0000E0  1144 G$ACC$0$0 == 0x00e0
+                           0000E0  1145 _ACC	=	0x00e0
+                           0000F0  1146 G$B$0$0 == 0x00f0
+                           0000F0  1147 _B	=	0x00f0
+                           000083  1148 G$DPH$0$0 == 0x0083
+                           000083  1149 _DPH	=	0x0083
+                           000085  1150 G$DPH1$0$0 == 0x0085
+                           000085  1151 _DPH1	=	0x0085
+                           000082  1152 G$DPL$0$0 == 0x0082
+                           000082  1153 _DPL	=	0x0082
+                           000084  1154 G$DPL1$0$0 == 0x0084
+                           000084  1155 _DPL1	=	0x0084
+                           008382  1156 G$DPTR0$0$0 == 0x8382
+                           008382  1157 _DPTR0	=	0x8382
+                           008584  1158 G$DPTR1$0$0 == 0x8584
+                           008584  1159 _DPTR1	=	0x8584
+                           000086  1160 G$DPS$0$0 == 0x0086
+                           000086  1161 _DPS	=	0x0086
+                           0000A0  1162 G$E2IE$0$0 == 0x00a0
+                           0000A0  1163 _E2IE	=	0x00a0
+                           0000C0  1164 G$E2IP$0$0 == 0x00c0
+                           0000C0  1165 _E2IP	=	0x00c0
+                           000098  1166 G$EIE$0$0 == 0x0098
+                           000098  1167 _EIE	=	0x0098
+                           0000B0  1168 G$EIP$0$0 == 0x00b0
+                           0000B0  1169 _EIP	=	0x00b0
+                           0000A8  1170 G$IE$0$0 == 0x00a8
+                           0000A8  1171 _IE	=	0x00a8
+                           0000B8  1172 G$IP$0$0 == 0x00b8
+                           0000B8  1173 _IP	=	0x00b8
+                           000087  1174 G$PCON$0$0 == 0x0087
+                           000087  1175 _PCON	=	0x0087
+                           0000D0  1176 G$PSW$0$0 == 0x00d0
+                           0000D0  1177 _PSW	=	0x00d0
+                           000081  1178 G$SP$0$0 == 0x0081
+                           000081  1179 _SP	=	0x0081
+                           0000D9  1180 G$XPAGE$0$0 == 0x00d9
+                           0000D9  1181 _XPAGE	=	0x00d9
+                           0000D9  1182 G$_XPAGE$0$0 == 0x00d9
+                           0000D9  1183 __XPAGE	=	0x00d9
+                           0000CA  1184 G$ADCCH0CONFIG$0$0 == 0x00ca
+                           0000CA  1185 _ADCCH0CONFIG	=	0x00ca
+                           0000CB  1186 G$ADCCH1CONFIG$0$0 == 0x00cb
+                           0000CB  1187 _ADCCH1CONFIG	=	0x00cb
+                           0000D2  1188 G$ADCCH2CONFIG$0$0 == 0x00d2
+                           0000D2  1189 _ADCCH2CONFIG	=	0x00d2
+                           0000D3  1190 G$ADCCH3CONFIG$0$0 == 0x00d3
+                           0000D3  1191 _ADCCH3CONFIG	=	0x00d3
+                           0000D1  1192 G$ADCCLKSRC$0$0 == 0x00d1
+                           0000D1  1193 _ADCCLKSRC	=	0x00d1
+                           0000C9  1194 G$ADCCONV$0$0 == 0x00c9
+                           0000C9  1195 _ADCCONV	=	0x00c9
+                           0000E1  1196 G$ANALOGCOMP$0$0 == 0x00e1
+                           0000E1  1197 _ANALOGCOMP	=	0x00e1
+                           0000C6  1198 G$CLKCON$0$0 == 0x00c6
+                           0000C6  1199 _CLKCON	=	0x00c6
+                           0000C7  1200 G$CLKSTAT$0$0 == 0x00c7
+                           0000C7  1201 _CLKSTAT	=	0x00c7
+                           000097  1202 G$CODECONFIG$0$0 == 0x0097
+                           000097  1203 _CODECONFIG	=	0x0097
+                           0000E3  1204 G$DBGLNKBUF$0$0 == 0x00e3
+                           0000E3  1205 _DBGLNKBUF	=	0x00e3
+                           0000E2  1206 G$DBGLNKSTAT$0$0 == 0x00e2
+                           0000E2  1207 _DBGLNKSTAT	=	0x00e2
+                           000089  1208 G$DIRA$0$0 == 0x0089
+                           000089  1209 _DIRA	=	0x0089
+                           00008A  1210 G$DIRB$0$0 == 0x008a
+                           00008A  1211 _DIRB	=	0x008a
+                           00008B  1212 G$DIRC$0$0 == 0x008b
+                           00008B  1213 _DIRC	=	0x008b
+                           00008E  1214 G$DIRR$0$0 == 0x008e
+                           00008E  1215 _DIRR	=	0x008e
+                           0000C8  1216 G$PINA$0$0 == 0x00c8
+                           0000C8  1217 _PINA	=	0x00c8
+                           0000E8  1218 G$PINB$0$0 == 0x00e8
+                           0000E8  1219 _PINB	=	0x00e8
+                           0000F8  1220 G$PINC$0$0 == 0x00f8
+                           0000F8  1221 _PINC	=	0x00f8
+                           00008D  1222 G$PINR$0$0 == 0x008d
+                           00008D  1223 _PINR	=	0x008d
+                           000080  1224 G$PORTA$0$0 == 0x0080
+                           000080  1225 _PORTA	=	0x0080
+                           000088  1226 G$PORTB$0$0 == 0x0088
+                           000088  1227 _PORTB	=	0x0088
+                           000090  1228 G$PORTC$0$0 == 0x0090
+                           000090  1229 _PORTC	=	0x0090
+                           00008C  1230 G$PORTR$0$0 == 0x008c
+                           00008C  1231 _PORTR	=	0x008c
+                           0000CE  1232 G$IC0CAPT0$0$0 == 0x00ce
+                           0000CE  1233 _IC0CAPT0	=	0x00ce
+                           0000CF  1234 G$IC0CAPT1$0$0 == 0x00cf
+                           0000CF  1235 _IC0CAPT1	=	0x00cf
+                           00CFCE  1236 G$IC0CAPT$0$0 == 0xcfce
+                           00CFCE  1237 _IC0CAPT	=	0xcfce
+                           0000CC  1238 G$IC0MODE$0$0 == 0x00cc
+                           0000CC  1239 _IC0MODE	=	0x00cc
+                           0000CD  1240 G$IC0STATUS$0$0 == 0x00cd
+                           0000CD  1241 _IC0STATUS	=	0x00cd
+                           0000D6  1242 G$IC1CAPT0$0$0 == 0x00d6
+                           0000D6  1243 _IC1CAPT0	=	0x00d6
+                           0000D7  1244 G$IC1CAPT1$0$0 == 0x00d7
+                           0000D7  1245 _IC1CAPT1	=	0x00d7
+                           00D7D6  1246 G$IC1CAPT$0$0 == 0xd7d6
+                           00D7D6  1247 _IC1CAPT	=	0xd7d6
+                           0000D4  1248 G$IC1MODE$0$0 == 0x00d4
+                           0000D4  1249 _IC1MODE	=	0x00d4
+                           0000D5  1250 G$IC1STATUS$0$0 == 0x00d5
+                           0000D5  1251 _IC1STATUS	=	0x00d5
+                           000092  1252 G$NVADDR0$0$0 == 0x0092
+                           000092  1253 _NVADDR0	=	0x0092
+                           000093  1254 G$NVADDR1$0$0 == 0x0093
+                           000093  1255 _NVADDR1	=	0x0093
+                           009392  1256 G$NVADDR$0$0 == 0x9392
+                           009392  1257 _NVADDR	=	0x9392
+                           000094  1258 G$NVDATA0$0$0 == 0x0094
+                           000094  1259 _NVDATA0	=	0x0094
+                           000095  1260 G$NVDATA1$0$0 == 0x0095
+                           000095  1261 _NVDATA1	=	0x0095
+                           009594  1262 G$NVDATA$0$0 == 0x9594
+                           009594  1263 _NVDATA	=	0x9594
+                           000096  1264 G$NVKEY$0$0 == 0x0096
+                           000096  1265 _NVKEY	=	0x0096
+                           000091  1266 G$NVSTATUS$0$0 == 0x0091
+                           000091  1267 _NVSTATUS	=	0x0091
+                           0000BC  1268 G$OC0COMP0$0$0 == 0x00bc
+                           0000BC  1269 _OC0COMP0	=	0x00bc
+                           0000BD  1270 G$OC0COMP1$0$0 == 0x00bd
+                           0000BD  1271 _OC0COMP1	=	0x00bd
+                           00BDBC  1272 G$OC0COMP$0$0 == 0xbdbc
+                           00BDBC  1273 _OC0COMP	=	0xbdbc
+                           0000B9  1274 G$OC0MODE$0$0 == 0x00b9
+                           0000B9  1275 _OC0MODE	=	0x00b9
+                           0000BA  1276 G$OC0PIN$0$0 == 0x00ba
+                           0000BA  1277 _OC0PIN	=	0x00ba
+                           0000BB  1278 G$OC0STATUS$0$0 == 0x00bb
+                           0000BB  1279 _OC0STATUS	=	0x00bb
+                           0000C4  1280 G$OC1COMP0$0$0 == 0x00c4
+                           0000C4  1281 _OC1COMP0	=	0x00c4
+                           0000C5  1282 G$OC1COMP1$0$0 == 0x00c5
+                           0000C5  1283 _OC1COMP1	=	0x00c5
+                           00C5C4  1284 G$OC1COMP$0$0 == 0xc5c4
+                           00C5C4  1285 _OC1COMP	=	0xc5c4
+                           0000C1  1286 G$OC1MODE$0$0 == 0x00c1
+                           0000C1  1287 _OC1MODE	=	0x00c1
+                           0000C2  1288 G$OC1PIN$0$0 == 0x00c2
+                           0000C2  1289 _OC1PIN	=	0x00c2
+                           0000C3  1290 G$OC1STATUS$0$0 == 0x00c3
+                           0000C3  1291 _OC1STATUS	=	0x00c3
+                           0000B1  1292 G$RADIOACC$0$0 == 0x00b1
+                           0000B1  1293 _RADIOACC	=	0x00b1
+                           0000B3  1294 G$RADIOADDR0$0$0 == 0x00b3
+                           0000B3  1295 _RADIOADDR0	=	0x00b3
+                           0000B2  1296 G$RADIOADDR1$0$0 == 0x00b2
+                           0000B2  1297 _RADIOADDR1	=	0x00b2
+                           00B2B3  1298 G$RADIOADDR$0$0 == 0xb2b3
+                           00B2B3  1299 _RADIOADDR	=	0xb2b3
+                           0000B7  1300 G$RADIODATA0$0$0 == 0x00b7
+                           0000B7  1301 _RADIODATA0	=	0x00b7
+                           0000B6  1302 G$RADIODATA1$0$0 == 0x00b6
+                           0000B6  1303 _RADIODATA1	=	0x00b6
+                           0000B5  1304 G$RADIODATA2$0$0 == 0x00b5
+                           0000B5  1305 _RADIODATA2	=	0x00b5
+                           0000B4  1306 G$RADIODATA3$0$0 == 0x00b4
+                           0000B4  1307 _RADIODATA3	=	0x00b4
+                           B4B5B6B7  1308 G$RADIODATA$0$0 == 0xb4b5b6b7
+                           B4B5B6B7  1309 _RADIODATA	=	0xb4b5b6b7
+                           0000BE  1310 G$RADIOSTAT0$0$0 == 0x00be
+                           0000BE  1311 _RADIOSTAT0	=	0x00be
+                           0000BF  1312 G$RADIOSTAT1$0$0 == 0x00bf
+                           0000BF  1313 _RADIOSTAT1	=	0x00bf
+                           00BFBE  1314 G$RADIOSTAT$0$0 == 0xbfbe
+                           00BFBE  1315 _RADIOSTAT	=	0xbfbe
+                           0000DF  1316 G$SPCLKSRC$0$0 == 0x00df
+                           0000DF  1317 _SPCLKSRC	=	0x00df
+                           0000DC  1318 G$SPMODE$0$0 == 0x00dc
+                           0000DC  1319 _SPMODE	=	0x00dc
+                           0000DE  1320 G$SPSHREG$0$0 == 0x00de
+                           0000DE  1321 _SPSHREG	=	0x00de
+                           0000DD  1322 G$SPSTATUS$0$0 == 0x00dd
+                           0000DD  1323 _SPSTATUS	=	0x00dd
+                           00009A  1324 G$T0CLKSRC$0$0 == 0x009a
+                           00009A  1325 _T0CLKSRC	=	0x009a
+                           00009C  1326 G$T0CNT0$0$0 == 0x009c
+                           00009C  1327 _T0CNT0	=	0x009c
+                           00009D  1328 G$T0CNT1$0$0 == 0x009d
+                           00009D  1329 _T0CNT1	=	0x009d
+                           009D9C  1330 G$T0CNT$0$0 == 0x9d9c
+                           009D9C  1331 _T0CNT	=	0x9d9c
+                           000099  1332 G$T0MODE$0$0 == 0x0099
+                           000099  1333 _T0MODE	=	0x0099
+                           00009E  1334 G$T0PERIOD0$0$0 == 0x009e
+                           00009E  1335 _T0PERIOD0	=	0x009e
+                           00009F  1336 G$T0PERIOD1$0$0 == 0x009f
+                           00009F  1337 _T0PERIOD1	=	0x009f
+                           009F9E  1338 G$T0PERIOD$0$0 == 0x9f9e
+                           009F9E  1339 _T0PERIOD	=	0x9f9e
+                           00009B  1340 G$T0STATUS$0$0 == 0x009b
+                           00009B  1341 _T0STATUS	=	0x009b
+                           0000A2  1342 G$T1CLKSRC$0$0 == 0x00a2
+                           0000A2  1343 _T1CLKSRC	=	0x00a2
+                           0000A4  1344 G$T1CNT0$0$0 == 0x00a4
+                           0000A4  1345 _T1CNT0	=	0x00a4
+                           0000A5  1346 G$T1CNT1$0$0 == 0x00a5
+                           0000A5  1347 _T1CNT1	=	0x00a5
+                           00A5A4  1348 G$T1CNT$0$0 == 0xa5a4
+                           00A5A4  1349 _T1CNT	=	0xa5a4
+                           0000A1  1350 G$T1MODE$0$0 == 0x00a1
+                           0000A1  1351 _T1MODE	=	0x00a1
+                           0000A6  1352 G$T1PERIOD0$0$0 == 0x00a6
+                           0000A6  1353 _T1PERIOD0	=	0x00a6
+                           0000A7  1354 G$T1PERIOD1$0$0 == 0x00a7
+                           0000A7  1355 _T1PERIOD1	=	0x00a7
+                           00A7A6  1356 G$T1PERIOD$0$0 == 0xa7a6
+                           00A7A6  1357 _T1PERIOD	=	0xa7a6
+                           0000A3  1358 G$T1STATUS$0$0 == 0x00a3
+                           0000A3  1359 _T1STATUS	=	0x00a3
+                           0000AA  1360 G$T2CLKSRC$0$0 == 0x00aa
+                           0000AA  1361 _T2CLKSRC	=	0x00aa
+                           0000AC  1362 G$T2CNT0$0$0 == 0x00ac
+                           0000AC  1363 _T2CNT0	=	0x00ac
+                           0000AD  1364 G$T2CNT1$0$0 == 0x00ad
+                           0000AD  1365 _T2CNT1	=	0x00ad
+                           00ADAC  1366 G$T2CNT$0$0 == 0xadac
+                           00ADAC  1367 _T2CNT	=	0xadac
+                           0000A9  1368 G$T2MODE$0$0 == 0x00a9
+                           0000A9  1369 _T2MODE	=	0x00a9
+                           0000AE  1370 G$T2PERIOD0$0$0 == 0x00ae
+                           0000AE  1371 _T2PERIOD0	=	0x00ae
+                           0000AF  1372 G$T2PERIOD1$0$0 == 0x00af
+                           0000AF  1373 _T2PERIOD1	=	0x00af
+                           00AFAE  1374 G$T2PERIOD$0$0 == 0xafae
+                           00AFAE  1375 _T2PERIOD	=	0xafae
+                           0000AB  1376 G$T2STATUS$0$0 == 0x00ab
+                           0000AB  1377 _T2STATUS	=	0x00ab
+                           0000E4  1378 G$U0CTRL$0$0 == 0x00e4
+                           0000E4  1379 _U0CTRL	=	0x00e4
+                           0000E7  1380 G$U0MODE$0$0 == 0x00e7
+                           0000E7  1381 _U0MODE	=	0x00e7
+                           0000E6  1382 G$U0SHREG$0$0 == 0x00e6
+                           0000E6  1383 _U0SHREG	=	0x00e6
+                           0000E5  1384 G$U0STATUS$0$0 == 0x00e5
+                           0000E5  1385 _U0STATUS	=	0x00e5
+                           0000EC  1386 G$U1CTRL$0$0 == 0x00ec
+                           0000EC  1387 _U1CTRL	=	0x00ec
+                           0000EF  1388 G$U1MODE$0$0 == 0x00ef
+                           0000EF  1389 _U1MODE	=	0x00ef
+                           0000EE  1390 G$U1SHREG$0$0 == 0x00ee
+                           0000EE  1391 _U1SHREG	=	0x00ee
+                           0000ED  1392 G$U1STATUS$0$0 == 0x00ed
+                           0000ED  1393 _U1STATUS	=	0x00ed
+                           0000DA  1394 G$WDTCFG$0$0 == 0x00da
+                           0000DA  1395 _WDTCFG	=	0x00da
+                           0000DB  1396 G$WDTRESET$0$0 == 0x00db
+                           0000DB  1397 _WDTRESET	=	0x00db
+                           0000F1  1398 G$WTCFGA$0$0 == 0x00f1
+                           0000F1  1399 _WTCFGA	=	0x00f1
+                           0000F9  1400 G$WTCFGB$0$0 == 0x00f9
+                           0000F9  1401 _WTCFGB	=	0x00f9
+                           0000F2  1402 G$WTCNTA0$0$0 == 0x00f2
+                           0000F2  1403 _WTCNTA0	=	0x00f2
+                           0000F3  1404 G$WTCNTA1$0$0 == 0x00f3
+                           0000F3  1405 _WTCNTA1	=	0x00f3
+                           00F3F2  1406 G$WTCNTA$0$0 == 0xf3f2
+                           00F3F2  1407 _WTCNTA	=	0xf3f2
+                           0000FA  1408 G$WTCNTB0$0$0 == 0x00fa
+                           0000FA  1409 _WTCNTB0	=	0x00fa
+                           0000FB  1410 G$WTCNTB1$0$0 == 0x00fb
+                           0000FB  1411 _WTCNTB1	=	0x00fb
+                           00FBFA  1412 G$WTCNTB$0$0 == 0xfbfa
+                           00FBFA  1413 _WTCNTB	=	0xfbfa
+                           0000EB  1414 G$WTCNTR1$0$0 == 0x00eb
+                           0000EB  1415 _WTCNTR1	=	0x00eb
+                           0000F4  1416 G$WTEVTA0$0$0 == 0x00f4
+                           0000F4  1417 _WTEVTA0	=	0x00f4
+                           0000F5  1418 G$WTEVTA1$0$0 == 0x00f5
+                           0000F5  1419 _WTEVTA1	=	0x00f5
+                           00F5F4  1420 G$WTEVTA$0$0 == 0xf5f4
+                           00F5F4  1421 _WTEVTA	=	0xf5f4
+                           0000F6  1422 G$WTEVTB0$0$0 == 0x00f6
+                           0000F6  1423 _WTEVTB0	=	0x00f6
+                           0000F7  1424 G$WTEVTB1$0$0 == 0x00f7
+                           0000F7  1425 _WTEVTB1	=	0x00f7
+                           00F7F6  1426 G$WTEVTB$0$0 == 0xf7f6
+                           00F7F6  1427 _WTEVTB	=	0xf7f6
+                           0000FC  1428 G$WTEVTC0$0$0 == 0x00fc
+                           0000FC  1429 _WTEVTC0	=	0x00fc
+                           0000FD  1430 G$WTEVTC1$0$0 == 0x00fd
+                           0000FD  1431 _WTEVTC1	=	0x00fd
+                           00FDFC  1432 G$WTEVTC$0$0 == 0xfdfc
+                           00FDFC  1433 _WTEVTC	=	0xfdfc
+                           0000FE  1434 G$WTEVTD0$0$0 == 0x00fe
+                           0000FE  1435 _WTEVTD0	=	0x00fe
+                           0000FF  1436 G$WTEVTD1$0$0 == 0x00ff
+                           0000FF  1437 _WTEVTD1	=	0x00ff
+                           00FFFE  1438 G$WTEVTD$0$0 == 0xfffe
+                           00FFFE  1439 _WTEVTD	=	0xfffe
+                           0000E9  1440 G$WTIRQEN$0$0 == 0x00e9
+                           0000E9  1441 _WTIRQEN	=	0x00e9
+                           0000EA  1442 G$WTSTAT$0$0 == 0x00ea
+                           0000EA  1443 _WTSTAT	=	0x00ea
+                                   1444 ;--------------------------------------------------------
+                                   1445 ; special function bits
+                                   1446 ;--------------------------------------------------------
+                                   1447 	.area RSEG    (ABS,DATA)
+      000000                       1448 	.org 0x0000
+                           0000E0  1449 G$ACC_0$0$0 == 0x00e0
+                           0000E0  1450 _ACC_0	=	0x00e0
+                           0000E1  1451 G$ACC_1$0$0 == 0x00e1
+                           0000E1  1452 _ACC_1	=	0x00e1
+                           0000E2  1453 G$ACC_2$0$0 == 0x00e2
+                           0000E2  1454 _ACC_2	=	0x00e2
+                           0000E3  1455 G$ACC_3$0$0 == 0x00e3
+                           0000E3  1456 _ACC_3	=	0x00e3
+                           0000E4  1457 G$ACC_4$0$0 == 0x00e4
+                           0000E4  1458 _ACC_4	=	0x00e4
+                           0000E5  1459 G$ACC_5$0$0 == 0x00e5
+                           0000E5  1460 _ACC_5	=	0x00e5
+                           0000E6  1461 G$ACC_6$0$0 == 0x00e6
+                           0000E6  1462 _ACC_6	=	0x00e6
+                           0000E7  1463 G$ACC_7$0$0 == 0x00e7
+                           0000E7  1464 _ACC_7	=	0x00e7
+                           0000F0  1465 G$B_0$0$0 == 0x00f0
+                           0000F0  1466 _B_0	=	0x00f0
+                           0000F1  1467 G$B_1$0$0 == 0x00f1
+                           0000F1  1468 _B_1	=	0x00f1
+                           0000F2  1469 G$B_2$0$0 == 0x00f2
+                           0000F2  1470 _B_2	=	0x00f2
+                           0000F3  1471 G$B_3$0$0 == 0x00f3
+                           0000F3  1472 _B_3	=	0x00f3
+                           0000F4  1473 G$B_4$0$0 == 0x00f4
+                           0000F4  1474 _B_4	=	0x00f4
+                           0000F5  1475 G$B_5$0$0 == 0x00f5
+                           0000F5  1476 _B_5	=	0x00f5
+                           0000F6  1477 G$B_6$0$0 == 0x00f6
+                           0000F6  1478 _B_6	=	0x00f6
+                           0000F7  1479 G$B_7$0$0 == 0x00f7
+                           0000F7  1480 _B_7	=	0x00f7
+                           0000A0  1481 G$E2IE_0$0$0 == 0x00a0
+                           0000A0  1482 _E2IE_0	=	0x00a0
+                           0000A1  1483 G$E2IE_1$0$0 == 0x00a1
+                           0000A1  1484 _E2IE_1	=	0x00a1
+                           0000A2  1485 G$E2IE_2$0$0 == 0x00a2
+                           0000A2  1486 _E2IE_2	=	0x00a2
+                           0000A3  1487 G$E2IE_3$0$0 == 0x00a3
+                           0000A3  1488 _E2IE_3	=	0x00a3
+                           0000A4  1489 G$E2IE_4$0$0 == 0x00a4
+                           0000A4  1490 _E2IE_4	=	0x00a4
+                           0000A5  1491 G$E2IE_5$0$0 == 0x00a5
+                           0000A5  1492 _E2IE_5	=	0x00a5
+                           0000A6  1493 G$E2IE_6$0$0 == 0x00a6
+                           0000A6  1494 _E2IE_6	=	0x00a6
+                           0000A7  1495 G$E2IE_7$0$0 == 0x00a7
+                           0000A7  1496 _E2IE_7	=	0x00a7
+                           0000C0  1497 G$E2IP_0$0$0 == 0x00c0
+                           0000C0  1498 _E2IP_0	=	0x00c0
+                           0000C1  1499 G$E2IP_1$0$0 == 0x00c1
+                           0000C1  1500 _E2IP_1	=	0x00c1
+                           0000C2  1501 G$E2IP_2$0$0 == 0x00c2
+                           0000C2  1502 _E2IP_2	=	0x00c2
+                           0000C3  1503 G$E2IP_3$0$0 == 0x00c3
+                           0000C3  1504 _E2IP_3	=	0x00c3
+                           0000C4  1505 G$E2IP_4$0$0 == 0x00c4
+                           0000C4  1506 _E2IP_4	=	0x00c4
+                           0000C5  1507 G$E2IP_5$0$0 == 0x00c5
+                           0000C5  1508 _E2IP_5	=	0x00c5
+                           0000C6  1509 G$E2IP_6$0$0 == 0x00c6
+                           0000C6  1510 _E2IP_6	=	0x00c6
+                           0000C7  1511 G$E2IP_7$0$0 == 0x00c7
+                           0000C7  1512 _E2IP_7	=	0x00c7
+                           000098  1513 G$EIE_0$0$0 == 0x0098
+                           000098  1514 _EIE_0	=	0x0098
+                           000099  1515 G$EIE_1$0$0 == 0x0099
+                           000099  1516 _EIE_1	=	0x0099
+                           00009A  1517 G$EIE_2$0$0 == 0x009a
+                           00009A  1518 _EIE_2	=	0x009a
+                           00009B  1519 G$EIE_3$0$0 == 0x009b
+                           00009B  1520 _EIE_3	=	0x009b
+                           00009C  1521 G$EIE_4$0$0 == 0x009c
+                           00009C  1522 _EIE_4	=	0x009c
+                           00009D  1523 G$EIE_5$0$0 == 0x009d
+                           00009D  1524 _EIE_5	=	0x009d
+                           00009E  1525 G$EIE_6$0$0 == 0x009e
+                           00009E  1526 _EIE_6	=	0x009e
+                           00009F  1527 G$EIE_7$0$0 == 0x009f
+                           00009F  1528 _EIE_7	=	0x009f
+                           0000B0  1529 G$EIP_0$0$0 == 0x00b0
+                           0000B0  1530 _EIP_0	=	0x00b0
+                           0000B1  1531 G$EIP_1$0$0 == 0x00b1
+                           0000B1  1532 _EIP_1	=	0x00b1
+                           0000B2  1533 G$EIP_2$0$0 == 0x00b2
+                           0000B2  1534 _EIP_2	=	0x00b2
+                           0000B3  1535 G$EIP_3$0$0 == 0x00b3
+                           0000B3  1536 _EIP_3	=	0x00b3
+                           0000B4  1537 G$EIP_4$0$0 == 0x00b4
+                           0000B4  1538 _EIP_4	=	0x00b4
+                           0000B5  1539 G$EIP_5$0$0 == 0x00b5
+                           0000B5  1540 _EIP_5	=	0x00b5
+                           0000B6  1541 G$EIP_6$0$0 == 0x00b6
+                           0000B6  1542 _EIP_6	=	0x00b6
+                           0000B7  1543 G$EIP_7$0$0 == 0x00b7
+                           0000B7  1544 _EIP_7	=	0x00b7
+                           0000A8  1545 G$IE_0$0$0 == 0x00a8
+                           0000A8  1546 _IE_0	=	0x00a8
+                           0000A9  1547 G$IE_1$0$0 == 0x00a9
+                           0000A9  1548 _IE_1	=	0x00a9
+                           0000AA  1549 G$IE_2$0$0 == 0x00aa
+                           0000AA  1550 _IE_2	=	0x00aa
+                           0000AB  1551 G$IE_3$0$0 == 0x00ab
+                           0000AB  1552 _IE_3	=	0x00ab
+                           0000AC  1553 G$IE_4$0$0 == 0x00ac
+                           0000AC  1554 _IE_4	=	0x00ac
+                           0000AD  1555 G$IE_5$0$0 == 0x00ad
+                           0000AD  1556 _IE_5	=	0x00ad
+                           0000AE  1557 G$IE_6$0$0 == 0x00ae
+                           0000AE  1558 _IE_6	=	0x00ae
+                           0000AF  1559 G$IE_7$0$0 == 0x00af
+                           0000AF  1560 _IE_7	=	0x00af
+                           0000AF  1561 G$EA$0$0 == 0x00af
+                           0000AF  1562 _EA	=	0x00af
+                           0000B8  1563 G$IP_0$0$0 == 0x00b8
+                           0000B8  1564 _IP_0	=	0x00b8
+                           0000B9  1565 G$IP_1$0$0 == 0x00b9
+                           0000B9  1566 _IP_1	=	0x00b9
+                           0000BA  1567 G$IP_2$0$0 == 0x00ba
+                           0000BA  1568 _IP_2	=	0x00ba
+                           0000BB  1569 G$IP_3$0$0 == 0x00bb
+                           0000BB  1570 _IP_3	=	0x00bb
+                           0000BC  1571 G$IP_4$0$0 == 0x00bc
+                           0000BC  1572 _IP_4	=	0x00bc
+                           0000BD  1573 G$IP_5$0$0 == 0x00bd
+                           0000BD  1574 _IP_5	=	0x00bd
+                           0000BE  1575 G$IP_6$0$0 == 0x00be
+                           0000BE  1576 _IP_6	=	0x00be
+                           0000BF  1577 G$IP_7$0$0 == 0x00bf
+                           0000BF  1578 _IP_7	=	0x00bf
+                           0000D0  1579 G$P$0$0 == 0x00d0
+                           0000D0  1580 _P	=	0x00d0
+                           0000D1  1581 G$F1$0$0 == 0x00d1
+                           0000D1  1582 _F1	=	0x00d1
+                           0000D2  1583 G$OV$0$0 == 0x00d2
+                           0000D2  1584 _OV	=	0x00d2
+                           0000D3  1585 G$RS0$0$0 == 0x00d3
+                           0000D3  1586 _RS0	=	0x00d3
+                           0000D4  1587 G$RS1$0$0 == 0x00d4
+                           0000D4  1588 _RS1	=	0x00d4
+                           0000D5  1589 G$F0$0$0 == 0x00d5
+                           0000D5  1590 _F0	=	0x00d5
+                           0000D6  1591 G$AC$0$0 == 0x00d6
+                           0000D6  1592 _AC	=	0x00d6
+                           0000D7  1593 G$CY$0$0 == 0x00d7
+                           0000D7  1594 _CY	=	0x00d7
+                           0000C8  1595 G$PINA_0$0$0 == 0x00c8
+                           0000C8  1596 _PINA_0	=	0x00c8
+                           0000C9  1597 G$PINA_1$0$0 == 0x00c9
+                           0000C9  1598 _PINA_1	=	0x00c9
+                           0000CA  1599 G$PINA_2$0$0 == 0x00ca
+                           0000CA  1600 _PINA_2	=	0x00ca
+                           0000CB  1601 G$PINA_3$0$0 == 0x00cb
+                           0000CB  1602 _PINA_3	=	0x00cb
+                           0000CC  1603 G$PINA_4$0$0 == 0x00cc
+                           0000CC  1604 _PINA_4	=	0x00cc
+                           0000CD  1605 G$PINA_5$0$0 == 0x00cd
+                           0000CD  1606 _PINA_5	=	0x00cd
+                           0000CE  1607 G$PINA_6$0$0 == 0x00ce
+                           0000CE  1608 _PINA_6	=	0x00ce
+                           0000CF  1609 G$PINA_7$0$0 == 0x00cf
+                           0000CF  1610 _PINA_7	=	0x00cf
+                           0000E8  1611 G$PINB_0$0$0 == 0x00e8
+                           0000E8  1612 _PINB_0	=	0x00e8
+                           0000E9  1613 G$PINB_1$0$0 == 0x00e9
+                           0000E9  1614 _PINB_1	=	0x00e9
+                           0000EA  1615 G$PINB_2$0$0 == 0x00ea
+                           0000EA  1616 _PINB_2	=	0x00ea
+                           0000EB  1617 G$PINB_3$0$0 == 0x00eb
+                           0000EB  1618 _PINB_3	=	0x00eb
+                           0000EC  1619 G$PINB_4$0$0 == 0x00ec
+                           0000EC  1620 _PINB_4	=	0x00ec
+                           0000ED  1621 G$PINB_5$0$0 == 0x00ed
+                           0000ED  1622 _PINB_5	=	0x00ed
+                           0000EE  1623 G$PINB_6$0$0 == 0x00ee
+                           0000EE  1624 _PINB_6	=	0x00ee
+                           0000EF  1625 G$PINB_7$0$0 == 0x00ef
+                           0000EF  1626 _PINB_7	=	0x00ef
+                           0000F8  1627 G$PINC_0$0$0 == 0x00f8
+                           0000F8  1628 _PINC_0	=	0x00f8
+                           0000F9  1629 G$PINC_1$0$0 == 0x00f9
+                           0000F9  1630 _PINC_1	=	0x00f9
+                           0000FA  1631 G$PINC_2$0$0 == 0x00fa
+                           0000FA  1632 _PINC_2	=	0x00fa
+                           0000FB  1633 G$PINC_3$0$0 == 0x00fb
+                           0000FB  1634 _PINC_3	=	0x00fb
+                           0000FC  1635 G$PINC_4$0$0 == 0x00fc
+                           0000FC  1636 _PINC_4	=	0x00fc
+                           0000FD  1637 G$PINC_5$0$0 == 0x00fd
+                           0000FD  1638 _PINC_5	=	0x00fd
+                           0000FE  1639 G$PINC_6$0$0 == 0x00fe
+                           0000FE  1640 _PINC_6	=	0x00fe
+                           0000FF  1641 G$PINC_7$0$0 == 0x00ff
+                           0000FF  1642 _PINC_7	=	0x00ff
+                           000080  1643 G$PORTA_0$0$0 == 0x0080
+                           000080  1644 _PORTA_0	=	0x0080
+                           000081  1645 G$PORTA_1$0$0 == 0x0081
+                           000081  1646 _PORTA_1	=	0x0081
+                           000082  1647 G$PORTA_2$0$0 == 0x0082
+                           000082  1648 _PORTA_2	=	0x0082
+                           000083  1649 G$PORTA_3$0$0 == 0x0083
+                           000083  1650 _PORTA_3	=	0x0083
+                           000084  1651 G$PORTA_4$0$0 == 0x0084
+                           000084  1652 _PORTA_4	=	0x0084
+                           000085  1653 G$PORTA_5$0$0 == 0x0085
+                           000085  1654 _PORTA_5	=	0x0085
+                           000086  1655 G$PORTA_6$0$0 == 0x0086
+                           000086  1656 _PORTA_6	=	0x0086
+                           000087  1657 G$PORTA_7$0$0 == 0x0087
+                           000087  1658 _PORTA_7	=	0x0087
+                           000088  1659 G$PORTB_0$0$0 == 0x0088
+                           000088  1660 _PORTB_0	=	0x0088
+                           000089  1661 G$PORTB_1$0$0 == 0x0089
+                           000089  1662 _PORTB_1	=	0x0089
+                           00008A  1663 G$PORTB_2$0$0 == 0x008a
+                           00008A  1664 _PORTB_2	=	0x008a
+                           00008B  1665 G$PORTB_3$0$0 == 0x008b
+                           00008B  1666 _PORTB_3	=	0x008b
+                           00008C  1667 G$PORTB_4$0$0 == 0x008c
+                           00008C  1668 _PORTB_4	=	0x008c
+                           00008D  1669 G$PORTB_5$0$0 == 0x008d
+                           00008D  1670 _PORTB_5	=	0x008d
+                           00008E  1671 G$PORTB_6$0$0 == 0x008e
+                           00008E  1672 _PORTB_6	=	0x008e
+                           00008F  1673 G$PORTB_7$0$0 == 0x008f
+                           00008F  1674 _PORTB_7	=	0x008f
+                           000090  1675 G$PORTC_0$0$0 == 0x0090
+                           000090  1676 _PORTC_0	=	0x0090
+                           000091  1677 G$PORTC_1$0$0 == 0x0091
+                           000091  1678 _PORTC_1	=	0x0091
+                           000092  1679 G$PORTC_2$0$0 == 0x0092
+                           000092  1680 _PORTC_2	=	0x0092
+                           000093  1681 G$PORTC_3$0$0 == 0x0093
+                           000093  1682 _PORTC_3	=	0x0093
+                           000094  1683 G$PORTC_4$0$0 == 0x0094
+                           000094  1684 _PORTC_4	=	0x0094
+                           000095  1685 G$PORTC_5$0$0 == 0x0095
+                           000095  1686 _PORTC_5	=	0x0095
+                           000096  1687 G$PORTC_6$0$0 == 0x0096
+                           000096  1688 _PORTC_6	=	0x0096
+                           000097  1689 G$PORTC_7$0$0 == 0x0097
+                           000097  1690 _PORTC_7	=	0x0097
+                                   1691 ;--------------------------------------------------------
+                                   1692 ; overlayable register banks
+                                   1693 ;--------------------------------------------------------
+                                   1694 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                       1695 	.ds 8
+                                   1696 ;--------------------------------------------------------
+                                   1697 ; internal ram data
+                                   1698 ;--------------------------------------------------------
+                                   1699 	.area DSEG    (DATA)
+                                   1700 ;--------------------------------------------------------
+                                   1701 ; overlayable items in internal ram 
+                                   1702 ;--------------------------------------------------------
+                                   1703 ;--------------------------------------------------------
+                                   1704 ; indirectly addressable internal ram data
+                                   1705 ;--------------------------------------------------------
+                                   1706 	.area ISEG    (DATA)
+                                   1707 ;--------------------------------------------------------
+                                   1708 ; absolute internal ram data
+                                   1709 ;--------------------------------------------------------
+                                   1710 	.area IABS    (ABS,DATA)
+                                   1711 	.area IABS    (ABS,DATA)
+                                   1712 ;--------------------------------------------------------
+                                   1713 ; bit data
+                                   1714 ;--------------------------------------------------------
+                                   1715 	.area BSEG    (BIT)
+                                   1716 ;--------------------------------------------------------
+                                   1717 ; paged external ram data
+                                   1718 ;--------------------------------------------------------
+                                   1719 	.area PSEG    (PAG,XDATA)
+                                   1720 ;--------------------------------------------------------
+                                   1721 ; external ram data
+                                   1722 ;--------------------------------------------------------
+                                   1723 	.area XSEG    (XDATA)
+                           007020  1724 G$ADCCH0VAL0$0$0 == 0x7020
+                           007020  1725 _ADCCH0VAL0	=	0x7020
+                           007021  1726 G$ADCCH0VAL1$0$0 == 0x7021
+                           007021  1727 _ADCCH0VAL1	=	0x7021
+                           007020  1728 G$ADCCH0VAL$0$0 == 0x7020
+                           007020  1729 _ADCCH0VAL	=	0x7020
+                           007022  1730 G$ADCCH1VAL0$0$0 == 0x7022
+                           007022  1731 _ADCCH1VAL0	=	0x7022
+                           007023  1732 G$ADCCH1VAL1$0$0 == 0x7023
+                           007023  1733 _ADCCH1VAL1	=	0x7023
+                           007022  1734 G$ADCCH1VAL$0$0 == 0x7022
+                           007022  1735 _ADCCH1VAL	=	0x7022
+                           007024  1736 G$ADCCH2VAL0$0$0 == 0x7024
+                           007024  1737 _ADCCH2VAL0	=	0x7024
+                           007025  1738 G$ADCCH2VAL1$0$0 == 0x7025
+                           007025  1739 _ADCCH2VAL1	=	0x7025
+                           007024  1740 G$ADCCH2VAL$0$0 == 0x7024
+                           007024  1741 _ADCCH2VAL	=	0x7024
+                           007026  1742 G$ADCCH3VAL0$0$0 == 0x7026
+                           007026  1743 _ADCCH3VAL0	=	0x7026
+                           007027  1744 G$ADCCH3VAL1$0$0 == 0x7027
+                           007027  1745 _ADCCH3VAL1	=	0x7027
+                           007026  1746 G$ADCCH3VAL$0$0 == 0x7026
+                           007026  1747 _ADCCH3VAL	=	0x7026
+                           007028  1748 G$ADCTUNE0$0$0 == 0x7028
+                           007028  1749 _ADCTUNE0	=	0x7028
+                           007029  1750 G$ADCTUNE1$0$0 == 0x7029
+                           007029  1751 _ADCTUNE1	=	0x7029
+                           00702A  1752 G$ADCTUNE2$0$0 == 0x702a
+                           00702A  1753 _ADCTUNE2	=	0x702a
+                           007010  1754 G$DMA0ADDR0$0$0 == 0x7010
+                           007010  1755 _DMA0ADDR0	=	0x7010
+                           007011  1756 G$DMA0ADDR1$0$0 == 0x7011
+                           007011  1757 _DMA0ADDR1	=	0x7011
+                           007010  1758 G$DMA0ADDR$0$0 == 0x7010
+                           007010  1759 _DMA0ADDR	=	0x7010
+                           007014  1760 G$DMA0CONFIG$0$0 == 0x7014
+                           007014  1761 _DMA0CONFIG	=	0x7014
+                           007012  1762 G$DMA1ADDR0$0$0 == 0x7012
+                           007012  1763 _DMA1ADDR0	=	0x7012
+                           007013  1764 G$DMA1ADDR1$0$0 == 0x7013
+                           007013  1765 _DMA1ADDR1	=	0x7013
+                           007012  1766 G$DMA1ADDR$0$0 == 0x7012
+                           007012  1767 _DMA1ADDR	=	0x7012
+                           007015  1768 G$DMA1CONFIG$0$0 == 0x7015
+                           007015  1769 _DMA1CONFIG	=	0x7015
+                           007070  1770 G$FRCOSCCONFIG$0$0 == 0x7070
+                           007070  1771 _FRCOSCCONFIG	=	0x7070
+                           007071  1772 G$FRCOSCCTRL$0$0 == 0x7071
+                           007071  1773 _FRCOSCCTRL	=	0x7071
+                           007076  1774 G$FRCOSCFREQ0$0$0 == 0x7076
+                           007076  1775 _FRCOSCFREQ0	=	0x7076
+                           007077  1776 G$FRCOSCFREQ1$0$0 == 0x7077
+                           007077  1777 _FRCOSCFREQ1	=	0x7077
+                           007076  1778 G$FRCOSCFREQ$0$0 == 0x7076
+                           007076  1779 _FRCOSCFREQ	=	0x7076
+                           007072  1780 G$FRCOSCKFILT0$0$0 == 0x7072
+                           007072  1781 _FRCOSCKFILT0	=	0x7072
+                           007073  1782 G$FRCOSCKFILT1$0$0 == 0x7073
+                           007073  1783 _FRCOSCKFILT1	=	0x7073
+                           007072  1784 G$FRCOSCKFILT$0$0 == 0x7072
+                           007072  1785 _FRCOSCKFILT	=	0x7072
+                           007078  1786 G$FRCOSCPER0$0$0 == 0x7078
+                           007078  1787 _FRCOSCPER0	=	0x7078
+                           007079  1788 G$FRCOSCPER1$0$0 == 0x7079
+                           007079  1789 _FRCOSCPER1	=	0x7079
+                           007078  1790 G$FRCOSCPER$0$0 == 0x7078
+                           007078  1791 _FRCOSCPER	=	0x7078
+                           007074  1792 G$FRCOSCREF0$0$0 == 0x7074
+                           007074  1793 _FRCOSCREF0	=	0x7074
+                           007075  1794 G$FRCOSCREF1$0$0 == 0x7075
+                           007075  1795 _FRCOSCREF1	=	0x7075
+                           007074  1796 G$FRCOSCREF$0$0 == 0x7074
+                           007074  1797 _FRCOSCREF	=	0x7074
+                           007007  1798 G$ANALOGA$0$0 == 0x7007
+                           007007  1799 _ANALOGA	=	0x7007
+                           00700C  1800 G$GPIOENABLE$0$0 == 0x700c
+                           00700C  1801 _GPIOENABLE	=	0x700c
+                           007003  1802 G$EXTIRQ$0$0 == 0x7003
+                           007003  1803 _EXTIRQ	=	0x7003
+                           007000  1804 G$INTCHGA$0$0 == 0x7000
+                           007000  1805 _INTCHGA	=	0x7000
+                           007001  1806 G$INTCHGB$0$0 == 0x7001
+                           007001  1807 _INTCHGB	=	0x7001
+                           007002  1808 G$INTCHGC$0$0 == 0x7002
+                           007002  1809 _INTCHGC	=	0x7002
+                           007008  1810 G$PALTA$0$0 == 0x7008
+                           007008  1811 _PALTA	=	0x7008
+                           007009  1812 G$PALTB$0$0 == 0x7009
+                           007009  1813 _PALTB	=	0x7009
+                           00700A  1814 G$PALTC$0$0 == 0x700a
+                           00700A  1815 _PALTC	=	0x700a
+                           007046  1816 G$PALTRADIO$0$0 == 0x7046
+                           007046  1817 _PALTRADIO	=	0x7046
+                           007004  1818 G$PINCHGA$0$0 == 0x7004
+                           007004  1819 _PINCHGA	=	0x7004
+                           007005  1820 G$PINCHGB$0$0 == 0x7005
+                           007005  1821 _PINCHGB	=	0x7005
+                           007006  1822 G$PINCHGC$0$0 == 0x7006
+                           007006  1823 _PINCHGC	=	0x7006
+                           00700B  1824 G$PINSEL$0$0 == 0x700b
+                           00700B  1825 _PINSEL	=	0x700b
+                           007060  1826 G$LPOSCCONFIG$0$0 == 0x7060
+                           007060  1827 _LPOSCCONFIG	=	0x7060
+                           007066  1828 G$LPOSCFREQ0$0$0 == 0x7066
+                           007066  1829 _LPOSCFREQ0	=	0x7066
+                           007067  1830 G$LPOSCFREQ1$0$0 == 0x7067
+                           007067  1831 _LPOSCFREQ1	=	0x7067
+                           007066  1832 G$LPOSCFREQ$0$0 == 0x7066
+                           007066  1833 _LPOSCFREQ	=	0x7066
+                           007062  1834 G$LPOSCKFILT0$0$0 == 0x7062
+                           007062  1835 _LPOSCKFILT0	=	0x7062
+                           007063  1836 G$LPOSCKFILT1$0$0 == 0x7063
+                           007063  1837 _LPOSCKFILT1	=	0x7063
+                           007062  1838 G$LPOSCKFILT$0$0 == 0x7062
+                           007062  1839 _LPOSCKFILT	=	0x7062
+                           007068  1840 G$LPOSCPER0$0$0 == 0x7068
+                           007068  1841 _LPOSCPER0	=	0x7068
+                           007069  1842 G$LPOSCPER1$0$0 == 0x7069
+                           007069  1843 _LPOSCPER1	=	0x7069
+                           007068  1844 G$LPOSCPER$0$0 == 0x7068
+                           007068  1845 _LPOSCPER	=	0x7068
+                           007064  1846 G$LPOSCREF0$0$0 == 0x7064
+                           007064  1847 _LPOSCREF0	=	0x7064
+                           007065  1848 G$LPOSCREF1$0$0 == 0x7065
+                           007065  1849 _LPOSCREF1	=	0x7065
+                           007064  1850 G$LPOSCREF$0$0 == 0x7064
+                           007064  1851 _LPOSCREF	=	0x7064
+                           007054  1852 G$LPXOSCGM$0$0 == 0x7054
+                           007054  1853 _LPXOSCGM	=	0x7054
+                           007F01  1854 G$MISCCTRL$0$0 == 0x7f01
+                           007F01  1855 _MISCCTRL	=	0x7f01
+                           007053  1856 G$OSCCALIB$0$0 == 0x7053
+                           007053  1857 _OSCCALIB	=	0x7053
+                           007050  1858 G$OSCFORCERUN$0$0 == 0x7050
+                           007050  1859 _OSCFORCERUN	=	0x7050
+                           007052  1860 G$OSCREADY$0$0 == 0x7052
+                           007052  1861 _OSCREADY	=	0x7052
+                           007051  1862 G$OSCRUN$0$0 == 0x7051
+                           007051  1863 _OSCRUN	=	0x7051
+                           007040  1864 G$RADIOFDATAADDR0$0$0 == 0x7040
+                           007040  1865 _RADIOFDATAADDR0	=	0x7040
+                           007041  1866 G$RADIOFDATAADDR1$0$0 == 0x7041
+                           007041  1867 _RADIOFDATAADDR1	=	0x7041
+                           007040  1868 G$RADIOFDATAADDR$0$0 == 0x7040
+                           007040  1869 _RADIOFDATAADDR	=	0x7040
+                           007042  1870 G$RADIOFSTATADDR0$0$0 == 0x7042
+                           007042  1871 _RADIOFSTATADDR0	=	0x7042
+                           007043  1872 G$RADIOFSTATADDR1$0$0 == 0x7043
+                           007043  1873 _RADIOFSTATADDR1	=	0x7043
+                           007042  1874 G$RADIOFSTATADDR$0$0 == 0x7042
+                           007042  1875 _RADIOFSTATADDR	=	0x7042
+                           007044  1876 G$RADIOMUX$0$0 == 0x7044
+                           007044  1877 _RADIOMUX	=	0x7044
+                           007084  1878 G$SCRATCH0$0$0 == 0x7084
+                           007084  1879 _SCRATCH0	=	0x7084
+                           007085  1880 G$SCRATCH1$0$0 == 0x7085
+                           007085  1881 _SCRATCH1	=	0x7085
+                           007086  1882 G$SCRATCH2$0$0 == 0x7086
+                           007086  1883 _SCRATCH2	=	0x7086
+                           007087  1884 G$SCRATCH3$0$0 == 0x7087
+                           007087  1885 _SCRATCH3	=	0x7087
+                           007F00  1886 G$SILICONREV$0$0 == 0x7f00
+                           007F00  1887 _SILICONREV	=	0x7f00
+                           007F19  1888 G$XTALAMPL$0$0 == 0x7f19
+                           007F19  1889 _XTALAMPL	=	0x7f19
+                           007F18  1890 G$XTALOSC$0$0 == 0x7f18
+                           007F18  1891 _XTALOSC	=	0x7f18
+                           007F1A  1892 G$XTALREADY$0$0 == 0x7f1a
+                           007F1A  1893 _XTALREADY	=	0x7f1a
+                           003F82  1894 G$XDPTR0$0$0 == 0x3f82
+                           003F82  1895 _XDPTR0	=	0x3f82
+                           003F84  1896 G$XDPTR1$0$0 == 0x3f84
+                           003F84  1897 _XDPTR1	=	0x3f84
+                           003FA8  1898 G$XIE$0$0 == 0x3fa8
+                           003FA8  1899 _XIE	=	0x3fa8
+                           003FB8  1900 G$XIP$0$0 == 0x3fb8
+                           003FB8  1901 _XIP	=	0x3fb8
+                           003F87  1902 G$XPCON$0$0 == 0x3f87
+                           003F87  1903 _XPCON	=	0x3f87
+                           003FCA  1904 G$XADCCH0CONFIG$0$0 == 0x3fca
+                           003FCA  1905 _XADCCH0CONFIG	=	0x3fca
+                           003FCB  1906 G$XADCCH1CONFIG$0$0 == 0x3fcb
+                           003FCB  1907 _XADCCH1CONFIG	=	0x3fcb
+                           003FD2  1908 G$XADCCH2CONFIG$0$0 == 0x3fd2
+                           003FD2  1909 _XADCCH2CONFIG	=	0x3fd2
+                           003FD3  1910 G$XADCCH3CONFIG$0$0 == 0x3fd3
+                           003FD3  1911 _XADCCH3CONFIG	=	0x3fd3
+                           003FD1  1912 G$XADCCLKSRC$0$0 == 0x3fd1
+                           003FD1  1913 _XADCCLKSRC	=	0x3fd1
+                           003FC9  1914 G$XADCCONV$0$0 == 0x3fc9
+                           003FC9  1915 _XADCCONV	=	0x3fc9
+                           003FE1  1916 G$XANALOGCOMP$0$0 == 0x3fe1
+                           003FE1  1917 _XANALOGCOMP	=	0x3fe1
+                           003FC6  1918 G$XCLKCON$0$0 == 0x3fc6
+                           003FC6  1919 _XCLKCON	=	0x3fc6
+                           003FC7  1920 G$XCLKSTAT$0$0 == 0x3fc7
+                           003FC7  1921 _XCLKSTAT	=	0x3fc7
+                           003F97  1922 G$XCODECONFIG$0$0 == 0x3f97
+                           003F97  1923 _XCODECONFIG	=	0x3f97
+                           003FE3  1924 G$XDBGLNKBUF$0$0 == 0x3fe3
+                           003FE3  1925 _XDBGLNKBUF	=	0x3fe3
+                           003FE2  1926 G$XDBGLNKSTAT$0$0 == 0x3fe2
+                           003FE2  1927 _XDBGLNKSTAT	=	0x3fe2
+                           003F89  1928 G$XDIRA$0$0 == 0x3f89
+                           003F89  1929 _XDIRA	=	0x3f89
+                           003F8A  1930 G$XDIRB$0$0 == 0x3f8a
+                           003F8A  1931 _XDIRB	=	0x3f8a
+                           003F8B  1932 G$XDIRC$0$0 == 0x3f8b
+                           003F8B  1933 _XDIRC	=	0x3f8b
+                           003F8E  1934 G$XDIRR$0$0 == 0x3f8e
+                           003F8E  1935 _XDIRR	=	0x3f8e
+                           003FC8  1936 G$XPINA$0$0 == 0x3fc8
+                           003FC8  1937 _XPINA	=	0x3fc8
+                           003FE8  1938 G$XPINB$0$0 == 0x3fe8
+                           003FE8  1939 _XPINB	=	0x3fe8
+                           003FF8  1940 G$XPINC$0$0 == 0x3ff8
+                           003FF8  1941 _XPINC	=	0x3ff8
+                           003F8D  1942 G$XPINR$0$0 == 0x3f8d
+                           003F8D  1943 _XPINR	=	0x3f8d
+                           003F80  1944 G$XPORTA$0$0 == 0x3f80
+                           003F80  1945 _XPORTA	=	0x3f80
+                           003F88  1946 G$XPORTB$0$0 == 0x3f88
+                           003F88  1947 _XPORTB	=	0x3f88
+                           003F90  1948 G$XPORTC$0$0 == 0x3f90
+                           003F90  1949 _XPORTC	=	0x3f90
+                           003F8C  1950 G$XPORTR$0$0 == 0x3f8c
+                           003F8C  1951 _XPORTR	=	0x3f8c
+                           003FCE  1952 G$XIC0CAPT0$0$0 == 0x3fce
+                           003FCE  1953 _XIC0CAPT0	=	0x3fce
+                           003FCF  1954 G$XIC0CAPT1$0$0 == 0x3fcf
+                           003FCF  1955 _XIC0CAPT1	=	0x3fcf
+                           003FCE  1956 G$XIC0CAPT$0$0 == 0x3fce
+                           003FCE  1957 _XIC0CAPT	=	0x3fce
+                           003FCC  1958 G$XIC0MODE$0$0 == 0x3fcc
+                           003FCC  1959 _XIC0MODE	=	0x3fcc
+                           003FCD  1960 G$XIC0STATUS$0$0 == 0x3fcd
+                           003FCD  1961 _XIC0STATUS	=	0x3fcd
+                           003FD6  1962 G$XIC1CAPT0$0$0 == 0x3fd6
+                           003FD6  1963 _XIC1CAPT0	=	0x3fd6
+                           003FD7  1964 G$XIC1CAPT1$0$0 == 0x3fd7
+                           003FD7  1965 _XIC1CAPT1	=	0x3fd7
+                           003FD6  1966 G$XIC1CAPT$0$0 == 0x3fd6
+                           003FD6  1967 _XIC1CAPT	=	0x3fd6
+                           003FD4  1968 G$XIC1MODE$0$0 == 0x3fd4
+                           003FD4  1969 _XIC1MODE	=	0x3fd4
+                           003FD5  1970 G$XIC1STATUS$0$0 == 0x3fd5
+                           003FD5  1971 _XIC1STATUS	=	0x3fd5
+                           003F92  1972 G$XNVADDR0$0$0 == 0x3f92
+                           003F92  1973 _XNVADDR0	=	0x3f92
+                           003F93  1974 G$XNVADDR1$0$0 == 0x3f93
+                           003F93  1975 _XNVADDR1	=	0x3f93
+                           003F92  1976 G$XNVADDR$0$0 == 0x3f92
+                           003F92  1977 _XNVADDR	=	0x3f92
+                           003F94  1978 G$XNVDATA0$0$0 == 0x3f94
+                           003F94  1979 _XNVDATA0	=	0x3f94
+                           003F95  1980 G$XNVDATA1$0$0 == 0x3f95
+                           003F95  1981 _XNVDATA1	=	0x3f95
+                           003F94  1982 G$XNVDATA$0$0 == 0x3f94
+                           003F94  1983 _XNVDATA	=	0x3f94
+                           003F96  1984 G$XNVKEY$0$0 == 0x3f96
+                           003F96  1985 _XNVKEY	=	0x3f96
+                           003F91  1986 G$XNVSTATUS$0$0 == 0x3f91
+                           003F91  1987 _XNVSTATUS	=	0x3f91
+                           003FBC  1988 G$XOC0COMP0$0$0 == 0x3fbc
+                           003FBC  1989 _XOC0COMP0	=	0x3fbc
+                           003FBD  1990 G$XOC0COMP1$0$0 == 0x3fbd
+                           003FBD  1991 _XOC0COMP1	=	0x3fbd
+                           003FBC  1992 G$XOC0COMP$0$0 == 0x3fbc
+                           003FBC  1993 _XOC0COMP	=	0x3fbc
+                           003FB9  1994 G$XOC0MODE$0$0 == 0x3fb9
+                           003FB9  1995 _XOC0MODE	=	0x3fb9
+                           003FBA  1996 G$XOC0PIN$0$0 == 0x3fba
+                           003FBA  1997 _XOC0PIN	=	0x3fba
+                           003FBB  1998 G$XOC0STATUS$0$0 == 0x3fbb
+                           003FBB  1999 _XOC0STATUS	=	0x3fbb
+                           003FC4  2000 G$XOC1COMP0$0$0 == 0x3fc4
+                           003FC4  2001 _XOC1COMP0	=	0x3fc4
+                           003FC5  2002 G$XOC1COMP1$0$0 == 0x3fc5
+                           003FC5  2003 _XOC1COMP1	=	0x3fc5
+                           003FC4  2004 G$XOC1COMP$0$0 == 0x3fc4
+                           003FC4  2005 _XOC1COMP	=	0x3fc4
+                           003FC1  2006 G$XOC1MODE$0$0 == 0x3fc1
+                           003FC1  2007 _XOC1MODE	=	0x3fc1
+                           003FC2  2008 G$XOC1PIN$0$0 == 0x3fc2
+                           003FC2  2009 _XOC1PIN	=	0x3fc2
+                           003FC3  2010 G$XOC1STATUS$0$0 == 0x3fc3
+                           003FC3  2011 _XOC1STATUS	=	0x3fc3
+                           003FB1  2012 G$XRADIOACC$0$0 == 0x3fb1
+                           003FB1  2013 _XRADIOACC	=	0x3fb1
+                           003FB3  2014 G$XRADIOADDR0$0$0 == 0x3fb3
+                           003FB3  2015 _XRADIOADDR0	=	0x3fb3
+                           003FB2  2016 G$XRADIOADDR1$0$0 == 0x3fb2
+                           003FB2  2017 _XRADIOADDR1	=	0x3fb2
+                           003FB7  2018 G$XRADIODATA0$0$0 == 0x3fb7
+                           003FB7  2019 _XRADIODATA0	=	0x3fb7
+                           003FB6  2020 G$XRADIODATA1$0$0 == 0x3fb6
+                           003FB6  2021 _XRADIODATA1	=	0x3fb6
+                           003FB5  2022 G$XRADIODATA2$0$0 == 0x3fb5
+                           003FB5  2023 _XRADIODATA2	=	0x3fb5
+                           003FB4  2024 G$XRADIODATA3$0$0 == 0x3fb4
+                           003FB4  2025 _XRADIODATA3	=	0x3fb4
+                           003FBE  2026 G$XRADIOSTAT0$0$0 == 0x3fbe
+                           003FBE  2027 _XRADIOSTAT0	=	0x3fbe
+                           003FBF  2028 G$XRADIOSTAT1$0$0 == 0x3fbf
+                           003FBF  2029 _XRADIOSTAT1	=	0x3fbf
+                           003FBE  2030 G$XRADIOSTAT$0$0 == 0x3fbe
+                           003FBE  2031 _XRADIOSTAT	=	0x3fbe
+                           003FDF  2032 G$XSPCLKSRC$0$0 == 0x3fdf
+                           003FDF  2033 _XSPCLKSRC	=	0x3fdf
+                           003FDC  2034 G$XSPMODE$0$0 == 0x3fdc
+                           003FDC  2035 _XSPMODE	=	0x3fdc
+                           003FDE  2036 G$XSPSHREG$0$0 == 0x3fde
+                           003FDE  2037 _XSPSHREG	=	0x3fde
+                           003FDD  2038 G$XSPSTATUS$0$0 == 0x3fdd
+                           003FDD  2039 _XSPSTATUS	=	0x3fdd
+                           003F9A  2040 G$XT0CLKSRC$0$0 == 0x3f9a
+                           003F9A  2041 _XT0CLKSRC	=	0x3f9a
+                           003F9C  2042 G$XT0CNT0$0$0 == 0x3f9c
+                           003F9C  2043 _XT0CNT0	=	0x3f9c
+                           003F9D  2044 G$XT0CNT1$0$0 == 0x3f9d
+                           003F9D  2045 _XT0CNT1	=	0x3f9d
+                           003F9C  2046 G$XT0CNT$0$0 == 0x3f9c
+                           003F9C  2047 _XT0CNT	=	0x3f9c
+                           003F99  2048 G$XT0MODE$0$0 == 0x3f99
+                           003F99  2049 _XT0MODE	=	0x3f99
+                           003F9E  2050 G$XT0PERIOD0$0$0 == 0x3f9e
+                           003F9E  2051 _XT0PERIOD0	=	0x3f9e
+                           003F9F  2052 G$XT0PERIOD1$0$0 == 0x3f9f
+                           003F9F  2053 _XT0PERIOD1	=	0x3f9f
+                           003F9E  2054 G$XT0PERIOD$0$0 == 0x3f9e
+                           003F9E  2055 _XT0PERIOD	=	0x3f9e
+                           003F9B  2056 G$XT0STATUS$0$0 == 0x3f9b
+                           003F9B  2057 _XT0STATUS	=	0x3f9b
+                           003FA2  2058 G$XT1CLKSRC$0$0 == 0x3fa2
+                           003FA2  2059 _XT1CLKSRC	=	0x3fa2
+                           003FA4  2060 G$XT1CNT0$0$0 == 0x3fa4
+                           003FA4  2061 _XT1CNT0	=	0x3fa4
+                           003FA5  2062 G$XT1CNT1$0$0 == 0x3fa5
+                           003FA5  2063 _XT1CNT1	=	0x3fa5
+                           003FA4  2064 G$XT1CNT$0$0 == 0x3fa4
+                           003FA4  2065 _XT1CNT	=	0x3fa4
+                           003FA1  2066 G$XT1MODE$0$0 == 0x3fa1
+                           003FA1  2067 _XT1MODE	=	0x3fa1
+                           003FA6  2068 G$XT1PERIOD0$0$0 == 0x3fa6
+                           003FA6  2069 _XT1PERIOD0	=	0x3fa6
+                           003FA7  2070 G$XT1PERIOD1$0$0 == 0x3fa7
+                           003FA7  2071 _XT1PERIOD1	=	0x3fa7
+                           003FA6  2072 G$XT1PERIOD$0$0 == 0x3fa6
+                           003FA6  2073 _XT1PERIOD	=	0x3fa6
+                           003FA3  2074 G$XT1STATUS$0$0 == 0x3fa3
+                           003FA3  2075 _XT1STATUS	=	0x3fa3
+                           003FAA  2076 G$XT2CLKSRC$0$0 == 0x3faa
+                           003FAA  2077 _XT2CLKSRC	=	0x3faa
+                           003FAC  2078 G$XT2CNT0$0$0 == 0x3fac
+                           003FAC  2079 _XT2CNT0	=	0x3fac
+                           003FAD  2080 G$XT2CNT1$0$0 == 0x3fad
+                           003FAD  2081 _XT2CNT1	=	0x3fad
+                           003FAC  2082 G$XT2CNT$0$0 == 0x3fac
+                           003FAC  2083 _XT2CNT	=	0x3fac
+                           003FA9  2084 G$XT2MODE$0$0 == 0x3fa9
+                           003FA9  2085 _XT2MODE	=	0x3fa9
+                           003FAE  2086 G$XT2PERIOD0$0$0 == 0x3fae
+                           003FAE  2087 _XT2PERIOD0	=	0x3fae
+                           003FAF  2088 G$XT2PERIOD1$0$0 == 0x3faf
+                           003FAF  2089 _XT2PERIOD1	=	0x3faf
+                           003FAE  2090 G$XT2PERIOD$0$0 == 0x3fae
+                           003FAE  2091 _XT2PERIOD	=	0x3fae
+                           003FAB  2092 G$XT2STATUS$0$0 == 0x3fab
+                           003FAB  2093 _XT2STATUS	=	0x3fab
+                           003FE4  2094 G$XU0CTRL$0$0 == 0x3fe4
+                           003FE4  2095 _XU0CTRL	=	0x3fe4
+                           003FE7  2096 G$XU0MODE$0$0 == 0x3fe7
+                           003FE7  2097 _XU0MODE	=	0x3fe7
+                           003FE6  2098 G$XU0SHREG$0$0 == 0x3fe6
+                           003FE6  2099 _XU0SHREG	=	0x3fe6
+                           003FE5  2100 G$XU0STATUS$0$0 == 0x3fe5
+                           003FE5  2101 _XU0STATUS	=	0x3fe5
+                           003FEC  2102 G$XU1CTRL$0$0 == 0x3fec
+                           003FEC  2103 _XU1CTRL	=	0x3fec
+                           003FEF  2104 G$XU1MODE$0$0 == 0x3fef
+                           003FEF  2105 _XU1MODE	=	0x3fef
+                           003FEE  2106 G$XU1SHREG$0$0 == 0x3fee
+                           003FEE  2107 _XU1SHREG	=	0x3fee
+                           003FED  2108 G$XU1STATUS$0$0 == 0x3fed
+                           003FED  2109 _XU1STATUS	=	0x3fed
+                           003FDA  2110 G$XWDTCFG$0$0 == 0x3fda
+                           003FDA  2111 _XWDTCFG	=	0x3fda
+                           003FDB  2112 G$XWDTRESET$0$0 == 0x3fdb
+                           003FDB  2113 _XWDTRESET	=	0x3fdb
+                           003FF1  2114 G$XWTCFGA$0$0 == 0x3ff1
+                           003FF1  2115 _XWTCFGA	=	0x3ff1
+                           003FF9  2116 G$XWTCFGB$0$0 == 0x3ff9
+                           003FF9  2117 _XWTCFGB	=	0x3ff9
+                           003FF2  2118 G$XWTCNTA0$0$0 == 0x3ff2
+                           003FF2  2119 _XWTCNTA0	=	0x3ff2
+                           003FF3  2120 G$XWTCNTA1$0$0 == 0x3ff3
+                           003FF3  2121 _XWTCNTA1	=	0x3ff3
+                           003FF2  2122 G$XWTCNTA$0$0 == 0x3ff2
+                           003FF2  2123 _XWTCNTA	=	0x3ff2
+                           003FFA  2124 G$XWTCNTB0$0$0 == 0x3ffa
+                           003FFA  2125 _XWTCNTB0	=	0x3ffa
+                           003FFB  2126 G$XWTCNTB1$0$0 == 0x3ffb
+                           003FFB  2127 _XWTCNTB1	=	0x3ffb
+                           003FFA  2128 G$XWTCNTB$0$0 == 0x3ffa
+                           003FFA  2129 _XWTCNTB	=	0x3ffa
+                           003FEB  2130 G$XWTCNTR1$0$0 == 0x3feb
+                           003FEB  2131 _XWTCNTR1	=	0x3feb
+                           003FF4  2132 G$XWTEVTA0$0$0 == 0x3ff4
+                           003FF4  2133 _XWTEVTA0	=	0x3ff4
+                           003FF5  2134 G$XWTEVTA1$0$0 == 0x3ff5
+                           003FF5  2135 _XWTEVTA1	=	0x3ff5
+                           003FF4  2136 G$XWTEVTA$0$0 == 0x3ff4
+                           003FF4  2137 _XWTEVTA	=	0x3ff4
+                           003FF6  2138 G$XWTEVTB0$0$0 == 0x3ff6
+                           003FF6  2139 _XWTEVTB0	=	0x3ff6
+                           003FF7  2140 G$XWTEVTB1$0$0 == 0x3ff7
+                           003FF7  2141 _XWTEVTB1	=	0x3ff7
+                           003FF6  2142 G$XWTEVTB$0$0 == 0x3ff6
+                           003FF6  2143 _XWTEVTB	=	0x3ff6
+                           003FFC  2144 G$XWTEVTC0$0$0 == 0x3ffc
+                           003FFC  2145 _XWTEVTC0	=	0x3ffc
+                           003FFD  2146 G$XWTEVTC1$0$0 == 0x3ffd
+                           003FFD  2147 _XWTEVTC1	=	0x3ffd
+                           003FFC  2148 G$XWTEVTC$0$0 == 0x3ffc
+                           003FFC  2149 _XWTEVTC	=	0x3ffc
+                           003FFE  2150 G$XWTEVTD0$0$0 == 0x3ffe
+                           003FFE  2151 _XWTEVTD0	=	0x3ffe
+                           003FFF  2152 G$XWTEVTD1$0$0 == 0x3fff
+                           003FFF  2153 _XWTEVTD1	=	0x3fff
+                           003FFE  2154 G$XWTEVTD$0$0 == 0x3ffe
+                           003FFE  2155 _XWTEVTD	=	0x3ffe
+                           003FE9  2156 G$XWTIRQEN$0$0 == 0x3fe9
+                           003FE9  2157 _XWTIRQEN	=	0x3fe9
+                           003FEA  2158 G$XWTSTAT$0$0 == 0x3fea
+                           003FEA  2159 _XWTSTAT	=	0x3fea
+                           004114  2160 G$AX5043_AFSKCTRL$0$0 == 0x4114
+                           004114  2161 _AX5043_AFSKCTRL	=	0x4114
+                           004113  2162 G$AX5043_AFSKMARK0$0$0 == 0x4113
+                           004113  2163 _AX5043_AFSKMARK0	=	0x4113
+                           004112  2164 G$AX5043_AFSKMARK1$0$0 == 0x4112
+                           004112  2165 _AX5043_AFSKMARK1	=	0x4112
+                           004111  2166 G$AX5043_AFSKSPACE0$0$0 == 0x4111
+                           004111  2167 _AX5043_AFSKSPACE0	=	0x4111
+                           004110  2168 G$AX5043_AFSKSPACE1$0$0 == 0x4110
+                           004110  2169 _AX5043_AFSKSPACE1	=	0x4110
+                           004043  2170 G$AX5043_AGCCOUNTER$0$0 == 0x4043
+                           004043  2171 _AX5043_AGCCOUNTER	=	0x4043
+                           004115  2172 G$AX5043_AMPLFILTER$0$0 == 0x4115
+                           004115  2173 _AX5043_AMPLFILTER	=	0x4115
+                           004189  2174 G$AX5043_BBOFFSCAP$0$0 == 0x4189
+                           004189  2175 _AX5043_BBOFFSCAP	=	0x4189
+                           004188  2176 G$AX5043_BBTUNE$0$0 == 0x4188
+                           004188  2177 _AX5043_BBTUNE	=	0x4188
+                           004041  2178 G$AX5043_BGNDRSSI$0$0 == 0x4041
+                           004041  2179 _AX5043_BGNDRSSI	=	0x4041
+                           00422E  2180 G$AX5043_BGNDRSSIGAIN$0$0 == 0x422e
+                           00422E  2181 _AX5043_BGNDRSSIGAIN	=	0x422e
+                           00422F  2182 G$AX5043_BGNDRSSITHR$0$0 == 0x422f
+                           00422F  2183 _AX5043_BGNDRSSITHR	=	0x422f
+                           004017  2184 G$AX5043_CRCINIT0$0$0 == 0x4017
+                           004017  2185 _AX5043_CRCINIT0	=	0x4017
+                           004016  2186 G$AX5043_CRCINIT1$0$0 == 0x4016
+                           004016  2187 _AX5043_CRCINIT1	=	0x4016
+                           004015  2188 G$AX5043_CRCINIT2$0$0 == 0x4015
+                           004015  2189 _AX5043_CRCINIT2	=	0x4015
+                           004014  2190 G$AX5043_CRCINIT3$0$0 == 0x4014
+                           004014  2191 _AX5043_CRCINIT3	=	0x4014
+                           004332  2192 G$AX5043_DACCONFIG$0$0 == 0x4332
+                           004332  2193 _AX5043_DACCONFIG	=	0x4332
+                           004331  2194 G$AX5043_DACVALUE0$0$0 == 0x4331
+                           004331  2195 _AX5043_DACVALUE0	=	0x4331
+                           004330  2196 G$AX5043_DACVALUE1$0$0 == 0x4330
+                           004330  2197 _AX5043_DACVALUE1	=	0x4330
+                           004102  2198 G$AX5043_DECIMATION$0$0 == 0x4102
+                           004102  2199 _AX5043_DECIMATION	=	0x4102
+                           004042  2200 G$AX5043_DIVERSITY$0$0 == 0x4042
+                           004042  2201 _AX5043_DIVERSITY	=	0x4042
+                           004011  2202 G$AX5043_ENCODING$0$0 == 0x4011
+                           004011  2203 _AX5043_ENCODING	=	0x4011
+                           004018  2204 G$AX5043_FEC$0$0 == 0x4018
+                           004018  2205 _AX5043_FEC	=	0x4018
+                           00401A  2206 G$AX5043_FECSTATUS$0$0 == 0x401a
+                           00401A  2207 _AX5043_FECSTATUS	=	0x401a
+                           004019  2208 G$AX5043_FECSYNC$0$0 == 0x4019
+                           004019  2209 _AX5043_FECSYNC	=	0x4019
+                           00402B  2210 G$AX5043_FIFOCOUNT0$0$0 == 0x402b
+                           00402B  2211 _AX5043_FIFOCOUNT0	=	0x402b
+                           00402A  2212 G$AX5043_FIFOCOUNT1$0$0 == 0x402a
+                           00402A  2213 _AX5043_FIFOCOUNT1	=	0x402a
+                           004029  2214 G$AX5043_FIFODATA$0$0 == 0x4029
+                           004029  2215 _AX5043_FIFODATA	=	0x4029
+                           00402D  2216 G$AX5043_FIFOFREE0$0$0 == 0x402d
+                           00402D  2217 _AX5043_FIFOFREE0	=	0x402d
+                           00402C  2218 G$AX5043_FIFOFREE1$0$0 == 0x402c
+                           00402C  2219 _AX5043_FIFOFREE1	=	0x402c
+                           004028  2220 G$AX5043_FIFOSTAT$0$0 == 0x4028
+                           004028  2221 _AX5043_FIFOSTAT	=	0x4028
+                           00402F  2222 G$AX5043_FIFOTHRESH0$0$0 == 0x402f
+                           00402F  2223 _AX5043_FIFOTHRESH0	=	0x402f
+                           00402E  2224 G$AX5043_FIFOTHRESH1$0$0 == 0x402e
+                           00402E  2225 _AX5043_FIFOTHRESH1	=	0x402e
+                           004012  2226 G$AX5043_FRAMING$0$0 == 0x4012
+                           004012  2227 _AX5043_FRAMING	=	0x4012
+                           004037  2228 G$AX5043_FREQA0$0$0 == 0x4037
+                           004037  2229 _AX5043_FREQA0	=	0x4037
+                           004036  2230 G$AX5043_FREQA1$0$0 == 0x4036
+                           004036  2231 _AX5043_FREQA1	=	0x4036
+                           004035  2232 G$AX5043_FREQA2$0$0 == 0x4035
+                           004035  2233 _AX5043_FREQA2	=	0x4035
+                           004034  2234 G$AX5043_FREQA3$0$0 == 0x4034
+                           004034  2235 _AX5043_FREQA3	=	0x4034
+                           00403F  2236 G$AX5043_FREQB0$0$0 == 0x403f
+                           00403F  2237 _AX5043_FREQB0	=	0x403f
+                           00403E  2238 G$AX5043_FREQB1$0$0 == 0x403e
+                           00403E  2239 _AX5043_FREQB1	=	0x403e
+                           00403D  2240 G$AX5043_FREQB2$0$0 == 0x403d
+                           00403D  2241 _AX5043_FREQB2	=	0x403d
+                           00403C  2242 G$AX5043_FREQB3$0$0 == 0x403c
+                           00403C  2243 _AX5043_FREQB3	=	0x403c
+                           004163  2244 G$AX5043_FSKDEV0$0$0 == 0x4163
+                           004163  2245 _AX5043_FSKDEV0	=	0x4163
+                           004162  2246 G$AX5043_FSKDEV1$0$0 == 0x4162
+                           004162  2247 _AX5043_FSKDEV1	=	0x4162
+                           004161  2248 G$AX5043_FSKDEV2$0$0 == 0x4161
+                           004161  2249 _AX5043_FSKDEV2	=	0x4161
+                           00410D  2250 G$AX5043_FSKDMAX0$0$0 == 0x410d
+                           00410D  2251 _AX5043_FSKDMAX0	=	0x410d
+                           00410C  2252 G$AX5043_FSKDMAX1$0$0 == 0x410c
+                           00410C  2253 _AX5043_FSKDMAX1	=	0x410c
+                           00410F  2254 G$AX5043_FSKDMIN0$0$0 == 0x410f
+                           00410F  2255 _AX5043_FSKDMIN0	=	0x410f
+                           00410E  2256 G$AX5043_FSKDMIN1$0$0 == 0x410e
+                           00410E  2257 _AX5043_FSKDMIN1	=	0x410e
+                           004309  2258 G$AX5043_GPADC13VALUE0$0$0 == 0x4309
+                           004309  2259 _AX5043_GPADC13VALUE0	=	0x4309
+                           004308  2260 G$AX5043_GPADC13VALUE1$0$0 == 0x4308
+                           004308  2261 _AX5043_GPADC13VALUE1	=	0x4308
+                           004300  2262 G$AX5043_GPADCCTRL$0$0 == 0x4300
+                           004300  2263 _AX5043_GPADCCTRL	=	0x4300
+                           004301  2264 G$AX5043_GPADCPERIOD$0$0 == 0x4301
+                           004301  2265 _AX5043_GPADCPERIOD	=	0x4301
+                           004101  2266 G$AX5043_IFFREQ0$0$0 == 0x4101
+                           004101  2267 _AX5043_IFFREQ0	=	0x4101
+                           004100  2268 G$AX5043_IFFREQ1$0$0 == 0x4100
+                           004100  2269 _AX5043_IFFREQ1	=	0x4100
+                           00400B  2270 G$AX5043_IRQINVERSION0$0$0 == 0x400b
+                           00400B  2271 _AX5043_IRQINVERSION0	=	0x400b
+                           00400A  2272 G$AX5043_IRQINVERSION1$0$0 == 0x400a
+                           00400A  2273 _AX5043_IRQINVERSION1	=	0x400a
+                           004007  2274 G$AX5043_IRQMASK0$0$0 == 0x4007
+                           004007  2275 _AX5043_IRQMASK0	=	0x4007
+                           004006  2276 G$AX5043_IRQMASK1$0$0 == 0x4006
+                           004006  2277 _AX5043_IRQMASK1	=	0x4006
+                           00400D  2278 G$AX5043_IRQREQUEST0$0$0 == 0x400d
+                           00400D  2279 _AX5043_IRQREQUEST0	=	0x400d
+                           00400C  2280 G$AX5043_IRQREQUEST1$0$0 == 0x400c
+                           00400C  2281 _AX5043_IRQREQUEST1	=	0x400c
+                           004310  2282 G$AX5043_LPOSCCONFIG$0$0 == 0x4310
+                           004310  2283 _AX5043_LPOSCCONFIG	=	0x4310
+                           004317  2284 G$AX5043_LPOSCFREQ0$0$0 == 0x4317
+                           004317  2285 _AX5043_LPOSCFREQ0	=	0x4317
+                           004316  2286 G$AX5043_LPOSCFREQ1$0$0 == 0x4316
+                           004316  2287 _AX5043_LPOSCFREQ1	=	0x4316
+                           004313  2288 G$AX5043_LPOSCKFILT0$0$0 == 0x4313
+                           004313  2289 _AX5043_LPOSCKFILT0	=	0x4313
+                           004312  2290 G$AX5043_LPOSCKFILT1$0$0 == 0x4312
+                           004312  2291 _AX5043_LPOSCKFILT1	=	0x4312
+                           004319  2292 G$AX5043_LPOSCPER0$0$0 == 0x4319
+                           004319  2293 _AX5043_LPOSCPER0	=	0x4319
+                           004318  2294 G$AX5043_LPOSCPER1$0$0 == 0x4318
+                           004318  2295 _AX5043_LPOSCPER1	=	0x4318
+                           004315  2296 G$AX5043_LPOSCREF0$0$0 == 0x4315
+                           004315  2297 _AX5043_LPOSCREF0	=	0x4315
+                           004314  2298 G$AX5043_LPOSCREF1$0$0 == 0x4314
+                           004314  2299 _AX5043_LPOSCREF1	=	0x4314
+                           004311  2300 G$AX5043_LPOSCSTATUS$0$0 == 0x4311
+                           004311  2301 _AX5043_LPOSCSTATUS	=	0x4311
+                           004214  2302 G$AX5043_MATCH0LEN$0$0 == 0x4214
+                           004214  2303 _AX5043_MATCH0LEN	=	0x4214
+                           004216  2304 G$AX5043_MATCH0MAX$0$0 == 0x4216
+                           004216  2305 _AX5043_MATCH0MAX	=	0x4216
+                           004215  2306 G$AX5043_MATCH0MIN$0$0 == 0x4215
+                           004215  2307 _AX5043_MATCH0MIN	=	0x4215
+                           004213  2308 G$AX5043_MATCH0PAT0$0$0 == 0x4213
+                           004213  2309 _AX5043_MATCH0PAT0	=	0x4213
+                           004212  2310 G$AX5043_MATCH0PAT1$0$0 == 0x4212
+                           004212  2311 _AX5043_MATCH0PAT1	=	0x4212
+                           004211  2312 G$AX5043_MATCH0PAT2$0$0 == 0x4211
+                           004211  2313 _AX5043_MATCH0PAT2	=	0x4211
+                           004210  2314 G$AX5043_MATCH0PAT3$0$0 == 0x4210
+                           004210  2315 _AX5043_MATCH0PAT3	=	0x4210
+                           00421C  2316 G$AX5043_MATCH1LEN$0$0 == 0x421c
+                           00421C  2317 _AX5043_MATCH1LEN	=	0x421c
+                           00421E  2318 G$AX5043_MATCH1MAX$0$0 == 0x421e
+                           00421E  2319 _AX5043_MATCH1MAX	=	0x421e
+                           00421D  2320 G$AX5043_MATCH1MIN$0$0 == 0x421d
+                           00421D  2321 _AX5043_MATCH1MIN	=	0x421d
+                           004219  2322 G$AX5043_MATCH1PAT0$0$0 == 0x4219
+                           004219  2323 _AX5043_MATCH1PAT0	=	0x4219
+                           004218  2324 G$AX5043_MATCH1PAT1$0$0 == 0x4218
+                           004218  2325 _AX5043_MATCH1PAT1	=	0x4218
+                           004108  2326 G$AX5043_MAXDROFFSET0$0$0 == 0x4108
+                           004108  2327 _AX5043_MAXDROFFSET0	=	0x4108
+                           004107  2328 G$AX5043_MAXDROFFSET1$0$0 == 0x4107
+                           004107  2329 _AX5043_MAXDROFFSET1	=	0x4107
+                           004106  2330 G$AX5043_MAXDROFFSET2$0$0 == 0x4106
+                           004106  2331 _AX5043_MAXDROFFSET2	=	0x4106
+                           00410B  2332 G$AX5043_MAXRFOFFSET0$0$0 == 0x410b
+                           00410B  2333 _AX5043_MAXRFOFFSET0	=	0x410b
+                           00410A  2334 G$AX5043_MAXRFOFFSET1$0$0 == 0x410a
+                           00410A  2335 _AX5043_MAXRFOFFSET1	=	0x410a
+                           004109  2336 G$AX5043_MAXRFOFFSET2$0$0 == 0x4109
+                           004109  2337 _AX5043_MAXRFOFFSET2	=	0x4109
+                           004164  2338 G$AX5043_MODCFGA$0$0 == 0x4164
+                           004164  2339 _AX5043_MODCFGA	=	0x4164
+                           004160  2340 G$AX5043_MODCFGF$0$0 == 0x4160
+                           004160  2341 _AX5043_MODCFGF	=	0x4160
+                           004010  2342 G$AX5043_MODULATION$0$0 == 0x4010
+                           004010  2343 _AX5043_MODULATION	=	0x4010
+                           004025  2344 G$AX5043_PINFUNCANTSEL$0$0 == 0x4025
+                           004025  2345 _AX5043_PINFUNCANTSEL	=	0x4025
+                           004023  2346 G$AX5043_PINFUNCDATA$0$0 == 0x4023
+                           004023  2347 _AX5043_PINFUNCDATA	=	0x4023
+                           004022  2348 G$AX5043_PINFUNCDCLK$0$0 == 0x4022
+                           004022  2349 _AX5043_PINFUNCDCLK	=	0x4022
+                           004024  2350 G$AX5043_PINFUNCIRQ$0$0 == 0x4024
+                           004024  2351 _AX5043_PINFUNCIRQ	=	0x4024
+                           004026  2352 G$AX5043_PINFUNCPWRAMP$0$0 == 0x4026
+                           004026  2353 _AX5043_PINFUNCPWRAMP	=	0x4026
+                           004021  2354 G$AX5043_PINFUNCSYSCLK$0$0 == 0x4021
+                           004021  2355 _AX5043_PINFUNCSYSCLK	=	0x4021
+                           004020  2356 G$AX5043_PINSTATE$0$0 == 0x4020
+                           004020  2357 _AX5043_PINSTATE	=	0x4020
+                           004233  2358 G$AX5043_PKTACCEPTFLAGS$0$0 == 0x4233
+                           004233  2359 _AX5043_PKTACCEPTFLAGS	=	0x4233
+                           004230  2360 G$AX5043_PKTCHUNKSIZE$0$0 == 0x4230
+                           004230  2361 _AX5043_PKTCHUNKSIZE	=	0x4230
+                           004231  2362 G$AX5043_PKTMISCFLAGS$0$0 == 0x4231
+                           004231  2363 _AX5043_PKTMISCFLAGS	=	0x4231
+                           004232  2364 G$AX5043_PKTSTOREFLAGS$0$0 == 0x4232
+                           004232  2365 _AX5043_PKTSTOREFLAGS	=	0x4232
+                           004031  2366 G$AX5043_PLLCPI$0$0 == 0x4031
+                           004031  2367 _AX5043_PLLCPI	=	0x4031
+                           004039  2368 G$AX5043_PLLCPIBOOST$0$0 == 0x4039
+                           004039  2369 _AX5043_PLLCPIBOOST	=	0x4039
+                           004182  2370 G$AX5043_PLLLOCKDET$0$0 == 0x4182
+                           004182  2371 _AX5043_PLLLOCKDET	=	0x4182
+                           004030  2372 G$AX5043_PLLLOOP$0$0 == 0x4030
+                           004030  2373 _AX5043_PLLLOOP	=	0x4030
+                           004038  2374 G$AX5043_PLLLOOPBOOST$0$0 == 0x4038
+                           004038  2375 _AX5043_PLLLOOPBOOST	=	0x4038
+                           004033  2376 G$AX5043_PLLRANGINGA$0$0 == 0x4033
+                           004033  2377 _AX5043_PLLRANGINGA	=	0x4033
+                           00403B  2378 G$AX5043_PLLRANGINGB$0$0 == 0x403b
+                           00403B  2379 _AX5043_PLLRANGINGB	=	0x403b
+                           004183  2380 G$AX5043_PLLRNGCLK$0$0 == 0x4183
+                           004183  2381 _AX5043_PLLRNGCLK	=	0x4183
+                           004032  2382 G$AX5043_PLLVCODIV$0$0 == 0x4032
+                           004032  2383 _AX5043_PLLVCODIV	=	0x4032
+                           004180  2384 G$AX5043_PLLVCOI$0$0 == 0x4180
+                           004180  2385 _AX5043_PLLVCOI	=	0x4180
+                           004181  2386 G$AX5043_PLLVCOIR$0$0 == 0x4181
+                           004181  2387 _AX5043_PLLVCOIR	=	0x4181
+                           004005  2388 G$AX5043_POWIRQMASK$0$0 == 0x4005
+                           004005  2389 _AX5043_POWIRQMASK	=	0x4005
+                           004003  2390 G$AX5043_POWSTAT$0$0 == 0x4003
+                           004003  2391 _AX5043_POWSTAT	=	0x4003
+                           004004  2392 G$AX5043_POWSTICKYSTAT$0$0 == 0x4004
+                           004004  2393 _AX5043_POWSTICKYSTAT	=	0x4004
+                           004027  2394 G$AX5043_PWRAMP$0$0 == 0x4027
+                           004027  2395 _AX5043_PWRAMP	=	0x4027
+                           004002  2396 G$AX5043_PWRMODE$0$0 == 0x4002
+                           004002  2397 _AX5043_PWRMODE	=	0x4002
+                           004009  2398 G$AX5043_RADIOEVENTMASK0$0$0 == 0x4009
+                           004009  2399 _AX5043_RADIOEVENTMASK0	=	0x4009
+                           004008  2400 G$AX5043_RADIOEVENTMASK1$0$0 == 0x4008
+                           004008  2401 _AX5043_RADIOEVENTMASK1	=	0x4008
+                           00400F  2402 G$AX5043_RADIOEVENTREQ0$0$0 == 0x400f
+                           00400F  2403 _AX5043_RADIOEVENTREQ0	=	0x400f
+                           00400E  2404 G$AX5043_RADIOEVENTREQ1$0$0 == 0x400e
+                           00400E  2405 _AX5043_RADIOEVENTREQ1	=	0x400e
+                           00401C  2406 G$AX5043_RADIOSTATE$0$0 == 0x401c
+                           00401C  2407 _AX5043_RADIOSTATE	=	0x401c
+                           004040  2408 G$AX5043_RSSI$0$0 == 0x4040
+                           004040  2409 _AX5043_RSSI	=	0x4040
+                           00422D  2410 G$AX5043_RSSIABSTHR$0$0 == 0x422d
+                           00422D  2411 _AX5043_RSSIABSTHR	=	0x422d
+                           00422C  2412 G$AX5043_RSSIREFERENCE$0$0 == 0x422c
+                           00422C  2413 _AX5043_RSSIREFERENCE	=	0x422c
+                           004105  2414 G$AX5043_RXDATARATE0$0$0 == 0x4105
+                           004105  2415 _AX5043_RXDATARATE0	=	0x4105
+                           004104  2416 G$AX5043_RXDATARATE1$0$0 == 0x4104
+                           004104  2417 _AX5043_RXDATARATE1	=	0x4104
+                           004103  2418 G$AX5043_RXDATARATE2$0$0 == 0x4103
+                           004103  2419 _AX5043_RXDATARATE2	=	0x4103
+                           004001  2420 G$AX5043_SCRATCH$0$0 == 0x4001
+                           004001  2421 _AX5043_SCRATCH	=	0x4001
+                           004000  2422 G$AX5043_SILICONREVISION$0$0 == 0x4000
+                           004000  2423 _AX5043_SILICONREVISION	=	0x4000
+                           00405B  2424 G$AX5043_TIMER0$0$0 == 0x405b
+                           00405B  2425 _AX5043_TIMER0	=	0x405b
+                           00405A  2426 G$AX5043_TIMER1$0$0 == 0x405a
+                           00405A  2427 _AX5043_TIMER1	=	0x405a
+                           004059  2428 G$AX5043_TIMER2$0$0 == 0x4059
+                           004059  2429 _AX5043_TIMER2	=	0x4059
+                           004227  2430 G$AX5043_TMGRXAGC$0$0 == 0x4227
+                           004227  2431 _AX5043_TMGRXAGC	=	0x4227
+                           004223  2432 G$AX5043_TMGRXBOOST$0$0 == 0x4223
+                           004223  2433 _AX5043_TMGRXBOOST	=	0x4223
+                           004226  2434 G$AX5043_TMGRXCOARSEAGC$0$0 == 0x4226
+                           004226  2435 _AX5043_TMGRXCOARSEAGC	=	0x4226
+                           004225  2436 G$AX5043_TMGRXOFFSACQ$0$0 == 0x4225
+                           004225  2437 _AX5043_TMGRXOFFSACQ	=	0x4225
+                           004229  2438 G$AX5043_TMGRXPREAMBLE1$0$0 == 0x4229
+                           004229  2439 _AX5043_TMGRXPREAMBLE1	=	0x4229
+                           00422A  2440 G$AX5043_TMGRXPREAMBLE2$0$0 == 0x422a
+                           00422A  2441 _AX5043_TMGRXPREAMBLE2	=	0x422a
+                           00422B  2442 G$AX5043_TMGRXPREAMBLE3$0$0 == 0x422b
+                           00422B  2443 _AX5043_TMGRXPREAMBLE3	=	0x422b
+                           004228  2444 G$AX5043_TMGRXRSSI$0$0 == 0x4228
+                           004228  2445 _AX5043_TMGRXRSSI	=	0x4228
+                           004224  2446 G$AX5043_TMGRXSETTLE$0$0 == 0x4224
+                           004224  2447 _AX5043_TMGRXSETTLE	=	0x4224
+                           004220  2448 G$AX5043_TMGTXBOOST$0$0 == 0x4220
+                           004220  2449 _AX5043_TMGTXBOOST	=	0x4220
+                           004221  2450 G$AX5043_TMGTXSETTLE$0$0 == 0x4221
+                           004221  2451 _AX5043_TMGTXSETTLE	=	0x4221
+                           004055  2452 G$AX5043_TRKAFSKDEMOD0$0$0 == 0x4055
+                           004055  2453 _AX5043_TRKAFSKDEMOD0	=	0x4055
+                           004054  2454 G$AX5043_TRKAFSKDEMOD1$0$0 == 0x4054
+                           004054  2455 _AX5043_TRKAFSKDEMOD1	=	0x4054
+                           004049  2456 G$AX5043_TRKAMPLITUDE0$0$0 == 0x4049
+                           004049  2457 _AX5043_TRKAMPLITUDE0	=	0x4049
+                           004048  2458 G$AX5043_TRKAMPLITUDE1$0$0 == 0x4048
+                           004048  2459 _AX5043_TRKAMPLITUDE1	=	0x4048
+                           004047  2460 G$AX5043_TRKDATARATE0$0$0 == 0x4047
+                           004047  2461 _AX5043_TRKDATARATE0	=	0x4047
+                           004046  2462 G$AX5043_TRKDATARATE1$0$0 == 0x4046
+                           004046  2463 _AX5043_TRKDATARATE1	=	0x4046
+                           004045  2464 G$AX5043_TRKDATARATE2$0$0 == 0x4045
+                           004045  2465 _AX5043_TRKDATARATE2	=	0x4045
+                           004051  2466 G$AX5043_TRKFREQ0$0$0 == 0x4051
+                           004051  2467 _AX5043_TRKFREQ0	=	0x4051
+                           004050  2468 G$AX5043_TRKFREQ1$0$0 == 0x4050
+                           004050  2469 _AX5043_TRKFREQ1	=	0x4050
+                           004053  2470 G$AX5043_TRKFSKDEMOD0$0$0 == 0x4053
+                           004053  2471 _AX5043_TRKFSKDEMOD0	=	0x4053
+                           004052  2472 G$AX5043_TRKFSKDEMOD1$0$0 == 0x4052
+                           004052  2473 _AX5043_TRKFSKDEMOD1	=	0x4052
+                           00404B  2474 G$AX5043_TRKPHASE0$0$0 == 0x404b
+                           00404B  2475 _AX5043_TRKPHASE0	=	0x404b
+                           00404A  2476 G$AX5043_TRKPHASE1$0$0 == 0x404a
+                           00404A  2477 _AX5043_TRKPHASE1	=	0x404a
+                           00404F  2478 G$AX5043_TRKRFFREQ0$0$0 == 0x404f
+                           00404F  2479 _AX5043_TRKRFFREQ0	=	0x404f
+                           00404E  2480 G$AX5043_TRKRFFREQ1$0$0 == 0x404e
+                           00404E  2481 _AX5043_TRKRFFREQ1	=	0x404e
+                           00404D  2482 G$AX5043_TRKRFFREQ2$0$0 == 0x404d
+                           00404D  2483 _AX5043_TRKRFFREQ2	=	0x404d
+                           004169  2484 G$AX5043_TXPWRCOEFFA0$0$0 == 0x4169
+                           004169  2485 _AX5043_TXPWRCOEFFA0	=	0x4169
+                           004168  2486 G$AX5043_TXPWRCOEFFA1$0$0 == 0x4168
+                           004168  2487 _AX5043_TXPWRCOEFFA1	=	0x4168
+                           00416B  2488 G$AX5043_TXPWRCOEFFB0$0$0 == 0x416b
+                           00416B  2489 _AX5043_TXPWRCOEFFB0	=	0x416b
+                           00416A  2490 G$AX5043_TXPWRCOEFFB1$0$0 == 0x416a
+                           00416A  2491 _AX5043_TXPWRCOEFFB1	=	0x416a
+                           00416D  2492 G$AX5043_TXPWRCOEFFC0$0$0 == 0x416d
+                           00416D  2493 _AX5043_TXPWRCOEFFC0	=	0x416d
+                           00416C  2494 G$AX5043_TXPWRCOEFFC1$0$0 == 0x416c
+                           00416C  2495 _AX5043_TXPWRCOEFFC1	=	0x416c
+                           00416F  2496 G$AX5043_TXPWRCOEFFD0$0$0 == 0x416f
+                           00416F  2497 _AX5043_TXPWRCOEFFD0	=	0x416f
+                           00416E  2498 G$AX5043_TXPWRCOEFFD1$0$0 == 0x416e
+                           00416E  2499 _AX5043_TXPWRCOEFFD1	=	0x416e
+                           004171  2500 G$AX5043_TXPWRCOEFFE0$0$0 == 0x4171
+                           004171  2501 _AX5043_TXPWRCOEFFE0	=	0x4171
+                           004170  2502 G$AX5043_TXPWRCOEFFE1$0$0 == 0x4170
+                           004170  2503 _AX5043_TXPWRCOEFFE1	=	0x4170
+                           004167  2504 G$AX5043_TXRATE0$0$0 == 0x4167
+                           004167  2505 _AX5043_TXRATE0	=	0x4167
+                           004166  2506 G$AX5043_TXRATE1$0$0 == 0x4166
+                           004166  2507 _AX5043_TXRATE1	=	0x4166
+                           004165  2508 G$AX5043_TXRATE2$0$0 == 0x4165
+                           004165  2509 _AX5043_TXRATE2	=	0x4165
+                           00406B  2510 G$AX5043_WAKEUP0$0$0 == 0x406b
+                           00406B  2511 _AX5043_WAKEUP0	=	0x406b
+                           00406A  2512 G$AX5043_WAKEUP1$0$0 == 0x406a
+                           00406A  2513 _AX5043_WAKEUP1	=	0x406a
+                           00406D  2514 G$AX5043_WAKEUPFREQ0$0$0 == 0x406d
+                           00406D  2515 _AX5043_WAKEUPFREQ0	=	0x406d
+                           00406C  2516 G$AX5043_WAKEUPFREQ1$0$0 == 0x406c
+                           00406C  2517 _AX5043_WAKEUPFREQ1	=	0x406c
+                           004069  2518 G$AX5043_WAKEUPTIMER0$0$0 == 0x4069
+                           004069  2519 _AX5043_WAKEUPTIMER0	=	0x4069
+                           004068  2520 G$AX5043_WAKEUPTIMER1$0$0 == 0x4068
+                           004068  2521 _AX5043_WAKEUPTIMER1	=	0x4068
+                           00406E  2522 G$AX5043_WAKEUPXOEARLY$0$0 == 0x406e
+                           00406E  2523 _AX5043_WAKEUPXOEARLY	=	0x406e
+                           004184  2524 G$AX5043_XTALCAP$0$0 == 0x4184
+                           004184  2525 _AX5043_XTALCAP	=	0x4184
+                           00401D  2526 G$AX5043_XTALSTATUS$0$0 == 0x401d
+                           00401D  2527 _AX5043_XTALSTATUS	=	0x401d
+                           004122  2528 G$AX5043_AGCAHYST0$0$0 == 0x4122
+                           004122  2529 _AX5043_AGCAHYST0	=	0x4122
+                           004132  2530 G$AX5043_AGCAHYST1$0$0 == 0x4132
+                           004132  2531 _AX5043_AGCAHYST1	=	0x4132
+                           004142  2532 G$AX5043_AGCAHYST2$0$0 == 0x4142
+                           004142  2533 _AX5043_AGCAHYST2	=	0x4142
+                           004152  2534 G$AX5043_AGCAHYST3$0$0 == 0x4152
+                           004152  2535 _AX5043_AGCAHYST3	=	0x4152
+                           004120  2536 G$AX5043_AGCGAIN0$0$0 == 0x4120
+                           004120  2537 _AX5043_AGCGAIN0	=	0x4120
+                           004130  2538 G$AX5043_AGCGAIN1$0$0 == 0x4130
+                           004130  2539 _AX5043_AGCGAIN1	=	0x4130
+                           004140  2540 G$AX5043_AGCGAIN2$0$0 == 0x4140
+                           004140  2541 _AX5043_AGCGAIN2	=	0x4140
+                           004150  2542 G$AX5043_AGCGAIN3$0$0 == 0x4150
+                           004150  2543 _AX5043_AGCGAIN3	=	0x4150
+                           004123  2544 G$AX5043_AGCMINMAX0$0$0 == 0x4123
+                           004123  2545 _AX5043_AGCMINMAX0	=	0x4123
+                           004133  2546 G$AX5043_AGCMINMAX1$0$0 == 0x4133
+                           004133  2547 _AX5043_AGCMINMAX1	=	0x4133
+                           004143  2548 G$AX5043_AGCMINMAX2$0$0 == 0x4143
+                           004143  2549 _AX5043_AGCMINMAX2	=	0x4143
+                           004153  2550 G$AX5043_AGCMINMAX3$0$0 == 0x4153
+                           004153  2551 _AX5043_AGCMINMAX3	=	0x4153
+                           004121  2552 G$AX5043_AGCTARGET0$0$0 == 0x4121
+                           004121  2553 _AX5043_AGCTARGET0	=	0x4121
+                           004131  2554 G$AX5043_AGCTARGET1$0$0 == 0x4131
+                           004131  2555 _AX5043_AGCTARGET1	=	0x4131
+                           004141  2556 G$AX5043_AGCTARGET2$0$0 == 0x4141
+                           004141  2557 _AX5043_AGCTARGET2	=	0x4141
+                           004151  2558 G$AX5043_AGCTARGET3$0$0 == 0x4151
+                           004151  2559 _AX5043_AGCTARGET3	=	0x4151
+                           00412B  2560 G$AX5043_AMPLITUDEGAIN0$0$0 == 0x412b
+                           00412B  2561 _AX5043_AMPLITUDEGAIN0	=	0x412b
+                           00413B  2562 G$AX5043_AMPLITUDEGAIN1$0$0 == 0x413b
+                           00413B  2563 _AX5043_AMPLITUDEGAIN1	=	0x413b
+                           00414B  2564 G$AX5043_AMPLITUDEGAIN2$0$0 == 0x414b
+                           00414B  2565 _AX5043_AMPLITUDEGAIN2	=	0x414b
+                           00415B  2566 G$AX5043_AMPLITUDEGAIN3$0$0 == 0x415b
+                           00415B  2567 _AX5043_AMPLITUDEGAIN3	=	0x415b
+                           00412F  2568 G$AX5043_BBOFFSRES0$0$0 == 0x412f
+                           00412F  2569 _AX5043_BBOFFSRES0	=	0x412f
+                           00413F  2570 G$AX5043_BBOFFSRES1$0$0 == 0x413f
+                           00413F  2571 _AX5043_BBOFFSRES1	=	0x413f
+                           00414F  2572 G$AX5043_BBOFFSRES2$0$0 == 0x414f
+                           00414F  2573 _AX5043_BBOFFSRES2	=	0x414f
+                           00415F  2574 G$AX5043_BBOFFSRES3$0$0 == 0x415f
+                           00415F  2575 _AX5043_BBOFFSRES3	=	0x415f
+                           004125  2576 G$AX5043_DRGAIN0$0$0 == 0x4125
+                           004125  2577 _AX5043_DRGAIN0	=	0x4125
+                           004135  2578 G$AX5043_DRGAIN1$0$0 == 0x4135
+                           004135  2579 _AX5043_DRGAIN1	=	0x4135
+                           004145  2580 G$AX5043_DRGAIN2$0$0 == 0x4145
+                           004145  2581 _AX5043_DRGAIN2	=	0x4145
+                           004155  2582 G$AX5043_DRGAIN3$0$0 == 0x4155
+                           004155  2583 _AX5043_DRGAIN3	=	0x4155
+                           00412E  2584 G$AX5043_FOURFSK0$0$0 == 0x412e
+                           00412E  2585 _AX5043_FOURFSK0	=	0x412e
+                           00413E  2586 G$AX5043_FOURFSK1$0$0 == 0x413e
+                           00413E  2587 _AX5043_FOURFSK1	=	0x413e
+                           00414E  2588 G$AX5043_FOURFSK2$0$0 == 0x414e
+                           00414E  2589 _AX5043_FOURFSK2	=	0x414e
+                           00415E  2590 G$AX5043_FOURFSK3$0$0 == 0x415e
+                           00415E  2591 _AX5043_FOURFSK3	=	0x415e
+                           00412D  2592 G$AX5043_FREQDEV00$0$0 == 0x412d
+                           00412D  2593 _AX5043_FREQDEV00	=	0x412d
+                           00413D  2594 G$AX5043_FREQDEV01$0$0 == 0x413d
+                           00413D  2595 _AX5043_FREQDEV01	=	0x413d
+                           00414D  2596 G$AX5043_FREQDEV02$0$0 == 0x414d
+                           00414D  2597 _AX5043_FREQDEV02	=	0x414d
+                           00415D  2598 G$AX5043_FREQDEV03$0$0 == 0x415d
+                           00415D  2599 _AX5043_FREQDEV03	=	0x415d
+                           00412C  2600 G$AX5043_FREQDEV10$0$0 == 0x412c
+                           00412C  2601 _AX5043_FREQDEV10	=	0x412c
+                           00413C  2602 G$AX5043_FREQDEV11$0$0 == 0x413c
+                           00413C  2603 _AX5043_FREQDEV11	=	0x413c
+                           00414C  2604 G$AX5043_FREQDEV12$0$0 == 0x414c
+                           00414C  2605 _AX5043_FREQDEV12	=	0x414c
+                           00415C  2606 G$AX5043_FREQDEV13$0$0 == 0x415c
+                           00415C  2607 _AX5043_FREQDEV13	=	0x415c
+                           004127  2608 G$AX5043_FREQUENCYGAINA0$0$0 == 0x4127
+                           004127  2609 _AX5043_FREQUENCYGAINA0	=	0x4127
+                           004137  2610 G$AX5043_FREQUENCYGAINA1$0$0 == 0x4137
+                           004137  2611 _AX5043_FREQUENCYGAINA1	=	0x4137
+                           004147  2612 G$AX5043_FREQUENCYGAINA2$0$0 == 0x4147
+                           004147  2613 _AX5043_FREQUENCYGAINA2	=	0x4147
+                           004157  2614 G$AX5043_FREQUENCYGAINA3$0$0 == 0x4157
+                           004157  2615 _AX5043_FREQUENCYGAINA3	=	0x4157
+                           004128  2616 G$AX5043_FREQUENCYGAINB0$0$0 == 0x4128
+                           004128  2617 _AX5043_FREQUENCYGAINB0	=	0x4128
+                           004138  2618 G$AX5043_FREQUENCYGAINB1$0$0 == 0x4138
+                           004138  2619 _AX5043_FREQUENCYGAINB1	=	0x4138
+                           004148  2620 G$AX5043_FREQUENCYGAINB2$0$0 == 0x4148
+                           004148  2621 _AX5043_FREQUENCYGAINB2	=	0x4148
+                           004158  2622 G$AX5043_FREQUENCYGAINB3$0$0 == 0x4158
+                           004158  2623 _AX5043_FREQUENCYGAINB3	=	0x4158
+                           004129  2624 G$AX5043_FREQUENCYGAINC0$0$0 == 0x4129
+                           004129  2625 _AX5043_FREQUENCYGAINC0	=	0x4129
+                           004139  2626 G$AX5043_FREQUENCYGAINC1$0$0 == 0x4139
+                           004139  2627 _AX5043_FREQUENCYGAINC1	=	0x4139
+                           004149  2628 G$AX5043_FREQUENCYGAINC2$0$0 == 0x4149
+                           004149  2629 _AX5043_FREQUENCYGAINC2	=	0x4149
+                           004159  2630 G$AX5043_FREQUENCYGAINC3$0$0 == 0x4159
+                           004159  2631 _AX5043_FREQUENCYGAINC3	=	0x4159
+                           00412A  2632 G$AX5043_FREQUENCYGAIND0$0$0 == 0x412a
+                           00412A  2633 _AX5043_FREQUENCYGAIND0	=	0x412a
+                           00413A  2634 G$AX5043_FREQUENCYGAIND1$0$0 == 0x413a
+                           00413A  2635 _AX5043_FREQUENCYGAIND1	=	0x413a
+                           00414A  2636 G$AX5043_FREQUENCYGAIND2$0$0 == 0x414a
+                           00414A  2637 _AX5043_FREQUENCYGAIND2	=	0x414a
+                           00415A  2638 G$AX5043_FREQUENCYGAIND3$0$0 == 0x415a
+                           00415A  2639 _AX5043_FREQUENCYGAIND3	=	0x415a
+                           004116  2640 G$AX5043_FREQUENCYLEAK$0$0 == 0x4116
+                           004116  2641 _AX5043_FREQUENCYLEAK	=	0x4116
+                           004126  2642 G$AX5043_PHASEGAIN0$0$0 == 0x4126
+                           004126  2643 _AX5043_PHASEGAIN0	=	0x4126
+                           004136  2644 G$AX5043_PHASEGAIN1$0$0 == 0x4136
+                           004136  2645 _AX5043_PHASEGAIN1	=	0x4136
+                           004146  2646 G$AX5043_PHASEGAIN2$0$0 == 0x4146
+                           004146  2647 _AX5043_PHASEGAIN2	=	0x4146
+                           004156  2648 G$AX5043_PHASEGAIN3$0$0 == 0x4156
+                           004156  2649 _AX5043_PHASEGAIN3	=	0x4156
+                           004207  2650 G$AX5043_PKTADDR0$0$0 == 0x4207
+                           004207  2651 _AX5043_PKTADDR0	=	0x4207
+                           004206  2652 G$AX5043_PKTADDR1$0$0 == 0x4206
+                           004206  2653 _AX5043_PKTADDR1	=	0x4206
+                           004205  2654 G$AX5043_PKTADDR2$0$0 == 0x4205
+                           004205  2655 _AX5043_PKTADDR2	=	0x4205
+                           004204  2656 G$AX5043_PKTADDR3$0$0 == 0x4204
+                           004204  2657 _AX5043_PKTADDR3	=	0x4204
+                           004200  2658 G$AX5043_PKTADDRCFG$0$0 == 0x4200
+                           004200  2659 _AX5043_PKTADDRCFG	=	0x4200
+                           00420B  2660 G$AX5043_PKTADDRMASK0$0$0 == 0x420b
+                           00420B  2661 _AX5043_PKTADDRMASK0	=	0x420b
+                           00420A  2662 G$AX5043_PKTADDRMASK1$0$0 == 0x420a
+                           00420A  2663 _AX5043_PKTADDRMASK1	=	0x420a
+                           004209  2664 G$AX5043_PKTADDRMASK2$0$0 == 0x4209
+                           004209  2665 _AX5043_PKTADDRMASK2	=	0x4209
+                           004208  2666 G$AX5043_PKTADDRMASK3$0$0 == 0x4208
+                           004208  2667 _AX5043_PKTADDRMASK3	=	0x4208
+                           004201  2668 G$AX5043_PKTLENCFG$0$0 == 0x4201
+                           004201  2669 _AX5043_PKTLENCFG	=	0x4201
+                           004202  2670 G$AX5043_PKTLENOFFSET$0$0 == 0x4202
+                           004202  2671 _AX5043_PKTLENOFFSET	=	0x4202
+                           004203  2672 G$AX5043_PKTMAXLEN$0$0 == 0x4203
+                           004203  2673 _AX5043_PKTMAXLEN	=	0x4203
+                           004118  2674 G$AX5043_RXPARAMCURSET$0$0 == 0x4118
+                           004118  2675 _AX5043_RXPARAMCURSET	=	0x4118
+                           004117  2676 G$AX5043_RXPARAMSETS$0$0 == 0x4117
+                           004117  2677 _AX5043_RXPARAMSETS	=	0x4117
+                           004124  2678 G$AX5043_TIMEGAIN0$0$0 == 0x4124
+                           004124  2679 _AX5043_TIMEGAIN0	=	0x4124
+                           004134  2680 G$AX5043_TIMEGAIN1$0$0 == 0x4134
+                           004134  2681 _AX5043_TIMEGAIN1	=	0x4134
+                           004144  2682 G$AX5043_TIMEGAIN2$0$0 == 0x4144
+                           004144  2683 _AX5043_TIMEGAIN2	=	0x4144
+                           004154  2684 G$AX5043_TIMEGAIN3$0$0 == 0x4154
+                           004154  2685 _AX5043_TIMEGAIN3	=	0x4154
+                           005114  2686 G$AX5043_AFSKCTRLNB$0$0 == 0x5114
+                           005114  2687 _AX5043_AFSKCTRLNB	=	0x5114
+                           005113  2688 G$AX5043_AFSKMARK0NB$0$0 == 0x5113
+                           005113  2689 _AX5043_AFSKMARK0NB	=	0x5113
+                           005112  2690 G$AX5043_AFSKMARK1NB$0$0 == 0x5112
+                           005112  2691 _AX5043_AFSKMARK1NB	=	0x5112
+                           005111  2692 G$AX5043_AFSKSPACE0NB$0$0 == 0x5111
+                           005111  2693 _AX5043_AFSKSPACE0NB	=	0x5111
+                           005110  2694 G$AX5043_AFSKSPACE1NB$0$0 == 0x5110
+                           005110  2695 _AX5043_AFSKSPACE1NB	=	0x5110
+                           005043  2696 G$AX5043_AGCCOUNTERNB$0$0 == 0x5043
+                           005043  2697 _AX5043_AGCCOUNTERNB	=	0x5043
+                           005115  2698 G$AX5043_AMPLFILTERNB$0$0 == 0x5115
+                           005115  2699 _AX5043_AMPLFILTERNB	=	0x5115
+                           005189  2700 G$AX5043_BBOFFSCAPNB$0$0 == 0x5189
+                           005189  2701 _AX5043_BBOFFSCAPNB	=	0x5189
+                           005188  2702 G$AX5043_BBTUNENB$0$0 == 0x5188
+                           005188  2703 _AX5043_BBTUNENB	=	0x5188
+                           005041  2704 G$AX5043_BGNDRSSINB$0$0 == 0x5041
+                           005041  2705 _AX5043_BGNDRSSINB	=	0x5041
+                           00522E  2706 G$AX5043_BGNDRSSIGAINNB$0$0 == 0x522e
+                           00522E  2707 _AX5043_BGNDRSSIGAINNB	=	0x522e
+                           00522F  2708 G$AX5043_BGNDRSSITHRNB$0$0 == 0x522f
+                           00522F  2709 _AX5043_BGNDRSSITHRNB	=	0x522f
+                           005017  2710 G$AX5043_CRCINIT0NB$0$0 == 0x5017
+                           005017  2711 _AX5043_CRCINIT0NB	=	0x5017
+                           005016  2712 G$AX5043_CRCINIT1NB$0$0 == 0x5016
+                           005016  2713 _AX5043_CRCINIT1NB	=	0x5016
+                           005015  2714 G$AX5043_CRCINIT2NB$0$0 == 0x5015
+                           005015  2715 _AX5043_CRCINIT2NB	=	0x5015
+                           005014  2716 G$AX5043_CRCINIT3NB$0$0 == 0x5014
+                           005014  2717 _AX5043_CRCINIT3NB	=	0x5014
+                           005332  2718 G$AX5043_DACCONFIGNB$0$0 == 0x5332
+                           005332  2719 _AX5043_DACCONFIGNB	=	0x5332
+                           005331  2720 G$AX5043_DACVALUE0NB$0$0 == 0x5331
+                           005331  2721 _AX5043_DACVALUE0NB	=	0x5331
+                           005330  2722 G$AX5043_DACVALUE1NB$0$0 == 0x5330
+                           005330  2723 _AX5043_DACVALUE1NB	=	0x5330
+                           005102  2724 G$AX5043_DECIMATIONNB$0$0 == 0x5102
+                           005102  2725 _AX5043_DECIMATIONNB	=	0x5102
+                           005042  2726 G$AX5043_DIVERSITYNB$0$0 == 0x5042
+                           005042  2727 _AX5043_DIVERSITYNB	=	0x5042
+                           005011  2728 G$AX5043_ENCODINGNB$0$0 == 0x5011
+                           005011  2729 _AX5043_ENCODINGNB	=	0x5011
+                           005018  2730 G$AX5043_FECNB$0$0 == 0x5018
+                           005018  2731 _AX5043_FECNB	=	0x5018
+                           00501A  2732 G$AX5043_FECSTATUSNB$0$0 == 0x501a
+                           00501A  2733 _AX5043_FECSTATUSNB	=	0x501a
+                           005019  2734 G$AX5043_FECSYNCNB$0$0 == 0x5019
+                           005019  2735 _AX5043_FECSYNCNB	=	0x5019
+                           00502B  2736 G$AX5043_FIFOCOUNT0NB$0$0 == 0x502b
+                           00502B  2737 _AX5043_FIFOCOUNT0NB	=	0x502b
+                           00502A  2738 G$AX5043_FIFOCOUNT1NB$0$0 == 0x502a
+                           00502A  2739 _AX5043_FIFOCOUNT1NB	=	0x502a
+                           005029  2740 G$AX5043_FIFODATANB$0$0 == 0x5029
+                           005029  2741 _AX5043_FIFODATANB	=	0x5029
+                           00502D  2742 G$AX5043_FIFOFREE0NB$0$0 == 0x502d
+                           00502D  2743 _AX5043_FIFOFREE0NB	=	0x502d
+                           00502C  2744 G$AX5043_FIFOFREE1NB$0$0 == 0x502c
+                           00502C  2745 _AX5043_FIFOFREE1NB	=	0x502c
+                           005028  2746 G$AX5043_FIFOSTATNB$0$0 == 0x5028
+                           005028  2747 _AX5043_FIFOSTATNB	=	0x5028
+                           00502F  2748 G$AX5043_FIFOTHRESH0NB$0$0 == 0x502f
+                           00502F  2749 _AX5043_FIFOTHRESH0NB	=	0x502f
+                           00502E  2750 G$AX5043_FIFOTHRESH1NB$0$0 == 0x502e
+                           00502E  2751 _AX5043_FIFOTHRESH1NB	=	0x502e
+                           005012  2752 G$AX5043_FRAMINGNB$0$0 == 0x5012
+                           005012  2753 _AX5043_FRAMINGNB	=	0x5012
+                           005037  2754 G$AX5043_FREQA0NB$0$0 == 0x5037
+                           005037  2755 _AX5043_FREQA0NB	=	0x5037
+                           005036  2756 G$AX5043_FREQA1NB$0$0 == 0x5036
+                           005036  2757 _AX5043_FREQA1NB	=	0x5036
+                           005035  2758 G$AX5043_FREQA2NB$0$0 == 0x5035
+                           005035  2759 _AX5043_FREQA2NB	=	0x5035
+                           005034  2760 G$AX5043_FREQA3NB$0$0 == 0x5034
+                           005034  2761 _AX5043_FREQA3NB	=	0x5034
+                           00503F  2762 G$AX5043_FREQB0NB$0$0 == 0x503f
+                           00503F  2763 _AX5043_FREQB0NB	=	0x503f
+                           00503E  2764 G$AX5043_FREQB1NB$0$0 == 0x503e
+                           00503E  2765 _AX5043_FREQB1NB	=	0x503e
+                           00503D  2766 G$AX5043_FREQB2NB$0$0 == 0x503d
+                           00503D  2767 _AX5043_FREQB2NB	=	0x503d
+                           00503C  2768 G$AX5043_FREQB3NB$0$0 == 0x503c
+                           00503C  2769 _AX5043_FREQB3NB	=	0x503c
+                           005163  2770 G$AX5043_FSKDEV0NB$0$0 == 0x5163
+                           005163  2771 _AX5043_FSKDEV0NB	=	0x5163
+                           005162  2772 G$AX5043_FSKDEV1NB$0$0 == 0x5162
+                           005162  2773 _AX5043_FSKDEV1NB	=	0x5162
+                           005161  2774 G$AX5043_FSKDEV2NB$0$0 == 0x5161
+                           005161  2775 _AX5043_FSKDEV2NB	=	0x5161
+                           00510D  2776 G$AX5043_FSKDMAX0NB$0$0 == 0x510d
+                           00510D  2777 _AX5043_FSKDMAX0NB	=	0x510d
+                           00510C  2778 G$AX5043_FSKDMAX1NB$0$0 == 0x510c
+                           00510C  2779 _AX5043_FSKDMAX1NB	=	0x510c
+                           00510F  2780 G$AX5043_FSKDMIN0NB$0$0 == 0x510f
+                           00510F  2781 _AX5043_FSKDMIN0NB	=	0x510f
+                           00510E  2782 G$AX5043_FSKDMIN1NB$0$0 == 0x510e
+                           00510E  2783 _AX5043_FSKDMIN1NB	=	0x510e
+                           005309  2784 G$AX5043_GPADC13VALUE0NB$0$0 == 0x5309
+                           005309  2785 _AX5043_GPADC13VALUE0NB	=	0x5309
+                           005308  2786 G$AX5043_GPADC13VALUE1NB$0$0 == 0x5308
+                           005308  2787 _AX5043_GPADC13VALUE1NB	=	0x5308
+                           005300  2788 G$AX5043_GPADCCTRLNB$0$0 == 0x5300
+                           005300  2789 _AX5043_GPADCCTRLNB	=	0x5300
+                           005301  2790 G$AX5043_GPADCPERIODNB$0$0 == 0x5301
+                           005301  2791 _AX5043_GPADCPERIODNB	=	0x5301
+                           005101  2792 G$AX5043_IFFREQ0NB$0$0 == 0x5101
+                           005101  2793 _AX5043_IFFREQ0NB	=	0x5101
+                           005100  2794 G$AX5043_IFFREQ1NB$0$0 == 0x5100
+                           005100  2795 _AX5043_IFFREQ1NB	=	0x5100
+                           00500B  2796 G$AX5043_IRQINVERSION0NB$0$0 == 0x500b
+                           00500B  2797 _AX5043_IRQINVERSION0NB	=	0x500b
+                           00500A  2798 G$AX5043_IRQINVERSION1NB$0$0 == 0x500a
+                           00500A  2799 _AX5043_IRQINVERSION1NB	=	0x500a
+                           005007  2800 G$AX5043_IRQMASK0NB$0$0 == 0x5007
+                           005007  2801 _AX5043_IRQMASK0NB	=	0x5007
+                           005006  2802 G$AX5043_IRQMASK1NB$0$0 == 0x5006
+                           005006  2803 _AX5043_IRQMASK1NB	=	0x5006
+                           00500D  2804 G$AX5043_IRQREQUEST0NB$0$0 == 0x500d
+                           00500D  2805 _AX5043_IRQREQUEST0NB	=	0x500d
+                           00500C  2806 G$AX5043_IRQREQUEST1NB$0$0 == 0x500c
+                           00500C  2807 _AX5043_IRQREQUEST1NB	=	0x500c
+                           005310  2808 G$AX5043_LPOSCCONFIGNB$0$0 == 0x5310
+                           005310  2809 _AX5043_LPOSCCONFIGNB	=	0x5310
+                           005317  2810 G$AX5043_LPOSCFREQ0NB$0$0 == 0x5317
+                           005317  2811 _AX5043_LPOSCFREQ0NB	=	0x5317
+                           005316  2812 G$AX5043_LPOSCFREQ1NB$0$0 == 0x5316
+                           005316  2813 _AX5043_LPOSCFREQ1NB	=	0x5316
+                           005313  2814 G$AX5043_LPOSCKFILT0NB$0$0 == 0x5313
+                           005313  2815 _AX5043_LPOSCKFILT0NB	=	0x5313
+                           005312  2816 G$AX5043_LPOSCKFILT1NB$0$0 == 0x5312
+                           005312  2817 _AX5043_LPOSCKFILT1NB	=	0x5312
+                           005319  2818 G$AX5043_LPOSCPER0NB$0$0 == 0x5319
+                           005319  2819 _AX5043_LPOSCPER0NB	=	0x5319
+                           005318  2820 G$AX5043_LPOSCPER1NB$0$0 == 0x5318
+                           005318  2821 _AX5043_LPOSCPER1NB	=	0x5318
+                           005315  2822 G$AX5043_LPOSCREF0NB$0$0 == 0x5315
+                           005315  2823 _AX5043_LPOSCREF0NB	=	0x5315
+                           005314  2824 G$AX5043_LPOSCREF1NB$0$0 == 0x5314
+                           005314  2825 _AX5043_LPOSCREF1NB	=	0x5314
+                           005311  2826 G$AX5043_LPOSCSTATUSNB$0$0 == 0x5311
+                           005311  2827 _AX5043_LPOSCSTATUSNB	=	0x5311
+                           005214  2828 G$AX5043_MATCH0LENNB$0$0 == 0x5214
+                           005214  2829 _AX5043_MATCH0LENNB	=	0x5214
+                           005216  2830 G$AX5043_MATCH0MAXNB$0$0 == 0x5216
+                           005216  2831 _AX5043_MATCH0MAXNB	=	0x5216
+                           005215  2832 G$AX5043_MATCH0MINNB$0$0 == 0x5215
+                           005215  2833 _AX5043_MATCH0MINNB	=	0x5215
+                           005213  2834 G$AX5043_MATCH0PAT0NB$0$0 == 0x5213
+                           005213  2835 _AX5043_MATCH0PAT0NB	=	0x5213
+                           005212  2836 G$AX5043_MATCH0PAT1NB$0$0 == 0x5212
+                           005212  2837 _AX5043_MATCH0PAT1NB	=	0x5212
+                           005211  2838 G$AX5043_MATCH0PAT2NB$0$0 == 0x5211
+                           005211  2839 _AX5043_MATCH0PAT2NB	=	0x5211
+                           005210  2840 G$AX5043_MATCH0PAT3NB$0$0 == 0x5210
+                           005210  2841 _AX5043_MATCH0PAT3NB	=	0x5210
+                           00521C  2842 G$AX5043_MATCH1LENNB$0$0 == 0x521c
+                           00521C  2843 _AX5043_MATCH1LENNB	=	0x521c
+                           00521E  2844 G$AX5043_MATCH1MAXNB$0$0 == 0x521e
+                           00521E  2845 _AX5043_MATCH1MAXNB	=	0x521e
+                           00521D  2846 G$AX5043_MATCH1MINNB$0$0 == 0x521d
+                           00521D  2847 _AX5043_MATCH1MINNB	=	0x521d
+                           005219  2848 G$AX5043_MATCH1PAT0NB$0$0 == 0x5219
+                           005219  2849 _AX5043_MATCH1PAT0NB	=	0x5219
+                           005218  2850 G$AX5043_MATCH1PAT1NB$0$0 == 0x5218
+                           005218  2851 _AX5043_MATCH1PAT1NB	=	0x5218
+                           005108  2852 G$AX5043_MAXDROFFSET0NB$0$0 == 0x5108
+                           005108  2853 _AX5043_MAXDROFFSET0NB	=	0x5108
+                           005107  2854 G$AX5043_MAXDROFFSET1NB$0$0 == 0x5107
+                           005107  2855 _AX5043_MAXDROFFSET1NB	=	0x5107
+                           005106  2856 G$AX5043_MAXDROFFSET2NB$0$0 == 0x5106
+                           005106  2857 _AX5043_MAXDROFFSET2NB	=	0x5106
+                           00510B  2858 G$AX5043_MAXRFOFFSET0NB$0$0 == 0x510b
+                           00510B  2859 _AX5043_MAXRFOFFSET0NB	=	0x510b
+                           00510A  2860 G$AX5043_MAXRFOFFSET1NB$0$0 == 0x510a
+                           00510A  2861 _AX5043_MAXRFOFFSET1NB	=	0x510a
+                           005109  2862 G$AX5043_MAXRFOFFSET2NB$0$0 == 0x5109
+                           005109  2863 _AX5043_MAXRFOFFSET2NB	=	0x5109
+                           005164  2864 G$AX5043_MODCFGANB$0$0 == 0x5164
+                           005164  2865 _AX5043_MODCFGANB	=	0x5164
+                           005160  2866 G$AX5043_MODCFGFNB$0$0 == 0x5160
+                           005160  2867 _AX5043_MODCFGFNB	=	0x5160
+                           005F5F  2868 G$AX5043_MODCFGPNB$0$0 == 0x5f5f
+                           005F5F  2869 _AX5043_MODCFGPNB	=	0x5f5f
+                           005010  2870 G$AX5043_MODULATIONNB$0$0 == 0x5010
+                           005010  2871 _AX5043_MODULATIONNB	=	0x5010
+                           005025  2872 G$AX5043_PINFUNCANTSELNB$0$0 == 0x5025
+                           005025  2873 _AX5043_PINFUNCANTSELNB	=	0x5025
+                           005023  2874 G$AX5043_PINFUNCDATANB$0$0 == 0x5023
+                           005023  2875 _AX5043_PINFUNCDATANB	=	0x5023
+                           005022  2876 G$AX5043_PINFUNCDCLKNB$0$0 == 0x5022
+                           005022  2877 _AX5043_PINFUNCDCLKNB	=	0x5022
+                           005024  2878 G$AX5043_PINFUNCIRQNB$0$0 == 0x5024
+                           005024  2879 _AX5043_PINFUNCIRQNB	=	0x5024
+                           005026  2880 G$AX5043_PINFUNCPWRAMPNB$0$0 == 0x5026
+                           005026  2881 _AX5043_PINFUNCPWRAMPNB	=	0x5026
+                           005021  2882 G$AX5043_PINFUNCSYSCLKNB$0$0 == 0x5021
+                           005021  2883 _AX5043_PINFUNCSYSCLKNB	=	0x5021
+                           005020  2884 G$AX5043_PINSTATENB$0$0 == 0x5020
+                           005020  2885 _AX5043_PINSTATENB	=	0x5020
+                           005233  2886 G$AX5043_PKTACCEPTFLAGSNB$0$0 == 0x5233
+                           005233  2887 _AX5043_PKTACCEPTFLAGSNB	=	0x5233
+                           005230  2888 G$AX5043_PKTCHUNKSIZENB$0$0 == 0x5230
+                           005230  2889 _AX5043_PKTCHUNKSIZENB	=	0x5230
+                           005231  2890 G$AX5043_PKTMISCFLAGSNB$0$0 == 0x5231
+                           005231  2891 _AX5043_PKTMISCFLAGSNB	=	0x5231
+                           005232  2892 G$AX5043_PKTSTOREFLAGSNB$0$0 == 0x5232
+                           005232  2893 _AX5043_PKTSTOREFLAGSNB	=	0x5232
+                           005031  2894 G$AX5043_PLLCPINB$0$0 == 0x5031
+                           005031  2895 _AX5043_PLLCPINB	=	0x5031
+                           005039  2896 G$AX5043_PLLCPIBOOSTNB$0$0 == 0x5039
+                           005039  2897 _AX5043_PLLCPIBOOSTNB	=	0x5039
+                           005182  2898 G$AX5043_PLLLOCKDETNB$0$0 == 0x5182
+                           005182  2899 _AX5043_PLLLOCKDETNB	=	0x5182
+                           005030  2900 G$AX5043_PLLLOOPNB$0$0 == 0x5030
+                           005030  2901 _AX5043_PLLLOOPNB	=	0x5030
+                           005038  2902 G$AX5043_PLLLOOPBOOSTNB$0$0 == 0x5038
+                           005038  2903 _AX5043_PLLLOOPBOOSTNB	=	0x5038
+                           005033  2904 G$AX5043_PLLRANGINGANB$0$0 == 0x5033
+                           005033  2905 _AX5043_PLLRANGINGANB	=	0x5033
+                           00503B  2906 G$AX5043_PLLRANGINGBNB$0$0 == 0x503b
+                           00503B  2907 _AX5043_PLLRANGINGBNB	=	0x503b
+                           005183  2908 G$AX5043_PLLRNGCLKNB$0$0 == 0x5183
+                           005183  2909 _AX5043_PLLRNGCLKNB	=	0x5183
+                           005032  2910 G$AX5043_PLLVCODIVNB$0$0 == 0x5032
+                           005032  2911 _AX5043_PLLVCODIVNB	=	0x5032
+                           005180  2912 G$AX5043_PLLVCOINB$0$0 == 0x5180
+                           005180  2913 _AX5043_PLLVCOINB	=	0x5180
+                           005181  2914 G$AX5043_PLLVCOIRNB$0$0 == 0x5181
+                           005181  2915 _AX5043_PLLVCOIRNB	=	0x5181
+                           005F08  2916 G$AX5043_POWCTRL1NB$0$0 == 0x5f08
+                           005F08  2917 _AX5043_POWCTRL1NB	=	0x5f08
+                           005005  2918 G$AX5043_POWIRQMASKNB$0$0 == 0x5005
+                           005005  2919 _AX5043_POWIRQMASKNB	=	0x5005
+                           005003  2920 G$AX5043_POWSTATNB$0$0 == 0x5003
+                           005003  2921 _AX5043_POWSTATNB	=	0x5003
+                           005004  2922 G$AX5043_POWSTICKYSTATNB$0$0 == 0x5004
+                           005004  2923 _AX5043_POWSTICKYSTATNB	=	0x5004
+                           005027  2924 G$AX5043_PWRAMPNB$0$0 == 0x5027
+                           005027  2925 _AX5043_PWRAMPNB	=	0x5027
+                           005002  2926 G$AX5043_PWRMODENB$0$0 == 0x5002
+                           005002  2927 _AX5043_PWRMODENB	=	0x5002
+                           005009  2928 G$AX5043_RADIOEVENTMASK0NB$0$0 == 0x5009
+                           005009  2929 _AX5043_RADIOEVENTMASK0NB	=	0x5009
+                           005008  2930 G$AX5043_RADIOEVENTMASK1NB$0$0 == 0x5008
+                           005008  2931 _AX5043_RADIOEVENTMASK1NB	=	0x5008
+                           00500F  2932 G$AX5043_RADIOEVENTREQ0NB$0$0 == 0x500f
+                           00500F  2933 _AX5043_RADIOEVENTREQ0NB	=	0x500f
+                           00500E  2934 G$AX5043_RADIOEVENTREQ1NB$0$0 == 0x500e
+                           00500E  2935 _AX5043_RADIOEVENTREQ1NB	=	0x500e
+                           00501C  2936 G$AX5043_RADIOSTATENB$0$0 == 0x501c
+                           00501C  2937 _AX5043_RADIOSTATENB	=	0x501c
+                           005F0D  2938 G$AX5043_REFNB$0$0 == 0x5f0d
+                           005F0D  2939 _AX5043_REFNB	=	0x5f0d
+                           005040  2940 G$AX5043_RSSINB$0$0 == 0x5040
+                           005040  2941 _AX5043_RSSINB	=	0x5040
+                           00522D  2942 G$AX5043_RSSIABSTHRNB$0$0 == 0x522d
+                           00522D  2943 _AX5043_RSSIABSTHRNB	=	0x522d
+                           00522C  2944 G$AX5043_RSSIREFERENCENB$0$0 == 0x522c
+                           00522C  2945 _AX5043_RSSIREFERENCENB	=	0x522c
+                           005105  2946 G$AX5043_RXDATARATE0NB$0$0 == 0x5105
+                           005105  2947 _AX5043_RXDATARATE0NB	=	0x5105
+                           005104  2948 G$AX5043_RXDATARATE1NB$0$0 == 0x5104
+                           005104  2949 _AX5043_RXDATARATE1NB	=	0x5104
+                           005103  2950 G$AX5043_RXDATARATE2NB$0$0 == 0x5103
+                           005103  2951 _AX5043_RXDATARATE2NB	=	0x5103
+                           005001  2952 G$AX5043_SCRATCHNB$0$0 == 0x5001
+                           005001  2953 _AX5043_SCRATCHNB	=	0x5001
+                           005000  2954 G$AX5043_SILICONREVISIONNB$0$0 == 0x5000
+                           005000  2955 _AX5043_SILICONREVISIONNB	=	0x5000
+                           00505B  2956 G$AX5043_TIMER0NB$0$0 == 0x505b
+                           00505B  2957 _AX5043_TIMER0NB	=	0x505b
+                           00505A  2958 G$AX5043_TIMER1NB$0$0 == 0x505a
+                           00505A  2959 _AX5043_TIMER1NB	=	0x505a
+                           005059  2960 G$AX5043_TIMER2NB$0$0 == 0x5059
+                           005059  2961 _AX5043_TIMER2NB	=	0x5059
+                           005227  2962 G$AX5043_TMGRXAGCNB$0$0 == 0x5227
+                           005227  2963 _AX5043_TMGRXAGCNB	=	0x5227
+                           005223  2964 G$AX5043_TMGRXBOOSTNB$0$0 == 0x5223
+                           005223  2965 _AX5043_TMGRXBOOSTNB	=	0x5223
+                           005226  2966 G$AX5043_TMGRXCOARSEAGCNB$0$0 == 0x5226
+                           005226  2967 _AX5043_TMGRXCOARSEAGCNB	=	0x5226
+                           005225  2968 G$AX5043_TMGRXOFFSACQNB$0$0 == 0x5225
+                           005225  2969 _AX5043_TMGRXOFFSACQNB	=	0x5225
+                           005229  2970 G$AX5043_TMGRXPREAMBLE1NB$0$0 == 0x5229
+                           005229  2971 _AX5043_TMGRXPREAMBLE1NB	=	0x5229
+                           00522A  2972 G$AX5043_TMGRXPREAMBLE2NB$0$0 == 0x522a
+                           00522A  2973 _AX5043_TMGRXPREAMBLE2NB	=	0x522a
+                           00522B  2974 G$AX5043_TMGRXPREAMBLE3NB$0$0 == 0x522b
+                           00522B  2975 _AX5043_TMGRXPREAMBLE3NB	=	0x522b
+                           005228  2976 G$AX5043_TMGRXRSSINB$0$0 == 0x5228
+                           005228  2977 _AX5043_TMGRXRSSINB	=	0x5228
+                           005224  2978 G$AX5043_TMGRXSETTLENB$0$0 == 0x5224
+                           005224  2979 _AX5043_TMGRXSETTLENB	=	0x5224
+                           005220  2980 G$AX5043_TMGTXBOOSTNB$0$0 == 0x5220
+                           005220  2981 _AX5043_TMGTXBOOSTNB	=	0x5220
+                           005221  2982 G$AX5043_TMGTXSETTLENB$0$0 == 0x5221
+                           005221  2983 _AX5043_TMGTXSETTLENB	=	0x5221
+                           005055  2984 G$AX5043_TRKAFSKDEMOD0NB$0$0 == 0x5055
+                           005055  2985 _AX5043_TRKAFSKDEMOD0NB	=	0x5055
+                           005054  2986 G$AX5043_TRKAFSKDEMOD1NB$0$0 == 0x5054
+                           005054  2987 _AX5043_TRKAFSKDEMOD1NB	=	0x5054
+                           005049  2988 G$AX5043_TRKAMPLITUDE0NB$0$0 == 0x5049
+                           005049  2989 _AX5043_TRKAMPLITUDE0NB	=	0x5049
+                           005048  2990 G$AX5043_TRKAMPLITUDE1NB$0$0 == 0x5048
+                           005048  2991 _AX5043_TRKAMPLITUDE1NB	=	0x5048
+                           005047  2992 G$AX5043_TRKDATARATE0NB$0$0 == 0x5047
+                           005047  2993 _AX5043_TRKDATARATE0NB	=	0x5047
+                           005046  2994 G$AX5043_TRKDATARATE1NB$0$0 == 0x5046
+                           005046  2995 _AX5043_TRKDATARATE1NB	=	0x5046
+                           005045  2996 G$AX5043_TRKDATARATE2NB$0$0 == 0x5045
+                           005045  2997 _AX5043_TRKDATARATE2NB	=	0x5045
+                           005051  2998 G$AX5043_TRKFREQ0NB$0$0 == 0x5051
+                           005051  2999 _AX5043_TRKFREQ0NB	=	0x5051
+                           005050  3000 G$AX5043_TRKFREQ1NB$0$0 == 0x5050
+                           005050  3001 _AX5043_TRKFREQ1NB	=	0x5050
+                           005053  3002 G$AX5043_TRKFSKDEMOD0NB$0$0 == 0x5053
+                           005053  3003 _AX5043_TRKFSKDEMOD0NB	=	0x5053
+                           005052  3004 G$AX5043_TRKFSKDEMOD1NB$0$0 == 0x5052
+                           005052  3005 _AX5043_TRKFSKDEMOD1NB	=	0x5052
+                           00504B  3006 G$AX5043_TRKPHASE0NB$0$0 == 0x504b
+                           00504B  3007 _AX5043_TRKPHASE0NB	=	0x504b
+                           00504A  3008 G$AX5043_TRKPHASE1NB$0$0 == 0x504a
+                           00504A  3009 _AX5043_TRKPHASE1NB	=	0x504a
+                           00504F  3010 G$AX5043_TRKRFFREQ0NB$0$0 == 0x504f
+                           00504F  3011 _AX5043_TRKRFFREQ0NB	=	0x504f
+                           00504E  3012 G$AX5043_TRKRFFREQ1NB$0$0 == 0x504e
+                           00504E  3013 _AX5043_TRKRFFREQ1NB	=	0x504e
+                           00504D  3014 G$AX5043_TRKRFFREQ2NB$0$0 == 0x504d
+                           00504D  3015 _AX5043_TRKRFFREQ2NB	=	0x504d
+                           005169  3016 G$AX5043_TXPWRCOEFFA0NB$0$0 == 0x5169
+                           005169  3017 _AX5043_TXPWRCOEFFA0NB	=	0x5169
+                           005168  3018 G$AX5043_TXPWRCOEFFA1NB$0$0 == 0x5168
+                           005168  3019 _AX5043_TXPWRCOEFFA1NB	=	0x5168
+                           00516B  3020 G$AX5043_TXPWRCOEFFB0NB$0$0 == 0x516b
+                           00516B  3021 _AX5043_TXPWRCOEFFB0NB	=	0x516b
+                           00516A  3022 G$AX5043_TXPWRCOEFFB1NB$0$0 == 0x516a
+                           00516A  3023 _AX5043_TXPWRCOEFFB1NB	=	0x516a
+                           00516D  3024 G$AX5043_TXPWRCOEFFC0NB$0$0 == 0x516d
+                           00516D  3025 _AX5043_TXPWRCOEFFC0NB	=	0x516d
+                           00516C  3026 G$AX5043_TXPWRCOEFFC1NB$0$0 == 0x516c
+                           00516C  3027 _AX5043_TXPWRCOEFFC1NB	=	0x516c
+                           00516F  3028 G$AX5043_TXPWRCOEFFD0NB$0$0 == 0x516f
+                           00516F  3029 _AX5043_TXPWRCOEFFD0NB	=	0x516f
+                           00516E  3030 G$AX5043_TXPWRCOEFFD1NB$0$0 == 0x516e
+                           00516E  3031 _AX5043_TXPWRCOEFFD1NB	=	0x516e
+                           005171  3032 G$AX5043_TXPWRCOEFFE0NB$0$0 == 0x5171
+                           005171  3033 _AX5043_TXPWRCOEFFE0NB	=	0x5171
+                           005170  3034 G$AX5043_TXPWRCOEFFE1NB$0$0 == 0x5170
+                           005170  3035 _AX5043_TXPWRCOEFFE1NB	=	0x5170
+                           005167  3036 G$AX5043_TXRATE0NB$0$0 == 0x5167
+                           005167  3037 _AX5043_TXRATE0NB	=	0x5167
+                           005166  3038 G$AX5043_TXRATE1NB$0$0 == 0x5166
+                           005166  3039 _AX5043_TXRATE1NB	=	0x5166
+                           005165  3040 G$AX5043_TXRATE2NB$0$0 == 0x5165
+                           005165  3041 _AX5043_TXRATE2NB	=	0x5165
+                           00506B  3042 G$AX5043_WAKEUP0NB$0$0 == 0x506b
+                           00506B  3043 _AX5043_WAKEUP0NB	=	0x506b
+                           00506A  3044 G$AX5043_WAKEUP1NB$0$0 == 0x506a
+                           00506A  3045 _AX5043_WAKEUP1NB	=	0x506a
+                           00506D  3046 G$AX5043_WAKEUPFREQ0NB$0$0 == 0x506d
+                           00506D  3047 _AX5043_WAKEUPFREQ0NB	=	0x506d
+                           00506C  3048 G$AX5043_WAKEUPFREQ1NB$0$0 == 0x506c
+                           00506C  3049 _AX5043_WAKEUPFREQ1NB	=	0x506c
+                           005069  3050 G$AX5043_WAKEUPTIMER0NB$0$0 == 0x5069
+                           005069  3051 _AX5043_WAKEUPTIMER0NB	=	0x5069
+                           005068  3052 G$AX5043_WAKEUPTIMER1NB$0$0 == 0x5068
+                           005068  3053 _AX5043_WAKEUPTIMER1NB	=	0x5068
+                           00506E  3054 G$AX5043_WAKEUPXOEARLYNB$0$0 == 0x506e
+                           00506E  3055 _AX5043_WAKEUPXOEARLYNB	=	0x506e
+                           005F11  3056 G$AX5043_XTALAMPLNB$0$0 == 0x5f11
+                           005F11  3057 _AX5043_XTALAMPLNB	=	0x5f11
+                           005184  3058 G$AX5043_XTALCAPNB$0$0 == 0x5184
+                           005184  3059 _AX5043_XTALCAPNB	=	0x5184
+                           005F10  3060 G$AX5043_XTALOSCNB$0$0 == 0x5f10
+                           005F10  3061 _AX5043_XTALOSCNB	=	0x5f10
+                           00501D  3062 G$AX5043_XTALSTATUSNB$0$0 == 0x501d
+                           00501D  3063 _AX5043_XTALSTATUSNB	=	0x501d
+                           005F00  3064 G$AX5043_0xF00NB$0$0 == 0x5f00
+                           005F00  3065 _AX5043_0xF00NB	=	0x5f00
+                           005F0C  3066 G$AX5043_0xF0CNB$0$0 == 0x5f0c
+                           005F0C  3067 _AX5043_0xF0CNB	=	0x5f0c
+                           005F18  3068 G$AX5043_0xF18NB$0$0 == 0x5f18
+                           005F18  3069 _AX5043_0xF18NB	=	0x5f18
+                           005F1C  3070 G$AX5043_0xF1CNB$0$0 == 0x5f1c
+                           005F1C  3071 _AX5043_0xF1CNB	=	0x5f1c
+                           005F21  3072 G$AX5043_0xF21NB$0$0 == 0x5f21
+                           005F21  3073 _AX5043_0xF21NB	=	0x5f21
+                           005F22  3074 G$AX5043_0xF22NB$0$0 == 0x5f22
+                           005F22  3075 _AX5043_0xF22NB	=	0x5f22
+                           005F23  3076 G$AX5043_0xF23NB$0$0 == 0x5f23
+                           005F23  3077 _AX5043_0xF23NB	=	0x5f23
+                           005F26  3078 G$AX5043_0xF26NB$0$0 == 0x5f26
+                           005F26  3079 _AX5043_0xF26NB	=	0x5f26
+                           005F30  3080 G$AX5043_0xF30NB$0$0 == 0x5f30
+                           005F30  3081 _AX5043_0xF30NB	=	0x5f30
+                           005F31  3082 G$AX5043_0xF31NB$0$0 == 0x5f31
+                           005F31  3083 _AX5043_0xF31NB	=	0x5f31
+                           005F32  3084 G$AX5043_0xF32NB$0$0 == 0x5f32
+                           005F32  3085 _AX5043_0xF32NB	=	0x5f32
+                           005F33  3086 G$AX5043_0xF33NB$0$0 == 0x5f33
+                           005F33  3087 _AX5043_0xF33NB	=	0x5f33
+                           005F34  3088 G$AX5043_0xF34NB$0$0 == 0x5f34
+                           005F34  3089 _AX5043_0xF34NB	=	0x5f34
+                           005F35  3090 G$AX5043_0xF35NB$0$0 == 0x5f35
+                           005F35  3091 _AX5043_0xF35NB	=	0x5f35
+                           005F44  3092 G$AX5043_0xF44NB$0$0 == 0x5f44
+                           005F44  3093 _AX5043_0xF44NB	=	0x5f44
+                           005122  3094 G$AX5043_AGCAHYST0NB$0$0 == 0x5122
+                           005122  3095 _AX5043_AGCAHYST0NB	=	0x5122
+                           005132  3096 G$AX5043_AGCAHYST1NB$0$0 == 0x5132
+                           005132  3097 _AX5043_AGCAHYST1NB	=	0x5132
+                           005142  3098 G$AX5043_AGCAHYST2NB$0$0 == 0x5142
+                           005142  3099 _AX5043_AGCAHYST2NB	=	0x5142
+                           005152  3100 G$AX5043_AGCAHYST3NB$0$0 == 0x5152
+                           005152  3101 _AX5043_AGCAHYST3NB	=	0x5152
+                           005120  3102 G$AX5043_AGCGAIN0NB$0$0 == 0x5120
+                           005120  3103 _AX5043_AGCGAIN0NB	=	0x5120
+                           005130  3104 G$AX5043_AGCGAIN1NB$0$0 == 0x5130
+                           005130  3105 _AX5043_AGCGAIN1NB	=	0x5130
+                           005140  3106 G$AX5043_AGCGAIN2NB$0$0 == 0x5140
+                           005140  3107 _AX5043_AGCGAIN2NB	=	0x5140
+                           005150  3108 G$AX5043_AGCGAIN3NB$0$0 == 0x5150
+                           005150  3109 _AX5043_AGCGAIN3NB	=	0x5150
+                           005123  3110 G$AX5043_AGCMINMAX0NB$0$0 == 0x5123
+                           005123  3111 _AX5043_AGCMINMAX0NB	=	0x5123
+                           005133  3112 G$AX5043_AGCMINMAX1NB$0$0 == 0x5133
+                           005133  3113 _AX5043_AGCMINMAX1NB	=	0x5133
+                           005143  3114 G$AX5043_AGCMINMAX2NB$0$0 == 0x5143
+                           005143  3115 _AX5043_AGCMINMAX2NB	=	0x5143
+                           005153  3116 G$AX5043_AGCMINMAX3NB$0$0 == 0x5153
+                           005153  3117 _AX5043_AGCMINMAX3NB	=	0x5153
+                           005121  3118 G$AX5043_AGCTARGET0NB$0$0 == 0x5121
+                           005121  3119 _AX5043_AGCTARGET0NB	=	0x5121
+                           005131  3120 G$AX5043_AGCTARGET1NB$0$0 == 0x5131
+                           005131  3121 _AX5043_AGCTARGET1NB	=	0x5131
+                           005141  3122 G$AX5043_AGCTARGET2NB$0$0 == 0x5141
+                           005141  3123 _AX5043_AGCTARGET2NB	=	0x5141
+                           005151  3124 G$AX5043_AGCTARGET3NB$0$0 == 0x5151
+                           005151  3125 _AX5043_AGCTARGET3NB	=	0x5151
+                           00512B  3126 G$AX5043_AMPLITUDEGAIN0NB$0$0 == 0x512b
+                           00512B  3127 _AX5043_AMPLITUDEGAIN0NB	=	0x512b
+                           00513B  3128 G$AX5043_AMPLITUDEGAIN1NB$0$0 == 0x513b
+                           00513B  3129 _AX5043_AMPLITUDEGAIN1NB	=	0x513b
+                           00514B  3130 G$AX5043_AMPLITUDEGAIN2NB$0$0 == 0x514b
+                           00514B  3131 _AX5043_AMPLITUDEGAIN2NB	=	0x514b
+                           00515B  3132 G$AX5043_AMPLITUDEGAIN3NB$0$0 == 0x515b
+                           00515B  3133 _AX5043_AMPLITUDEGAIN3NB	=	0x515b
+                           00512F  3134 G$AX5043_BBOFFSRES0NB$0$0 == 0x512f
+                           00512F  3135 _AX5043_BBOFFSRES0NB	=	0x512f
+                           00513F  3136 G$AX5043_BBOFFSRES1NB$0$0 == 0x513f
+                           00513F  3137 _AX5043_BBOFFSRES1NB	=	0x513f
+                           00514F  3138 G$AX5043_BBOFFSRES2NB$0$0 == 0x514f
+                           00514F  3139 _AX5043_BBOFFSRES2NB	=	0x514f
+                           00515F  3140 G$AX5043_BBOFFSRES3NB$0$0 == 0x515f
+                           00515F  3141 _AX5043_BBOFFSRES3NB	=	0x515f
+                           005125  3142 G$AX5043_DRGAIN0NB$0$0 == 0x5125
+                           005125  3143 _AX5043_DRGAIN0NB	=	0x5125
+                           005135  3144 G$AX5043_DRGAIN1NB$0$0 == 0x5135
+                           005135  3145 _AX5043_DRGAIN1NB	=	0x5135
+                           005145  3146 G$AX5043_DRGAIN2NB$0$0 == 0x5145
+                           005145  3147 _AX5043_DRGAIN2NB	=	0x5145
+                           005155  3148 G$AX5043_DRGAIN3NB$0$0 == 0x5155
+                           005155  3149 _AX5043_DRGAIN3NB	=	0x5155
+                           00512E  3150 G$AX5043_FOURFSK0NB$0$0 == 0x512e
+                           00512E  3151 _AX5043_FOURFSK0NB	=	0x512e
+                           00513E  3152 G$AX5043_FOURFSK1NB$0$0 == 0x513e
+                           00513E  3153 _AX5043_FOURFSK1NB	=	0x513e
+                           00514E  3154 G$AX5043_FOURFSK2NB$0$0 == 0x514e
+                           00514E  3155 _AX5043_FOURFSK2NB	=	0x514e
+                           00515E  3156 G$AX5043_FOURFSK3NB$0$0 == 0x515e
+                           00515E  3157 _AX5043_FOURFSK3NB	=	0x515e
+                           00512D  3158 G$AX5043_FREQDEV00NB$0$0 == 0x512d
+                           00512D  3159 _AX5043_FREQDEV00NB	=	0x512d
+                           00513D  3160 G$AX5043_FREQDEV01NB$0$0 == 0x513d
+                           00513D  3161 _AX5043_FREQDEV01NB	=	0x513d
+                           00514D  3162 G$AX5043_FREQDEV02NB$0$0 == 0x514d
+                           00514D  3163 _AX5043_FREQDEV02NB	=	0x514d
+                           00515D  3164 G$AX5043_FREQDEV03NB$0$0 == 0x515d
+                           00515D  3165 _AX5043_FREQDEV03NB	=	0x515d
+                           00512C  3166 G$AX5043_FREQDEV10NB$0$0 == 0x512c
+                           00512C  3167 _AX5043_FREQDEV10NB	=	0x512c
+                           00513C  3168 G$AX5043_FREQDEV11NB$0$0 == 0x513c
+                           00513C  3169 _AX5043_FREQDEV11NB	=	0x513c
+                           00514C  3170 G$AX5043_FREQDEV12NB$0$0 == 0x514c
+                           00514C  3171 _AX5043_FREQDEV12NB	=	0x514c
+                           00515C  3172 G$AX5043_FREQDEV13NB$0$0 == 0x515c
+                           00515C  3173 _AX5043_FREQDEV13NB	=	0x515c
+                           005127  3174 G$AX5043_FREQUENCYGAINA0NB$0$0 == 0x5127
+                           005127  3175 _AX5043_FREQUENCYGAINA0NB	=	0x5127
+                           005137  3176 G$AX5043_FREQUENCYGAINA1NB$0$0 == 0x5137
+                           005137  3177 _AX5043_FREQUENCYGAINA1NB	=	0x5137
+                           005147  3178 G$AX5043_FREQUENCYGAINA2NB$0$0 == 0x5147
+                           005147  3179 _AX5043_FREQUENCYGAINA2NB	=	0x5147
+                           005157  3180 G$AX5043_FREQUENCYGAINA3NB$0$0 == 0x5157
+                           005157  3181 _AX5043_FREQUENCYGAINA3NB	=	0x5157
+                           005128  3182 G$AX5043_FREQUENCYGAINB0NB$0$0 == 0x5128
+                           005128  3183 _AX5043_FREQUENCYGAINB0NB	=	0x5128
+                           005138  3184 G$AX5043_FREQUENCYGAINB1NB$0$0 == 0x5138
+                           005138  3185 _AX5043_FREQUENCYGAINB1NB	=	0x5138
+                           005148  3186 G$AX5043_FREQUENCYGAINB2NB$0$0 == 0x5148
+                           005148  3187 _AX5043_FREQUENCYGAINB2NB	=	0x5148
+                           005158  3188 G$AX5043_FREQUENCYGAINB3NB$0$0 == 0x5158
+                           005158  3189 _AX5043_FREQUENCYGAINB3NB	=	0x5158
+                           005129  3190 G$AX5043_FREQUENCYGAINC0NB$0$0 == 0x5129
+                           005129  3191 _AX5043_FREQUENCYGAINC0NB	=	0x5129
+                           005139  3192 G$AX5043_FREQUENCYGAINC1NB$0$0 == 0x5139
+                           005139  3193 _AX5043_FREQUENCYGAINC1NB	=	0x5139
+                           005149  3194 G$AX5043_FREQUENCYGAINC2NB$0$0 == 0x5149
+                           005149  3195 _AX5043_FREQUENCYGAINC2NB	=	0x5149
+                           005159  3196 G$AX5043_FREQUENCYGAINC3NB$0$0 == 0x5159
+                           005159  3197 _AX5043_FREQUENCYGAINC3NB	=	0x5159
+                           00512A  3198 G$AX5043_FREQUENCYGAIND0NB$0$0 == 0x512a
+                           00512A  3199 _AX5043_FREQUENCYGAIND0NB	=	0x512a
+                           00513A  3200 G$AX5043_FREQUENCYGAIND1NB$0$0 == 0x513a
+                           00513A  3201 _AX5043_FREQUENCYGAIND1NB	=	0x513a
+                           00514A  3202 G$AX5043_FREQUENCYGAIND2NB$0$0 == 0x514a
+                           00514A  3203 _AX5043_FREQUENCYGAIND2NB	=	0x514a
+                           00515A  3204 G$AX5043_FREQUENCYGAIND3NB$0$0 == 0x515a
+                           00515A  3205 _AX5043_FREQUENCYGAIND3NB	=	0x515a
+                           005116  3206 G$AX5043_FREQUENCYLEAKNB$0$0 == 0x5116
+                           005116  3207 _AX5043_FREQUENCYLEAKNB	=	0x5116
+                           005126  3208 G$AX5043_PHASEGAIN0NB$0$0 == 0x5126
+                           005126  3209 _AX5043_PHASEGAIN0NB	=	0x5126
+                           005136  3210 G$AX5043_PHASEGAIN1NB$0$0 == 0x5136
+                           005136  3211 _AX5043_PHASEGAIN1NB	=	0x5136
+                           005146  3212 G$AX5043_PHASEGAIN2NB$0$0 == 0x5146
+                           005146  3213 _AX5043_PHASEGAIN2NB	=	0x5146
+                           005156  3214 G$AX5043_PHASEGAIN3NB$0$0 == 0x5156
+                           005156  3215 _AX5043_PHASEGAIN3NB	=	0x5156
+                           005207  3216 G$AX5043_PKTADDR0NB$0$0 == 0x5207
+                           005207  3217 _AX5043_PKTADDR0NB	=	0x5207
+                           005206  3218 G$AX5043_PKTADDR1NB$0$0 == 0x5206
+                           005206  3219 _AX5043_PKTADDR1NB	=	0x5206
+                           005205  3220 G$AX5043_PKTADDR2NB$0$0 == 0x5205
+                           005205  3221 _AX5043_PKTADDR2NB	=	0x5205
+                           005204  3222 G$AX5043_PKTADDR3NB$0$0 == 0x5204
+                           005204  3223 _AX5043_PKTADDR3NB	=	0x5204
+                           005200  3224 G$AX5043_PKTADDRCFGNB$0$0 == 0x5200
+                           005200  3225 _AX5043_PKTADDRCFGNB	=	0x5200
+                           00520B  3226 G$AX5043_PKTADDRMASK0NB$0$0 == 0x520b
+                           00520B  3227 _AX5043_PKTADDRMASK0NB	=	0x520b
+                           00520A  3228 G$AX5043_PKTADDRMASK1NB$0$0 == 0x520a
+                           00520A  3229 _AX5043_PKTADDRMASK1NB	=	0x520a
+                           005209  3230 G$AX5043_PKTADDRMASK2NB$0$0 == 0x5209
+                           005209  3231 _AX5043_PKTADDRMASK2NB	=	0x5209
+                           005208  3232 G$AX5043_PKTADDRMASK3NB$0$0 == 0x5208
+                           005208  3233 _AX5043_PKTADDRMASK3NB	=	0x5208
+                           005201  3234 G$AX5043_PKTLENCFGNB$0$0 == 0x5201
+                           005201  3235 _AX5043_PKTLENCFGNB	=	0x5201
+                           005202  3236 G$AX5043_PKTLENOFFSETNB$0$0 == 0x5202
+                           005202  3237 _AX5043_PKTLENOFFSETNB	=	0x5202
+                           005203  3238 G$AX5043_PKTMAXLENNB$0$0 == 0x5203
+                           005203  3239 _AX5043_PKTMAXLENNB	=	0x5203
+                           005118  3240 G$AX5043_RXPARAMCURSETNB$0$0 == 0x5118
+                           005118  3241 _AX5043_RXPARAMCURSETNB	=	0x5118
+                           005117  3242 G$AX5043_RXPARAMSETSNB$0$0 == 0x5117
+                           005117  3243 _AX5043_RXPARAMSETSNB	=	0x5117
+                           005124  3244 G$AX5043_TIMEGAIN0NB$0$0 == 0x5124
+                           005124  3245 _AX5043_TIMEGAIN0NB	=	0x5124
+                           005134  3246 G$AX5043_TIMEGAIN1NB$0$0 == 0x5134
+                           005134  3247 _AX5043_TIMEGAIN1NB	=	0x5134
+                           005144  3248 G$AX5043_TIMEGAIN2NB$0$0 == 0x5144
+                           005144  3249 _AX5043_TIMEGAIN2NB	=	0x5144
+                           005154  3250 G$AX5043_TIMEGAIN3NB$0$0 == 0x5154
+                           005154  3251 _AX5043_TIMEGAIN3NB	=	0x5154
+                           004F00  3252 G$AX5043_0xF00$0$0 == 0x4f00
+                           004F00  3253 _AX5043_0xF00	=	0x4f00
+                           004F0C  3254 G$AX5043_0xF0C$0$0 == 0x4f0c
+                           004F0C  3255 _AX5043_0xF0C	=	0x4f0c
+                           004F10  3256 G$AX5043_0xF10$0$0 == 0x4f10
+                           004F10  3257 _AX5043_0xF10	=	0x4f10
+                           004F11  3258 G$AX5043_0xF11$0$0 == 0x4f11
+                           004F11  3259 _AX5043_0xF11	=	0x4f11
+                           004F18  3260 G$AX5043_0xF18$0$0 == 0x4f18
+                           004F18  3261 _AX5043_0xF18	=	0x4f18
+                           004F1C  3262 G$AX5043_0xF1C$0$0 == 0x4f1c
+                           004F1C  3263 _AX5043_0xF1C	=	0x4f1c
+                           004F21  3264 G$AX5043_0xF21$0$0 == 0x4f21
+                           004F21  3265 _AX5043_0xF21	=	0x4f21
+                           004F22  3266 G$AX5043_0xF22$0$0 == 0x4f22
+                           004F22  3267 _AX5043_0xF22	=	0x4f22
+                           004F23  3268 G$AX5043_0xF23$0$0 == 0x4f23
+                           004F23  3269 _AX5043_0xF23	=	0x4f23
+                           004F26  3270 G$AX5043_0xF26$0$0 == 0x4f26
+                           004F26  3271 _AX5043_0xF26	=	0x4f26
+                           004F30  3272 G$AX5043_0xF30$0$0 == 0x4f30
+                           004F30  3273 _AX5043_0xF30	=	0x4f30
+                           004F31  3274 G$AX5043_0xF31$0$0 == 0x4f31
+                           004F31  3275 _AX5043_0xF31	=	0x4f31
+                           004F32  3276 G$AX5043_0xF32$0$0 == 0x4f32
+                           004F32  3277 _AX5043_0xF32	=	0x4f32
+                           004F33  3278 G$AX5043_0xF33$0$0 == 0x4f33
+                           004F33  3279 _AX5043_0xF33	=	0x4f33
+                           004F34  3280 G$AX5043_0xF34$0$0 == 0x4f34
+                           004F34  3281 _AX5043_0xF34	=	0x4f34
+                           004F35  3282 G$AX5043_0xF35$0$0 == 0x4f35
+                           004F35  3283 _AX5043_0xF35	=	0x4f35
+                           004F44  3284 G$AX5043_0xF44$0$0 == 0x4f44
+                           004F44  3285 _AX5043_0xF44	=	0x4f44
+                           004F0D  3286 G$AX5043_REF$0$0 == 0x4f0d
+                           004F0D  3287 _AX5043_REF	=	0x4f0d
+                           004F08  3288 G$AX5043_POWCTRL1$0$0 == 0x4f08
+                           004F08  3289 _AX5043_POWCTRL1	=	0x4f08
+                           004F5F  3290 G$AX5043_MODCFGP$0$0 == 0x4f5f
+                           004F5F  3291 _AX5043_MODCFGP	=	0x4f5f
+                           004F10  3292 G$AX5043_XTALOSC$0$0 == 0x4f10
+                           004F10  3293 _AX5043_XTALOSC	=	0x4f10
+                           004F11  3294 G$AX5043_XTALAMPL$0$0 == 0x4f11
+                           004F11  3295 _AX5043_XTALAMPL	=	0x4f11
+                           000000  3296 G$axradio_phy_chanpllrng$0$0==.
+      000001                       3297 _axradio_phy_chanpllrng::
+      000001                       3298 	.ds 1
+                           000001  3299 G$axradio_phy_chanvcoi$0$0==.
+      000002                       3300 _axradio_phy_chanvcoi::
+      000002                       3301 	.ds 1
+                                   3302 ;--------------------------------------------------------
+                                   3303 ; absolute external ram data
+                                   3304 ;--------------------------------------------------------
+                                   3305 	.area XABS    (ABS,XDATA)
+                                   3306 ;--------------------------------------------------------
+                                   3307 ; external initialized ram data
+                                   3308 ;--------------------------------------------------------
+                                   3309 	.area XISEG   (XDATA)
+                                   3310 	.area HOME    (CODE)
+                                   3311 	.area GSINIT0 (CODE)
+                                   3312 	.area GSINIT1 (CODE)
+                                   3313 	.area GSINIT2 (CODE)
+                                   3314 	.area GSINIT3 (CODE)
+                                   3315 	.area GSINIT4 (CODE)
+                                   3316 	.area GSINIT5 (CODE)
+                                   3317 	.area GSINIT  (CODE)
+                                   3318 	.area GSFINAL (CODE)
+                                   3319 	.area CSEG    (CODE)
+                                   3320 ;--------------------------------------------------------
+                                   3321 ; global & static initialisations
+                                   3322 ;--------------------------------------------------------
+                                   3323 	.area HOME    (CODE)
+                                   3324 	.area GSINIT  (CODE)
+                                   3325 	.area GSFINAL (CODE)
+                                   3326 	.area GSINIT  (CODE)
+                                   3327 ;--------------------------------------------------------
+                                   3328 ; Home
+                                   3329 ;--------------------------------------------------------
+                                   3330 	.area HOME    (CODE)
+                                   3331 	.area HOME    (CODE)
+                                   3332 ;--------------------------------------------------------
+                                   3333 ; code
+                                   3334 ;--------------------------------------------------------
+                                   3335 	.area CSEG    (CODE)
+                                   3336 ;------------------------------------------------------------
+                                   3337 ;Allocation info for local variables in function 'ax5043_set_registers'
+                                   3338 ;------------------------------------------------------------
+                           000000  3339 	G$ax5043_set_registers$0$0 ==.
+                           000000  3340 	C$config.c$11$0$0 ==.
+                                   3341 ;	..\AX_Radio_Lab_output\config.c:11: __reentrantb void ax5043_set_registers(void) __reentrant
+                                   3342 ;	-----------------------------------------
+                                   3343 ;	 function ax5043_set_registers
+                                   3344 ;	-----------------------------------------
+      000361                       3345 _ax5043_set_registers:
+                           000007  3346 	ar7 = 0x07
+                           000006  3347 	ar6 = 0x06
+                           000005  3348 	ar5 = 0x05
+                           000004  3349 	ar4 = 0x04
+                           000003  3350 	ar3 = 0x03
+                           000002  3351 	ar2 = 0x02
+                           000001  3352 	ar1 = 0x01
+                           000000  3353 	ar0 = 0x00
+                           000000  3354 	C$config.c$13$1$103 ==.
+                                   3355 ;	..\AX_Radio_Lab_output\config.c:13: AX5043_MODULATION              = 0x08;
+      000361 90 40 10         [24] 3356 	mov	dptr,#_AX5043_MODULATION
+      000364 74 08            [12] 3357 	mov	a,#0x08
+      000366 F0               [24] 3358 	movx	@dptr,a
+                           000006  3359 	C$config.c$14$1$103 ==.
+                                   3360 ;	..\AX_Radio_Lab_output\config.c:14: AX5043_ENCODING                = 0x00;
+      000367 90 40 11         [24] 3361 	mov	dptr,#_AX5043_ENCODING
+      00036A E4               [12] 3362 	clr	a
+      00036B F0               [24] 3363 	movx	@dptr,a
+                           00000B  3364 	C$config.c$15$1$103 ==.
+                                   3365 ;	..\AX_Radio_Lab_output\config.c:15: AX5043_FRAMING                 = 0x26;
+      00036C 90 40 12         [24] 3366 	mov	dptr,#_AX5043_FRAMING
+      00036F 74 26            [12] 3367 	mov	a,#0x26
+      000371 F0               [24] 3368 	movx	@dptr,a
+                           000011  3369 	C$config.c$16$1$103 ==.
+                                   3370 ;	..\AX_Radio_Lab_output\config.c:16: AX5043_PINFUNCSYSCLK           = 0x01;
+      000372 90 40 21         [24] 3371 	mov	dptr,#_AX5043_PINFUNCSYSCLK
+      000375 74 01            [12] 3372 	mov	a,#0x01
+      000377 F0               [24] 3373 	movx	@dptr,a
+                           000017  3374 	C$config.c$17$1$103 ==.
+                                   3375 ;	..\AX_Radio_Lab_output\config.c:17: AX5043_PINFUNCDCLK             = 0x01;
+      000378 90 40 22         [24] 3376 	mov	dptr,#_AX5043_PINFUNCDCLK
+      00037B F0               [24] 3377 	movx	@dptr,a
+                           00001B  3378 	C$config.c$18$1$103 ==.
+                                   3379 ;	..\AX_Radio_Lab_output\config.c:18: AX5043_PINFUNCDATA             = 0x01;
+      00037C 90 40 23         [24] 3380 	mov	dptr,#_AX5043_PINFUNCDATA
+      00037F F0               [24] 3381 	movx	@dptr,a
+                           00001F  3382 	C$config.c$19$1$103 ==.
+                                   3383 ;	..\AX_Radio_Lab_output\config.c:19: AX5043_PINFUNCANTSEL           = 0x82;
+      000380 90 40 25         [24] 3384 	mov	dptr,#_AX5043_PINFUNCANTSEL
+      000383 74 82            [12] 3385 	mov	a,#0x82
+      000385 F0               [24] 3386 	movx	@dptr,a
+                           000025  3387 	C$config.c$20$1$103 ==.
+                                   3388 ;	..\AX_Radio_Lab_output\config.c:20: AX5043_PINFUNCPWRAMP           = 0x82;
+      000386 90 40 26         [24] 3389 	mov	dptr,#_AX5043_PINFUNCPWRAMP
+      000389 F0               [24] 3390 	movx	@dptr,a
+                           000029  3391 	C$config.c$21$1$103 ==.
+                                   3392 ;	..\AX_Radio_Lab_output\config.c:21: AX5043_WAKEUPXOEARLY           = 0x01;
+      00038A 90 40 6E         [24] 3393 	mov	dptr,#_AX5043_WAKEUPXOEARLY
+      00038D 74 01            [12] 3394 	mov	a,#0x01
+      00038F F0               [24] 3395 	movx	@dptr,a
+                           00002F  3396 	C$config.c$22$1$103 ==.
+                                   3397 ;	..\AX_Radio_Lab_output\config.c:22: AX5043_IFFREQ1                 = 0x0B;
+      000390 90 41 00         [24] 3398 	mov	dptr,#_AX5043_IFFREQ1
+      000393 74 0B            [12] 3399 	mov	a,#0x0b
+      000395 F0               [24] 3400 	movx	@dptr,a
+                           000035  3401 	C$config.c$23$1$103 ==.
+                                   3402 ;	..\AX_Radio_Lab_output\config.c:23: AX5043_IFFREQ0                 = 0x09;
+      000396 90 41 01         [24] 3403 	mov	dptr,#_AX5043_IFFREQ0
+      000399 74 09            [12] 3404 	mov	a,#0x09
+      00039B F0               [24] 3405 	movx	@dptr,a
+                           00003B  3406 	C$config.c$24$1$103 ==.
+                                   3407 ;	..\AX_Radio_Lab_output\config.c:24: AX5043_DECIMATION              = 0x02;
+      00039C 90 41 02         [24] 3408 	mov	dptr,#_AX5043_DECIMATION
+      00039F 74 02            [12] 3409 	mov	a,#0x02
+      0003A1 F0               [24] 3410 	movx	@dptr,a
+                           000041  3411 	C$config.c$25$1$103 ==.
+                                   3412 ;	..\AX_Radio_Lab_output\config.c:25: AX5043_RXDATARATE2             = 0x00;
+      0003A2 90 41 03         [24] 3413 	mov	dptr,#_AX5043_RXDATARATE2
+      0003A5 E4               [12] 3414 	clr	a
+      0003A6 F0               [24] 3415 	movx	@dptr,a
+                           000046  3416 	C$config.c$26$1$103 ==.
+                                   3417 ;	..\AX_Radio_Lab_output\config.c:26: AX5043_RXDATARATE1             = 0x3C;
+      0003A7 90 41 04         [24] 3418 	mov	dptr,#_AX5043_RXDATARATE1
+      0003AA 74 3C            [12] 3419 	mov	a,#0x3c
+      0003AC F0               [24] 3420 	movx	@dptr,a
+                           00004C  3421 	C$config.c$27$1$103 ==.
+                                   3422 ;	..\AX_Radio_Lab_output\config.c:27: AX5043_RXDATARATE0             = 0x00;
+      0003AD 90 41 05         [24] 3423 	mov	dptr,#_AX5043_RXDATARATE0
+      0003B0 E4               [12] 3424 	clr	a
+      0003B1 F0               [24] 3425 	movx	@dptr,a
+                           000051  3426 	C$config.c$28$1$103 ==.
+                                   3427 ;	..\AX_Radio_Lab_output\config.c:28: AX5043_MAXDROFFSET2            = 0x00;
+      0003B2 90 41 06         [24] 3428 	mov	dptr,#_AX5043_MAXDROFFSET2
+      0003B5 F0               [24] 3429 	movx	@dptr,a
+                           000055  3430 	C$config.c$29$1$103 ==.
+                                   3431 ;	..\AX_Radio_Lab_output\config.c:29: AX5043_MAXDROFFSET1            = 0x00;
+      0003B6 90 41 07         [24] 3432 	mov	dptr,#_AX5043_MAXDROFFSET1
+      0003B9 F0               [24] 3433 	movx	@dptr,a
+                           000059  3434 	C$config.c$30$1$103 ==.
+                                   3435 ;	..\AX_Radio_Lab_output\config.c:30: AX5043_MAXDROFFSET0            = 0x00;
+      0003BA 90 41 08         [24] 3436 	mov	dptr,#_AX5043_MAXDROFFSET0
+      0003BD F0               [24] 3437 	movx	@dptr,a
+                           00005D  3438 	C$config.c$31$1$103 ==.
+                                   3439 ;	..\AX_Radio_Lab_output\config.c:31: AX5043_MAXRFOFFSET2            = 0x80;
+      0003BE 90 41 09         [24] 3440 	mov	dptr,#_AX5043_MAXRFOFFSET2
+      0003C1 74 80            [12] 3441 	mov	a,#0x80
+      0003C3 F0               [24] 3442 	movx	@dptr,a
+                           000063  3443 	C$config.c$32$1$103 ==.
+                                   3444 ;	..\AX_Radio_Lab_output\config.c:32: AX5043_MAXRFOFFSET1            = 0x17;
+      0003C4 90 41 0A         [24] 3445 	mov	dptr,#_AX5043_MAXRFOFFSET1
+      0003C7 74 17            [12] 3446 	mov	a,#0x17
+      0003C9 F0               [24] 3447 	movx	@dptr,a
+                           000069  3448 	C$config.c$33$1$103 ==.
+                                   3449 ;	..\AX_Radio_Lab_output\config.c:33: AX5043_MAXRFOFFSET0            = 0xB6;
+      0003CA 90 41 0B         [24] 3450 	mov	dptr,#_AX5043_MAXRFOFFSET0
+      0003CD 74 B6            [12] 3451 	mov	a,#0xb6
+      0003CF F0               [24] 3452 	movx	@dptr,a
+                           00006F  3453 	C$config.c$34$1$103 ==.
+                                   3454 ;	..\AX_Radio_Lab_output\config.c:34: AX5043_FSKDMAX1                = 0x00;
+      0003D0 90 41 0C         [24] 3455 	mov	dptr,#_AX5043_FSKDMAX1
+      0003D3 E4               [12] 3456 	clr	a
+      0003D4 F0               [24] 3457 	movx	@dptr,a
+                           000074  3458 	C$config.c$35$1$103 ==.
+                                   3459 ;	..\AX_Radio_Lab_output\config.c:35: AX5043_FSKDMAX0                = 0xA6;
+      0003D5 90 41 0D         [24] 3460 	mov	dptr,#_AX5043_FSKDMAX0
+      0003D8 74 A6            [12] 3461 	mov	a,#0xa6
+      0003DA F0               [24] 3462 	movx	@dptr,a
+                           00007A  3463 	C$config.c$36$1$103 ==.
+                                   3464 ;	..\AX_Radio_Lab_output\config.c:36: AX5043_FSKDMIN1                = 0xFF;
+      0003DB 90 41 0E         [24] 3465 	mov	dptr,#_AX5043_FSKDMIN1
+      0003DE 74 FF            [12] 3466 	mov	a,#0xff
+      0003E0 F0               [24] 3467 	movx	@dptr,a
+                           000080  3468 	C$config.c$37$1$103 ==.
+                                   3469 ;	..\AX_Radio_Lab_output\config.c:37: AX5043_FSKDMIN0                = 0x5A;
+      0003E1 90 41 0F         [24] 3470 	mov	dptr,#_AX5043_FSKDMIN0
+      0003E4 74 5A            [12] 3471 	mov	a,#0x5a
+      0003E6 F0               [24] 3472 	movx	@dptr,a
+                           000086  3473 	C$config.c$38$1$103 ==.
+                                   3474 ;	..\AX_Radio_Lab_output\config.c:38: AX5043_AMPLFILTER              = 0x00;
+      0003E7 90 41 15         [24] 3475 	mov	dptr,#_AX5043_AMPLFILTER
+      0003EA E4               [12] 3476 	clr	a
+      0003EB F0               [24] 3477 	movx	@dptr,a
+                           00008B  3478 	C$config.c$39$1$103 ==.
+                                   3479 ;	..\AX_Radio_Lab_output\config.c:39: AX5043_RXPARAMSETS             = 0xF4;
+      0003EC 90 41 17         [24] 3480 	mov	dptr,#_AX5043_RXPARAMSETS
+      0003EF 74 F4            [12] 3481 	mov	a,#0xf4
+      0003F1 F0               [24] 3482 	movx	@dptr,a
+                           000091  3483 	C$config.c$40$1$103 ==.
+                                   3484 ;	..\AX_Radio_Lab_output\config.c:40: AX5043_AGCGAIN0                = 0x83;
+      0003F2 90 41 20         [24] 3485 	mov	dptr,#_AX5043_AGCGAIN0
+      0003F5 74 83            [12] 3486 	mov	a,#0x83
+      0003F7 F0               [24] 3487 	movx	@dptr,a
+                           000097  3488 	C$config.c$41$1$103 ==.
+                                   3489 ;	..\AX_Radio_Lab_output\config.c:41: AX5043_AGCTARGET0              = 0x84;
+      0003F8 90 41 21         [24] 3490 	mov	dptr,#_AX5043_AGCTARGET0
+      0003FB 04               [12] 3491 	inc	a
+      0003FC F0               [24] 3492 	movx	@dptr,a
+                           00009C  3493 	C$config.c$42$1$103 ==.
+                                   3494 ;	..\AX_Radio_Lab_output\config.c:42: AX5043_TIMEGAIN0               = 0xF8;
+      0003FD 90 41 24         [24] 3495 	mov	dptr,#_AX5043_TIMEGAIN0
+      000400 74 F8            [12] 3496 	mov	a,#0xf8
+      000402 F0               [24] 3497 	movx	@dptr,a
+                           0000A2  3498 	C$config.c$43$1$103 ==.
+                                   3499 ;	..\AX_Radio_Lab_output\config.c:43: AX5043_DRGAIN0                 = 0xF2;
+      000403 90 41 25         [24] 3500 	mov	dptr,#_AX5043_DRGAIN0
+      000406 74 F2            [12] 3501 	mov	a,#0xf2
+      000408 F0               [24] 3502 	movx	@dptr,a
+                           0000A8  3503 	C$config.c$44$1$103 ==.
+                                   3504 ;	..\AX_Radio_Lab_output\config.c:44: AX5043_PHASEGAIN0              = 0xC3;
+      000409 90 41 26         [24] 3505 	mov	dptr,#_AX5043_PHASEGAIN0
+      00040C 74 C3            [12] 3506 	mov	a,#0xc3
+      00040E F0               [24] 3507 	movx	@dptr,a
+                           0000AE  3508 	C$config.c$45$1$103 ==.
+                                   3509 ;	..\AX_Radio_Lab_output\config.c:45: AX5043_FREQUENCYGAINA0         = 0x0F;
+      00040F 90 41 27         [24] 3510 	mov	dptr,#_AX5043_FREQUENCYGAINA0
+      000412 74 0F            [12] 3511 	mov	a,#0x0f
+      000414 F0               [24] 3512 	movx	@dptr,a
+                           0000B4  3513 	C$config.c$46$1$103 ==.
+                                   3514 ;	..\AX_Radio_Lab_output\config.c:46: AX5043_FREQUENCYGAINB0         = 0x1F;
+      000415 90 41 28         [24] 3515 	mov	dptr,#_AX5043_FREQUENCYGAINB0
+      000418 74 1F            [12] 3516 	mov	a,#0x1f
+      00041A F0               [24] 3517 	movx	@dptr,a
+                           0000BA  3518 	C$config.c$47$1$103 ==.
+                                   3519 ;	..\AX_Radio_Lab_output\config.c:47: AX5043_FREQUENCYGAINC0         = 0x05;
+      00041B 90 41 29         [24] 3520 	mov	dptr,#_AX5043_FREQUENCYGAINC0
+      00041E 74 05            [12] 3521 	mov	a,#0x05
+      000420 F0               [24] 3522 	movx	@dptr,a
+                           0000C0  3523 	C$config.c$48$1$103 ==.
+                                   3524 ;	..\AX_Radio_Lab_output\config.c:48: AX5043_FREQUENCYGAIND0         = 0x05;
+      000421 90 41 2A         [24] 3525 	mov	dptr,#_AX5043_FREQUENCYGAIND0
+      000424 F0               [24] 3526 	movx	@dptr,a
+                           0000C4  3527 	C$config.c$49$1$103 ==.
+                                   3528 ;	..\AX_Radio_Lab_output\config.c:49: AX5043_AMPLITUDEGAIN0          = 0x06;
+      000425 90 41 2B         [24] 3529 	mov	dptr,#_AX5043_AMPLITUDEGAIN0
+      000428 04               [12] 3530 	inc	a
+      000429 F0               [24] 3531 	movx	@dptr,a
+                           0000C9  3532 	C$config.c$50$1$103 ==.
+                                   3533 ;	..\AX_Radio_Lab_output\config.c:50: AX5043_FREQDEV10               = 0x00;
+      00042A 90 41 2C         [24] 3534 	mov	dptr,#_AX5043_FREQDEV10
+      00042D E4               [12] 3535 	clr	a
+      00042E F0               [24] 3536 	movx	@dptr,a
+                           0000CE  3537 	C$config.c$51$1$103 ==.
+                                   3538 ;	..\AX_Radio_Lab_output\config.c:51: AX5043_FREQDEV00               = 0x00;
+      00042F 90 41 2D         [24] 3539 	mov	dptr,#_AX5043_FREQDEV00
+      000432 F0               [24] 3540 	movx	@dptr,a
+                           0000D2  3541 	C$config.c$52$1$103 ==.
+                                   3542 ;	..\AX_Radio_Lab_output\config.c:52: AX5043_BBOFFSRES0              = 0x00;
+      000433 90 41 2F         [24] 3543 	mov	dptr,#_AX5043_BBOFFSRES0
+      000436 F0               [24] 3544 	movx	@dptr,a
+                           0000D6  3545 	C$config.c$53$1$103 ==.
+                                   3546 ;	..\AX_Radio_Lab_output\config.c:53: AX5043_AGCGAIN1                = 0x83;
+      000437 90 41 30         [24] 3547 	mov	dptr,#_AX5043_AGCGAIN1
+      00043A 74 83            [12] 3548 	mov	a,#0x83
+      00043C F0               [24] 3549 	movx	@dptr,a
+                           0000DC  3550 	C$config.c$54$1$103 ==.
+                                   3551 ;	..\AX_Radio_Lab_output\config.c:54: AX5043_AGCTARGET1              = 0x84;
+      00043D 90 41 31         [24] 3552 	mov	dptr,#_AX5043_AGCTARGET1
+      000440 04               [12] 3553 	inc	a
+      000441 F0               [24] 3554 	movx	@dptr,a
+                           0000E1  3555 	C$config.c$55$1$103 ==.
+                                   3556 ;	..\AX_Radio_Lab_output\config.c:55: AX5043_AGCAHYST1               = 0x00;
+      000442 90 41 32         [24] 3557 	mov	dptr,#_AX5043_AGCAHYST1
+      000445 E4               [12] 3558 	clr	a
+      000446 F0               [24] 3559 	movx	@dptr,a
+                           0000E6  3560 	C$config.c$56$1$103 ==.
+                                   3561 ;	..\AX_Radio_Lab_output\config.c:56: AX5043_AGCMINMAX1              = 0x00;
+      000447 90 41 33         [24] 3562 	mov	dptr,#_AX5043_AGCMINMAX1
+      00044A F0               [24] 3563 	movx	@dptr,a
+                           0000EA  3564 	C$config.c$57$1$103 ==.
+                                   3565 ;	..\AX_Radio_Lab_output\config.c:57: AX5043_TIMEGAIN1               = 0xF6;
+      00044B 90 41 34         [24] 3566 	mov	dptr,#_AX5043_TIMEGAIN1
+      00044E 74 F6            [12] 3567 	mov	a,#0xf6
+      000450 F0               [24] 3568 	movx	@dptr,a
+                           0000F0  3569 	C$config.c$58$1$103 ==.
+                                   3570 ;	..\AX_Radio_Lab_output\config.c:58: AX5043_DRGAIN1                 = 0xF1;
+      000451 90 41 35         [24] 3571 	mov	dptr,#_AX5043_DRGAIN1
+      000454 74 F1            [12] 3572 	mov	a,#0xf1
+      000456 F0               [24] 3573 	movx	@dptr,a
+                           0000F6  3574 	C$config.c$59$1$103 ==.
+                                   3575 ;	..\AX_Radio_Lab_output\config.c:59: AX5043_PHASEGAIN1              = 0xC3;
+      000457 90 41 36         [24] 3576 	mov	dptr,#_AX5043_PHASEGAIN1
+      00045A 74 C3            [12] 3577 	mov	a,#0xc3
+      00045C F0               [24] 3578 	movx	@dptr,a
+                           0000FC  3579 	C$config.c$60$1$103 ==.
+                                   3580 ;	..\AX_Radio_Lab_output\config.c:60: AX5043_FREQUENCYGAINA1         = 0x0F;
+      00045D 90 41 37         [24] 3581 	mov	dptr,#_AX5043_FREQUENCYGAINA1
+      000460 74 0F            [12] 3582 	mov	a,#0x0f
+      000462 F0               [24] 3583 	movx	@dptr,a
+                           000102  3584 	C$config.c$61$1$103 ==.
+                                   3585 ;	..\AX_Radio_Lab_output\config.c:61: AX5043_FREQUENCYGAINB1         = 0x1F;
+      000463 90 41 38         [24] 3586 	mov	dptr,#_AX5043_FREQUENCYGAINB1
+      000466 74 1F            [12] 3587 	mov	a,#0x1f
+      000468 F0               [24] 3588 	movx	@dptr,a
+                           000108  3589 	C$config.c$62$1$103 ==.
+                                   3590 ;	..\AX_Radio_Lab_output\config.c:62: AX5043_FREQUENCYGAINC1         = 0x05;
+      000469 90 41 39         [24] 3591 	mov	dptr,#_AX5043_FREQUENCYGAINC1
+      00046C 74 05            [12] 3592 	mov	a,#0x05
+      00046E F0               [24] 3593 	movx	@dptr,a
+                           00010E  3594 	C$config.c$63$1$103 ==.
+                                   3595 ;	..\AX_Radio_Lab_output\config.c:63: AX5043_FREQUENCYGAIND1         = 0x05;
+      00046F 90 41 3A         [24] 3596 	mov	dptr,#_AX5043_FREQUENCYGAIND1
+      000472 F0               [24] 3597 	movx	@dptr,a
+                           000112  3598 	C$config.c$64$1$103 ==.
+                                   3599 ;	..\AX_Radio_Lab_output\config.c:64: AX5043_AMPLITUDEGAIN1          = 0x06;
+      000473 90 41 3B         [24] 3600 	mov	dptr,#_AX5043_AMPLITUDEGAIN1
+      000476 04               [12] 3601 	inc	a
+      000477 F0               [24] 3602 	movx	@dptr,a
+                           000117  3603 	C$config.c$65$1$103 ==.
+                                   3604 ;	..\AX_Radio_Lab_output\config.c:65: AX5043_FREQDEV11               = 0x00;
+      000478 90 41 3C         [24] 3605 	mov	dptr,#_AX5043_FREQDEV11
+      00047B E4               [12] 3606 	clr	a
+      00047C F0               [24] 3607 	movx	@dptr,a
+                           00011C  3608 	C$config.c$66$1$103 ==.
+                                   3609 ;	..\AX_Radio_Lab_output\config.c:66: AX5043_FREQDEV01               = 0x00;
+      00047D 90 41 3D         [24] 3610 	mov	dptr,#_AX5043_FREQDEV01
+      000480 F0               [24] 3611 	movx	@dptr,a
+                           000120  3612 	C$config.c$67$1$103 ==.
+                                   3613 ;	..\AX_Radio_Lab_output\config.c:67: AX5043_FOURFSK1                = 0x16;
+      000481 90 41 3E         [24] 3614 	mov	dptr,#_AX5043_FOURFSK1
+      000484 74 16            [12] 3615 	mov	a,#0x16
+      000486 F0               [24] 3616 	movx	@dptr,a
+                           000126  3617 	C$config.c$68$1$103 ==.
+                                   3618 ;	..\AX_Radio_Lab_output\config.c:68: AX5043_BBOFFSRES1              = 0x00;
+      000487 90 41 3F         [24] 3619 	mov	dptr,#_AX5043_BBOFFSRES1
+      00048A E4               [12] 3620 	clr	a
+      00048B F0               [24] 3621 	movx	@dptr,a
+                           00012B  3622 	C$config.c$69$1$103 ==.
+                                   3623 ;	..\AX_Radio_Lab_output\config.c:69: AX5043_AGCGAIN3                = 0xFF;
+      00048C 90 41 50         [24] 3624 	mov	dptr,#_AX5043_AGCGAIN3
+      00048F 14               [12] 3625 	dec	a
+      000490 F0               [24] 3626 	movx	@dptr,a
+                           000130  3627 	C$config.c$70$1$103 ==.
+                                   3628 ;	..\AX_Radio_Lab_output\config.c:70: AX5043_AGCTARGET3              = 0x84;
+      000491 90 41 51         [24] 3629 	mov	dptr,#_AX5043_AGCTARGET3
+      000494 74 84            [12] 3630 	mov	a,#0x84
+      000496 F0               [24] 3631 	movx	@dptr,a
+                           000136  3632 	C$config.c$71$1$103 ==.
+                                   3633 ;	..\AX_Radio_Lab_output\config.c:71: AX5043_AGCAHYST3               = 0x00;
+      000497 90 41 52         [24] 3634 	mov	dptr,#_AX5043_AGCAHYST3
+      00049A E4               [12] 3635 	clr	a
+      00049B F0               [24] 3636 	movx	@dptr,a
+                           00013B  3637 	C$config.c$72$1$103 ==.
+                                   3638 ;	..\AX_Radio_Lab_output\config.c:72: AX5043_AGCMINMAX3              = 0x00;
+      00049C 90 41 53         [24] 3639 	mov	dptr,#_AX5043_AGCMINMAX3
+      00049F F0               [24] 3640 	movx	@dptr,a
+                           00013F  3641 	C$config.c$73$1$103 ==.
+                                   3642 ;	..\AX_Radio_Lab_output\config.c:73: AX5043_TIMEGAIN3               = 0xF5;
+      0004A0 90 41 54         [24] 3643 	mov	dptr,#_AX5043_TIMEGAIN3
+      0004A3 74 F5            [12] 3644 	mov	a,#0xf5
+      0004A5 F0               [24] 3645 	movx	@dptr,a
+                           000145  3646 	C$config.c$74$1$103 ==.
+                                   3647 ;	..\AX_Radio_Lab_output\config.c:74: AX5043_DRGAIN3                 = 0xF0;
+      0004A6 90 41 55         [24] 3648 	mov	dptr,#_AX5043_DRGAIN3
+      0004A9 74 F0            [12] 3649 	mov	a,#0xf0
+      0004AB F0               [24] 3650 	movx	@dptr,a
+                           00014B  3651 	C$config.c$75$1$103 ==.
+                                   3652 ;	..\AX_Radio_Lab_output\config.c:75: AX5043_PHASEGAIN3              = 0xC3;
+      0004AC 90 41 56         [24] 3653 	mov	dptr,#_AX5043_PHASEGAIN3
+      0004AF 74 C3            [12] 3654 	mov	a,#0xc3
+      0004B1 F0               [24] 3655 	movx	@dptr,a
+                           000151  3656 	C$config.c$76$1$103 ==.
+                                   3657 ;	..\AX_Radio_Lab_output\config.c:76: AX5043_FREQUENCYGAINA3         = 0x0F;
+      0004B2 90 41 57         [24] 3658 	mov	dptr,#_AX5043_FREQUENCYGAINA3
+      0004B5 74 0F            [12] 3659 	mov	a,#0x0f
+      0004B7 F0               [24] 3660 	movx	@dptr,a
+                           000157  3661 	C$config.c$77$1$103 ==.
+                                   3662 ;	..\AX_Radio_Lab_output\config.c:77: AX5043_FREQUENCYGAINB3         = 0x1F;
+      0004B8 90 41 58         [24] 3663 	mov	dptr,#_AX5043_FREQUENCYGAINB3
+      0004BB 74 1F            [12] 3664 	mov	a,#0x1f
+      0004BD F0               [24] 3665 	movx	@dptr,a
+                           00015D  3666 	C$config.c$78$1$103 ==.
+                                   3667 ;	..\AX_Radio_Lab_output\config.c:78: AX5043_FREQUENCYGAINC3         = 0x09;
+      0004BE 90 41 59         [24] 3668 	mov	dptr,#_AX5043_FREQUENCYGAINC3
+      0004C1 74 09            [12] 3669 	mov	a,#0x09
+      0004C3 F0               [24] 3670 	movx	@dptr,a
+                           000163  3671 	C$config.c$79$1$103 ==.
+                                   3672 ;	..\AX_Radio_Lab_output\config.c:79: AX5043_FREQUENCYGAIND3         = 0x09;
+      0004C4 90 41 5A         [24] 3673 	mov	dptr,#_AX5043_FREQUENCYGAIND3
+      0004C7 F0               [24] 3674 	movx	@dptr,a
+                           000167  3675 	C$config.c$80$1$103 ==.
+                                   3676 ;	..\AX_Radio_Lab_output\config.c:80: AX5043_AMPLITUDEGAIN3          = 0x06;
+      0004C8 90 41 5B         [24] 3677 	mov	dptr,#_AX5043_AMPLITUDEGAIN3
+      0004CB 74 06            [12] 3678 	mov	a,#0x06
+      0004CD F0               [24] 3679 	movx	@dptr,a
+                           00016D  3680 	C$config.c$81$1$103 ==.
+                                   3681 ;	..\AX_Radio_Lab_output\config.c:81: AX5043_FREQDEV13               = 0x00;
+      0004CE 90 41 5C         [24] 3682 	mov	dptr,#_AX5043_FREQDEV13
+      0004D1 E4               [12] 3683 	clr	a
+      0004D2 F0               [24] 3684 	movx	@dptr,a
+                           000172  3685 	C$config.c$82$1$103 ==.
+                                   3686 ;	..\AX_Radio_Lab_output\config.c:82: AX5043_FREQDEV03               = 0x00;
+      0004D3 90 41 5D         [24] 3687 	mov	dptr,#_AX5043_FREQDEV03
+      0004D6 F0               [24] 3688 	movx	@dptr,a
+                           000176  3689 	C$config.c$83$1$103 ==.
+                                   3690 ;	..\AX_Radio_Lab_output\config.c:83: AX5043_FOURFSK3                = 0x16;
+      0004D7 90 41 5E         [24] 3691 	mov	dptr,#_AX5043_FOURFSK3
+      0004DA 74 16            [12] 3692 	mov	a,#0x16
+      0004DC F0               [24] 3693 	movx	@dptr,a
+                           00017C  3694 	C$config.c$84$1$103 ==.
+                                   3695 ;	..\AX_Radio_Lab_output\config.c:84: AX5043_BBOFFSRES3              = 0x00;
+      0004DD 90 41 5F         [24] 3696 	mov	dptr,#_AX5043_BBOFFSRES3
+      0004E0 E4               [12] 3697 	clr	a
+      0004E1 F0               [24] 3698 	movx	@dptr,a
+                           000181  3699 	C$config.c$85$1$103 ==.
+                                   3700 ;	..\AX_Radio_Lab_output\config.c:85: AX5043_MODCFGF                 = 0x00;
+      0004E2 90 41 60         [24] 3701 	mov	dptr,#_AX5043_MODCFGF
+      0004E5 F0               [24] 3702 	movx	@dptr,a
+                           000185  3703 	C$config.c$86$1$103 ==.
+                                   3704 ;	..\AX_Radio_Lab_output\config.c:86: AX5043_FSKDEV2                 = 0x00;
+      0004E6 90 41 61         [24] 3705 	mov	dptr,#_AX5043_FSKDEV2
+      0004E9 F0               [24] 3706 	movx	@dptr,a
+                           000189  3707 	C$config.c$87$1$103 ==.
+                                   3708 ;	..\AX_Radio_Lab_output\config.c:87: AX5043_FSKDEV1                 = 0x00;
+      0004EA 90 41 62         [24] 3709 	mov	dptr,#_AX5043_FSKDEV1
+      0004ED F0               [24] 3710 	movx	@dptr,a
+                           00018D  3711 	C$config.c$88$1$103 ==.
+                                   3712 ;	..\AX_Radio_Lab_output\config.c:88: AX5043_FSKDEV0                 = 0x00;
+      0004EE 90 41 63         [24] 3713 	mov	dptr,#_AX5043_FSKDEV0
+      0004F1 F0               [24] 3714 	movx	@dptr,a
+                           000191  3715 	C$config.c$89$1$103 ==.
+                                   3716 ;	..\AX_Radio_Lab_output\config.c:89: AX5043_MODCFGA                 = 0x05;
+      0004F2 90 41 64         [24] 3717 	mov	dptr,#_AX5043_MODCFGA
+      0004F5 74 05            [12] 3718 	mov	a,#0x05
+      0004F7 F0               [24] 3719 	movx	@dptr,a
+                           000197  3720 	C$config.c$90$1$103 ==.
+                                   3721 ;	..\AX_Radio_Lab_output\config.c:90: AX5043_TXRATE2                 = 0x00;
+      0004F8 90 41 65         [24] 3722 	mov	dptr,#_AX5043_TXRATE2
+      0004FB E4               [12] 3723 	clr	a
+      0004FC F0               [24] 3724 	movx	@dptr,a
+                           00019C  3725 	C$config.c$91$1$103 ==.
+                                   3726 ;	..\AX_Radio_Lab_output\config.c:91: AX5043_TXRATE1                 = 0x88;
+      0004FD 90 41 66         [24] 3727 	mov	dptr,#_AX5043_TXRATE1
+      000500 74 88            [12] 3728 	mov	a,#0x88
+      000502 F0               [24] 3729 	movx	@dptr,a
+                           0001A2  3730 	C$config.c$92$1$103 ==.
+                                   3731 ;	..\AX_Radio_Lab_output\config.c:92: AX5043_TXRATE0                 = 0x89;
+      000503 90 41 67         [24] 3732 	mov	dptr,#_AX5043_TXRATE0
+      000506 04               [12] 3733 	inc	a
+      000507 F0               [24] 3734 	movx	@dptr,a
+                           0001A7  3735 	C$config.c$93$1$103 ==.
+                                   3736 ;	..\AX_Radio_Lab_output\config.c:93: AX5043_TXPWRCOEFFB1            = 0x0F;
+      000508 90 41 6A         [24] 3737 	mov	dptr,#_AX5043_TXPWRCOEFFB1
+      00050B 74 0F            [12] 3738 	mov	a,#0x0f
+      00050D F0               [24] 3739 	movx	@dptr,a
+                           0001AD  3740 	C$config.c$94$1$103 ==.
+                                   3741 ;	..\AX_Radio_Lab_output\config.c:94: AX5043_TXPWRCOEFFB0            = 0xFF;
+      00050E 90 41 6B         [24] 3742 	mov	dptr,#_AX5043_TXPWRCOEFFB0
+      000511 74 FF            [12] 3743 	mov	a,#0xff
+      000513 F0               [24] 3744 	movx	@dptr,a
+                           0001B3  3745 	C$config.c$95$1$103 ==.
+                                   3746 ;	..\AX_Radio_Lab_output\config.c:95: AX5043_PLLVCOI                 = 0x99;
+      000514 90 41 80         [24] 3747 	mov	dptr,#_AX5043_PLLVCOI
+      000517 74 99            [12] 3748 	mov	a,#0x99
+      000519 F0               [24] 3749 	movx	@dptr,a
+                           0001B9  3750 	C$config.c$96$1$103 ==.
+                                   3751 ;	..\AX_Radio_Lab_output\config.c:96: AX5043_PLLRNGCLK               = 0x05;
+      00051A 90 41 83         [24] 3752 	mov	dptr,#_AX5043_PLLRNGCLK
+      00051D 74 05            [12] 3753 	mov	a,#0x05
+      00051F F0               [24] 3754 	movx	@dptr,a
+                           0001BF  3755 	C$config.c$97$1$103 ==.
+                                   3756 ;	..\AX_Radio_Lab_output\config.c:97: AX5043_BBTUNE                  = 0x03;
+      000520 90 41 88         [24] 3757 	mov	dptr,#_AX5043_BBTUNE
+      000523 74 03            [12] 3758 	mov	a,#0x03
+      000525 F0               [24] 3759 	movx	@dptr,a
+                           0001C5  3760 	C$config.c$98$1$103 ==.
+                                   3761 ;	..\AX_Radio_Lab_output\config.c:98: AX5043_BBOFFSCAP               = 0x77;
+      000526 90 41 89         [24] 3762 	mov	dptr,#_AX5043_BBOFFSCAP
+      000529 74 77            [12] 3763 	mov	a,#0x77
+      00052B F0               [24] 3764 	movx	@dptr,a
+                           0001CB  3765 	C$config.c$99$1$103 ==.
+                                   3766 ;	..\AX_Radio_Lab_output\config.c:99: AX5043_PKTADDRCFG              = 0x01;
+      00052C 90 42 00         [24] 3767 	mov	dptr,#_AX5043_PKTADDRCFG
+      00052F 74 01            [12] 3768 	mov	a,#0x01
+      000531 F0               [24] 3769 	movx	@dptr,a
+                           0001D1  3770 	C$config.c$100$1$103 ==.
+                                   3771 ;	..\AX_Radio_Lab_output\config.c:100: AX5043_PKTLENCFG               = 0x80;
+      000532 90 42 01         [24] 3772 	mov	dptr,#_AX5043_PKTLENCFG
+      000535 03               [12] 3773 	rr	a
+      000536 F0               [24] 3774 	movx	@dptr,a
+                           0001D6  3775 	C$config.c$101$1$103 ==.
+                                   3776 ;	..\AX_Radio_Lab_output\config.c:101: AX5043_PKTLENOFFSET            = 0x00;
+      000537 90 42 02         [24] 3777 	mov	dptr,#_AX5043_PKTLENOFFSET
+      00053A E4               [12] 3778 	clr	a
+      00053B F0               [24] 3779 	movx	@dptr,a
+                           0001DB  3780 	C$config.c$102$1$103 ==.
+                                   3781 ;	..\AX_Radio_Lab_output\config.c:102: AX5043_PKTMAXLEN               = 0xC8;
+      00053C 90 42 03         [24] 3782 	mov	dptr,#_AX5043_PKTMAXLEN
+      00053F 74 C8            [12] 3783 	mov	a,#0xc8
+      000541 F0               [24] 3784 	movx	@dptr,a
+                           0001E1  3785 	C$config.c$103$1$103 ==.
+                                   3786 ;	..\AX_Radio_Lab_output\config.c:103: AX5043_MATCH0PAT3              = 0xAA;
+      000542 90 42 10         [24] 3787 	mov	dptr,#_AX5043_MATCH0PAT3
+      000545 74 AA            [12] 3788 	mov	a,#0xaa
+      000547 F0               [24] 3789 	movx	@dptr,a
+                           0001E7  3790 	C$config.c$104$1$103 ==.
+                                   3791 ;	..\AX_Radio_Lab_output\config.c:104: AX5043_MATCH0PAT2              = 0xCC;
+      000548 90 42 11         [24] 3792 	mov	dptr,#_AX5043_MATCH0PAT2
+      00054B 74 CC            [12] 3793 	mov	a,#0xcc
+      00054D F0               [24] 3794 	movx	@dptr,a
+                           0001ED  3795 	C$config.c$105$1$103 ==.
+                                   3796 ;	..\AX_Radio_Lab_output\config.c:105: AX5043_MATCH0PAT1              = 0xAA;
+      00054E 90 42 12         [24] 3797 	mov	dptr,#_AX5043_MATCH0PAT1
+      000551 74 AA            [12] 3798 	mov	a,#0xaa
+      000553 F0               [24] 3799 	movx	@dptr,a
+                           0001F3  3800 	C$config.c$106$1$103 ==.
+                                   3801 ;	..\AX_Radio_Lab_output\config.c:106: AX5043_MATCH0PAT0              = 0xCC;
+      000554 90 42 13         [24] 3802 	mov	dptr,#_AX5043_MATCH0PAT0
+      000557 74 CC            [12] 3803 	mov	a,#0xcc
+      000559 F0               [24] 3804 	movx	@dptr,a
+                           0001F9  3805 	C$config.c$107$1$103 ==.
+                                   3806 ;	..\AX_Radio_Lab_output\config.c:107: AX5043_MATCH0LEN               = 0x1F;
+      00055A 90 42 14         [24] 3807 	mov	dptr,#_AX5043_MATCH0LEN
+      00055D 74 1F            [12] 3808 	mov	a,#0x1f
+      00055F F0               [24] 3809 	movx	@dptr,a
+                           0001FF  3810 	C$config.c$108$1$103 ==.
+                                   3811 ;	..\AX_Radio_Lab_output\config.c:108: AX5043_MATCH0MAX               = 0x1F;
+      000560 90 42 16         [24] 3812 	mov	dptr,#_AX5043_MATCH0MAX
+      000563 F0               [24] 3813 	movx	@dptr,a
+                           000203  3814 	C$config.c$109$1$103 ==.
+                                   3815 ;	..\AX_Radio_Lab_output\config.c:109: AX5043_MATCH1PAT1              = 0x55;
+      000564 90 42 18         [24] 3816 	mov	dptr,#_AX5043_MATCH1PAT1
+      000567 74 55            [12] 3817 	mov	a,#0x55
+      000569 F0               [24] 3818 	movx	@dptr,a
+                           000209  3819 	C$config.c$110$1$103 ==.
+                                   3820 ;	..\AX_Radio_Lab_output\config.c:110: AX5043_MATCH1PAT0              = 0x55;
+      00056A 90 42 19         [24] 3821 	mov	dptr,#_AX5043_MATCH1PAT0
+      00056D F0               [24] 3822 	movx	@dptr,a
+                           00020D  3823 	C$config.c$111$1$103 ==.
+                                   3824 ;	..\AX_Radio_Lab_output\config.c:111: AX5043_MATCH1LEN               = 0x8A;
+      00056E 90 42 1C         [24] 3825 	mov	dptr,#_AX5043_MATCH1LEN
+      000571 74 8A            [12] 3826 	mov	a,#0x8a
+      000573 F0               [24] 3827 	movx	@dptr,a
+                           000213  3828 	C$config.c$112$1$103 ==.
+                                   3829 ;	..\AX_Radio_Lab_output\config.c:112: AX5043_MATCH1MAX               = 0x0A;
+      000574 90 42 1E         [24] 3830 	mov	dptr,#_AX5043_MATCH1MAX
+      000577 74 0A            [12] 3831 	mov	a,#0x0a
+      000579 F0               [24] 3832 	movx	@dptr,a
+                           000219  3833 	C$config.c$113$1$103 ==.
+                                   3834 ;	..\AX_Radio_Lab_output\config.c:113: AX5043_TMGTXBOOST              = 0x5B;
+      00057A 90 42 20         [24] 3835 	mov	dptr,#_AX5043_TMGTXBOOST
+      00057D 74 5B            [12] 3836 	mov	a,#0x5b
+      00057F F0               [24] 3837 	movx	@dptr,a
+                           00021F  3838 	C$config.c$114$1$103 ==.
+                                   3839 ;	..\AX_Radio_Lab_output\config.c:114: AX5043_TMGTXSETTLE             = 0x3E;
+      000580 90 42 21         [24] 3840 	mov	dptr,#_AX5043_TMGTXSETTLE
+      000583 74 3E            [12] 3841 	mov	a,#0x3e
+      000585 F0               [24] 3842 	movx	@dptr,a
+                           000225  3843 	C$config.c$115$1$103 ==.
+                                   3844 ;	..\AX_Radio_Lab_output\config.c:115: AX5043_TMGRXBOOST              = 0x5B;
+      000586 90 42 23         [24] 3845 	mov	dptr,#_AX5043_TMGRXBOOST
+      000589 74 5B            [12] 3846 	mov	a,#0x5b
+      00058B F0               [24] 3847 	movx	@dptr,a
+                           00022B  3848 	C$config.c$116$1$103 ==.
+                                   3849 ;	..\AX_Radio_Lab_output\config.c:116: AX5043_TMGRXSETTLE             = 0x3E;
+      00058C 90 42 24         [24] 3850 	mov	dptr,#_AX5043_TMGRXSETTLE
+      00058F 74 3E            [12] 3851 	mov	a,#0x3e
+      000591 F0               [24] 3852 	movx	@dptr,a
+                           000231  3853 	C$config.c$117$1$103 ==.
+                                   3854 ;	..\AX_Radio_Lab_output\config.c:117: AX5043_TMGRXOFFSACQ            = 0x00;
+      000592 90 42 25         [24] 3855 	mov	dptr,#_AX5043_TMGRXOFFSACQ
+      000595 E4               [12] 3856 	clr	a
+      000596 F0               [24] 3857 	movx	@dptr,a
+                           000236  3858 	C$config.c$118$1$103 ==.
+                                   3859 ;	..\AX_Radio_Lab_output\config.c:118: AX5043_TMGRXCOARSEAGC          = 0x9C;
+      000597 90 42 26         [24] 3860 	mov	dptr,#_AX5043_TMGRXCOARSEAGC
+      00059A 74 9C            [12] 3861 	mov	a,#0x9c
+      00059C F0               [24] 3862 	movx	@dptr,a
+                           00023C  3863 	C$config.c$119$1$103 ==.
+                                   3864 ;	..\AX_Radio_Lab_output\config.c:119: AX5043_TMGRXRSSI               = 0x03;
+      00059D 90 42 28         [24] 3865 	mov	dptr,#_AX5043_TMGRXRSSI
+      0005A0 74 03            [12] 3866 	mov	a,#0x03
+      0005A2 F0               [24] 3867 	movx	@dptr,a
+                           000242  3868 	C$config.c$120$1$103 ==.
+                                   3869 ;	..\AX_Radio_Lab_output\config.c:120: AX5043_TMGRXPREAMBLE2          = 0x35;
+      0005A3 90 42 2A         [24] 3870 	mov	dptr,#_AX5043_TMGRXPREAMBLE2
+      0005A6 74 35            [12] 3871 	mov	a,#0x35
+      0005A8 F0               [24] 3872 	movx	@dptr,a
+                           000248  3873 	C$config.c$121$1$103 ==.
+                                   3874 ;	..\AX_Radio_Lab_output\config.c:121: AX5043_RSSIABSTHR              = 0xEB;
+      0005A9 90 42 2D         [24] 3875 	mov	dptr,#_AX5043_RSSIABSTHR
+      0005AC 74 EB            [12] 3876 	mov	a,#0xeb
+      0005AE F0               [24] 3877 	movx	@dptr,a
+                           00024E  3878 	C$config.c$122$1$103 ==.
+                                   3879 ;	..\AX_Radio_Lab_output\config.c:122: AX5043_BGNDRSSITHR             = 0x00;
+      0005AF 90 42 2F         [24] 3880 	mov	dptr,#_AX5043_BGNDRSSITHR
+      0005B2 E4               [12] 3881 	clr	a
+      0005B3 F0               [24] 3882 	movx	@dptr,a
+                           000253  3883 	C$config.c$123$1$103 ==.
+                                   3884 ;	..\AX_Radio_Lab_output\config.c:123: AX5043_PKTCHUNKSIZE            = 0x0D;
+      0005B4 90 42 30         [24] 3885 	mov	dptr,#_AX5043_PKTCHUNKSIZE
+      0005B7 74 0D            [12] 3886 	mov	a,#0x0d
+      0005B9 F0               [24] 3887 	movx	@dptr,a
+                           000259  3888 	C$config.c$124$1$103 ==.
+                                   3889 ;	..\AX_Radio_Lab_output\config.c:124: AX5043_PKTACCEPTFLAGS          = 0x20;
+      0005BA 90 42 33         [24] 3890 	mov	dptr,#_AX5043_PKTACCEPTFLAGS
+      0005BD 74 20            [12] 3891 	mov	a,#0x20
+      0005BF F0               [24] 3892 	movx	@dptr,a
+                           00025F  3893 	C$config.c$125$1$103 ==.
+                                   3894 ;	..\AX_Radio_Lab_output\config.c:125: AX5043_DACVALUE1               = 0x00;
+      0005C0 90 43 30         [24] 3895 	mov	dptr,#_AX5043_DACVALUE1
+      0005C3 E4               [12] 3896 	clr	a
+      0005C4 F0               [24] 3897 	movx	@dptr,a
+                           000264  3898 	C$config.c$126$1$103 ==.
+                                   3899 ;	..\AX_Radio_Lab_output\config.c:126: AX5043_DACVALUE0               = 0x00;
+      0005C5 90 43 31         [24] 3900 	mov	dptr,#_AX5043_DACVALUE0
+      0005C8 F0               [24] 3901 	movx	@dptr,a
+                           000268  3902 	C$config.c$127$1$103 ==.
+                                   3903 ;	..\AX_Radio_Lab_output\config.c:127: AX5043_DACCONFIG               = 0x00;
+      0005C9 90 43 32         [24] 3904 	mov	dptr,#_AX5043_DACCONFIG
+      0005CC F0               [24] 3905 	movx	@dptr,a
+                           00026C  3906 	C$config.c$128$1$103 ==.
+                                   3907 ;	..\AX_Radio_Lab_output\config.c:128: AX5043_REF                     = 0x03;
+      0005CD 90 4F 0D         [24] 3908 	mov	dptr,#_AX5043_REF
+      0005D0 74 03            [12] 3909 	mov	a,#0x03
+      0005D2 F0               [24] 3910 	movx	@dptr,a
+                           000272  3911 	C$config.c$129$1$103 ==.
+                                   3912 ;	..\AX_Radio_Lab_output\config.c:129: AX5043_XTALOSC                 = 0x0D;
+      0005D3 90 4F 10         [24] 3913 	mov	dptr,#_AX5043_XTALOSC
+      0005D6 74 0D            [12] 3914 	mov	a,#0x0d
+      0005D8 F0               [24] 3915 	movx	@dptr,a
+                           000278  3916 	C$config.c$130$1$103 ==.
+                                   3917 ;	..\AX_Radio_Lab_output\config.c:130: AX5043_XTALAMPL                = 0x07;
+      0005D9 90 4F 11         [24] 3918 	mov	dptr,#_AX5043_XTALAMPL
+      0005DC 74 07            [12] 3919 	mov	a,#0x07
+      0005DE F0               [24] 3920 	movx	@dptr,a
+                           00027E  3921 	C$config.c$131$1$103 ==.
+                                   3922 ;	..\AX_Radio_Lab_output\config.c:131: AX5043_0xF1C                   = 0x07;
+      0005DF 90 4F 1C         [24] 3923 	mov	dptr,#_AX5043_0xF1C
+      0005E2 F0               [24] 3924 	movx	@dptr,a
+                           000282  3925 	C$config.c$132$1$103 ==.
+                                   3926 ;	..\AX_Radio_Lab_output\config.c:132: AX5043_0xF21                   = 0x68;
+      0005E3 90 4F 21         [24] 3927 	mov	dptr,#_AX5043_0xF21
+      0005E6 74 68            [12] 3928 	mov	a,#0x68
+      0005E8 F0               [24] 3929 	movx	@dptr,a
+                           000288  3930 	C$config.c$133$1$103 ==.
+                                   3931 ;	..\AX_Radio_Lab_output\config.c:133: AX5043_0xF22                   = 0xFF;
+      0005E9 90 4F 22         [24] 3932 	mov	dptr,#_AX5043_0xF22
+      0005EC 74 FF            [12] 3933 	mov	a,#0xff
+      0005EE F0               [24] 3934 	movx	@dptr,a
+                           00028E  3935 	C$config.c$134$1$103 ==.
+                                   3936 ;	..\AX_Radio_Lab_output\config.c:134: AX5043_0xF23                   = 0x84;
+      0005EF 90 4F 23         [24] 3937 	mov	dptr,#_AX5043_0xF23
+      0005F2 74 84            [12] 3938 	mov	a,#0x84
+      0005F4 F0               [24] 3939 	movx	@dptr,a
+                           000294  3940 	C$config.c$135$1$103 ==.
+                                   3941 ;	..\AX_Radio_Lab_output\config.c:135: AX5043_0xF26                   = 0x98;
+      0005F5 90 4F 26         [24] 3942 	mov	dptr,#_AX5043_0xF26
+      0005F8 74 98            [12] 3943 	mov	a,#0x98
+      0005FA F0               [24] 3944 	movx	@dptr,a
+                           00029A  3945 	C$config.c$136$1$103 ==.
+                                   3946 ;	..\AX_Radio_Lab_output\config.c:136: AX5043_0xF34                   = 0x08;
+      0005FB 90 4F 34         [24] 3947 	mov	dptr,#_AX5043_0xF34
+      0005FE 74 08            [12] 3948 	mov	a,#0x08
+      000600 F0               [24] 3949 	movx	@dptr,a
+                           0002A0  3950 	C$config.c$137$1$103 ==.
+                                   3951 ;	..\AX_Radio_Lab_output\config.c:137: AX5043_0xF35                   = 0x11;
+      000601 90 4F 35         [24] 3952 	mov	dptr,#_AX5043_0xF35
+      000604 74 11            [12] 3953 	mov	a,#0x11
+      000606 F0               [24] 3954 	movx	@dptr,a
+                           0002A6  3955 	C$config.c$138$1$103 ==.
+                                   3956 ;	..\AX_Radio_Lab_output\config.c:138: AX5043_0xF44                   = 0x25;
+      000607 90 4F 44         [24] 3957 	mov	dptr,#_AX5043_0xF44
+      00060A 74 25            [12] 3958 	mov	a,#0x25
+      00060C F0               [24] 3959 	movx	@dptr,a
+                           0002AC  3960 	C$config.c$139$1$103 ==.
+                           0002AC  3961 	XG$ax5043_set_registers$0$0 ==.
+      00060D 22               [24] 3962 	ret
+                                   3963 ;------------------------------------------------------------
+                                   3964 ;Allocation info for local variables in function 'ax5043_set_registers_tx'
+                                   3965 ;------------------------------------------------------------
+                           0002AD  3966 	G$ax5043_set_registers_tx$0$0 ==.
+                           0002AD  3967 	C$config.c$142$1$103 ==.
+                                   3968 ;	..\AX_Radio_Lab_output\config.c:142: __reentrantb void ax5043_set_registers_tx(void) __reentrant
+                                   3969 ;	-----------------------------------------
+                                   3970 ;	 function ax5043_set_registers_tx
+                                   3971 ;	-----------------------------------------
+      00060E                       3972 _ax5043_set_registers_tx:
+                           0002AD  3973 	C$config.c$144$1$105 ==.
+                                   3974 ;	..\AX_Radio_Lab_output\config.c:144: AX5043_PLLLOOP                 = 0x09;
+      00060E 90 40 30         [24] 3975 	mov	dptr,#_AX5043_PLLLOOP
+      000611 74 09            [12] 3976 	mov	a,#0x09
+      000613 F0               [24] 3977 	movx	@dptr,a
+                           0002B3  3978 	C$config.c$145$1$105 ==.
+                                   3979 ;	..\AX_Radio_Lab_output\config.c:145: AX5043_PLLCPI                  = 0x02;
+      000614 90 40 31         [24] 3980 	mov	dptr,#_AX5043_PLLCPI
+      000617 74 02            [12] 3981 	mov	a,#0x02
+      000619 F0               [24] 3982 	movx	@dptr,a
+                           0002B9  3983 	C$config.c$146$1$105 ==.
+                                   3984 ;	..\AX_Radio_Lab_output\config.c:146: AX5043_PLLVCODIV               = 0x20;
+      00061A 90 40 32         [24] 3985 	mov	dptr,#_AX5043_PLLVCODIV
+      00061D C4               [12] 3986 	swap	a
+      00061E F0               [24] 3987 	movx	@dptr,a
+                           0002BE  3988 	C$config.c$147$1$105 ==.
+                                   3989 ;	..\AX_Radio_Lab_output\config.c:147: AX5043_XTALCAP                 = 0x0C;
+      00061F 90 41 84         [24] 3990 	mov	dptr,#_AX5043_XTALCAP
+      000622 74 0C            [12] 3991 	mov	a,#0x0c
+      000624 F0               [24] 3992 	movx	@dptr,a
+                           0002C4  3993 	C$config.c$148$1$105 ==.
+                                   3994 ;	..\AX_Radio_Lab_output\config.c:148: AX5043_0xF00                   = 0x0F;
+      000625 90 4F 00         [24] 3995 	mov	dptr,#_AX5043_0xF00
+      000628 74 0F            [12] 3996 	mov	a,#0x0f
+      00062A F0               [24] 3997 	movx	@dptr,a
+                           0002CA  3998 	C$config.c$149$1$105 ==.
+                                   3999 ;	..\AX_Radio_Lab_output\config.c:149: AX5043_0xF18                   = 0x06;
+      00062B 90 4F 18         [24] 4000 	mov	dptr,#_AX5043_0xF18
+      00062E 74 06            [12] 4001 	mov	a,#0x06
+      000630 F0               [24] 4002 	movx	@dptr,a
+                           0002D0  4003 	C$config.c$150$1$105 ==.
+                           0002D0  4004 	XG$ax5043_set_registers_tx$0$0 ==.
+      000631 22               [24] 4005 	ret
+                                   4006 ;------------------------------------------------------------
+                                   4007 ;Allocation info for local variables in function 'ax5043_set_registers_rx'
+                                   4008 ;------------------------------------------------------------
+                           0002D1  4009 	G$ax5043_set_registers_rx$0$0 ==.
+                           0002D1  4010 	C$config.c$153$1$105 ==.
+                                   4011 ;	..\AX_Radio_Lab_output\config.c:153: __reentrantb void ax5043_set_registers_rx(void) __reentrant
+                                   4012 ;	-----------------------------------------
+                                   4013 ;	 function ax5043_set_registers_rx
+                                   4014 ;	-----------------------------------------
+      000632                       4015 _ax5043_set_registers_rx:
+                           0002D1  4016 	C$config.c$155$1$107 ==.
+                                   4017 ;	..\AX_Radio_Lab_output\config.c:155: AX5043_PLLLOOP                 = 0x09;
+      000632 90 40 30         [24] 4018 	mov	dptr,#_AX5043_PLLLOOP
+      000635 74 09            [12] 4019 	mov	a,#0x09
+      000637 F0               [24] 4020 	movx	@dptr,a
+                           0002D7  4021 	C$config.c$156$1$107 ==.
+                                   4022 ;	..\AX_Radio_Lab_output\config.c:156: AX5043_PLLCPI                  = 0x01;
+      000638 90 40 31         [24] 4023 	mov	dptr,#_AX5043_PLLCPI
+      00063B 74 01            [12] 4024 	mov	a,#0x01
+      00063D F0               [24] 4025 	movx	@dptr,a
+                           0002DD  4026 	C$config.c$157$1$107 ==.
+                                   4027 ;	..\AX_Radio_Lab_output\config.c:157: AX5043_PLLVCODIV               = 0x20;
+      00063E 90 40 32         [24] 4028 	mov	dptr,#_AX5043_PLLVCODIV
+      000641 74 20            [12] 4029 	mov	a,#0x20
+      000643 F0               [24] 4030 	movx	@dptr,a
+                           0002E3  4031 	C$config.c$158$1$107 ==.
+                                   4032 ;	..\AX_Radio_Lab_output\config.c:158: AX5043_XTALCAP                 = 0x0C;
+      000644 90 41 84         [24] 4033 	mov	dptr,#_AX5043_XTALCAP
+      000647 74 0C            [12] 4034 	mov	a,#0x0c
+      000649 F0               [24] 4035 	movx	@dptr,a
+                           0002E9  4036 	C$config.c$159$1$107 ==.
+                                   4037 ;	..\AX_Radio_Lab_output\config.c:159: AX5043_0xF00                   = 0x0F;
+      00064A 90 4F 00         [24] 4038 	mov	dptr,#_AX5043_0xF00
+      00064D 74 0F            [12] 4039 	mov	a,#0x0f
+      00064F F0               [24] 4040 	movx	@dptr,a
+                           0002EF  4041 	C$config.c$160$1$107 ==.
+                                   4042 ;	..\AX_Radio_Lab_output\config.c:160: AX5043_0xF18                   = 0x06;
+      000650 90 4F 18         [24] 4043 	mov	dptr,#_AX5043_0xF18
+      000653 74 06            [12] 4044 	mov	a,#0x06
+      000655 F0               [24] 4045 	movx	@dptr,a
+                           0002F5  4046 	C$config.c$161$1$107 ==.
+                           0002F5  4047 	XG$ax5043_set_registers_rx$0$0 ==.
+      000656 22               [24] 4048 	ret
+                                   4049 ;------------------------------------------------------------
+                                   4050 ;Allocation info for local variables in function 'ax5043_set_registers_rxwor'
+                                   4051 ;------------------------------------------------------------
+                           0002F6  4052 	G$ax5043_set_registers_rxwor$0$0 ==.
+                           0002F6  4053 	C$config.c$164$1$107 ==.
+                                   4054 ;	..\AX_Radio_Lab_output\config.c:164: __reentrantb void ax5043_set_registers_rxwor(void) __reentrant
+                                   4055 ;	-----------------------------------------
+                                   4056 ;	 function ax5043_set_registers_rxwor
+                                   4057 ;	-----------------------------------------
+      000657                       4058 _ax5043_set_registers_rxwor:
+                           0002F6  4059 	C$config.c$166$1$109 ==.
+                                   4060 ;	..\AX_Radio_Lab_output\config.c:166: AX5043_TMGRXAGC                = 0x00;
+      000657 90 42 27         [24] 4061 	mov	dptr,#_AX5043_TMGRXAGC
+      00065A E4               [12] 4062 	clr	a
+      00065B F0               [24] 4063 	movx	@dptr,a
+                           0002FB  4064 	C$config.c$167$1$109 ==.
+                                   4065 ;	..\AX_Radio_Lab_output\config.c:167: AX5043_TMGRXPREAMBLE1          = 0x19;
+      00065C 90 42 29         [24] 4066 	mov	dptr,#_AX5043_TMGRXPREAMBLE1
+      00065F 74 19            [12] 4067 	mov	a,#0x19
+      000661 F0               [24] 4068 	movx	@dptr,a
+                           000301  4069 	C$config.c$168$1$109 ==.
+                                   4070 ;	..\AX_Radio_Lab_output\config.c:168: AX5043_PKTMISCFLAGS            = 0x03;
+      000662 90 42 31         [24] 4071 	mov	dptr,#_AX5043_PKTMISCFLAGS
+      000665 74 03            [12] 4072 	mov	a,#0x03
+      000667 F0               [24] 4073 	movx	@dptr,a
+                           000307  4074 	C$config.c$169$1$109 ==.
+                           000307  4075 	XG$ax5043_set_registers_rxwor$0$0 ==.
+      000668 22               [24] 4076 	ret
+                                   4077 ;------------------------------------------------------------
+                                   4078 ;Allocation info for local variables in function 'ax5043_set_registers_rxcont'
+                                   4079 ;------------------------------------------------------------
+                           000308  4080 	G$ax5043_set_registers_rxcont$0$0 ==.
+                           000308  4081 	C$config.c$172$1$109 ==.
+                                   4082 ;	..\AX_Radio_Lab_output\config.c:172: __reentrantb void ax5043_set_registers_rxcont(void) __reentrant
+                                   4083 ;	-----------------------------------------
+                                   4084 ;	 function ax5043_set_registers_rxcont
+                                   4085 ;	-----------------------------------------
+      000669                       4086 _ax5043_set_registers_rxcont:
+                           000308  4087 	C$config.c$174$1$111 ==.
+                                   4088 ;	..\AX_Radio_Lab_output\config.c:174: AX5043_TMGRXAGC                = 0x00;
+      000669 90 42 27         [24] 4089 	mov	dptr,#_AX5043_TMGRXAGC
+      00066C E4               [12] 4090 	clr	a
+      00066D F0               [24] 4091 	movx	@dptr,a
+                           00030D  4092 	C$config.c$175$1$111 ==.
+                                   4093 ;	..\AX_Radio_Lab_output\config.c:175: AX5043_TMGRXPREAMBLE1          = 0x00;
+      00066E 90 42 29         [24] 4094 	mov	dptr,#_AX5043_TMGRXPREAMBLE1
+      000671 F0               [24] 4095 	movx	@dptr,a
+                           000311  4096 	C$config.c$176$1$111 ==.
+                                   4097 ;	..\AX_Radio_Lab_output\config.c:176: AX5043_PKTMISCFLAGS            = 0x00;
+      000672 90 42 31         [24] 4098 	mov	dptr,#_AX5043_PKTMISCFLAGS
+      000675 F0               [24] 4099 	movx	@dptr,a
+                           000315  4100 	C$config.c$177$1$111 ==.
+                           000315  4101 	XG$ax5043_set_registers_rxcont$0$0 ==.
+      000676 22               [24] 4102 	ret
+                                   4103 ;------------------------------------------------------------
+                                   4104 ;Allocation info for local variables in function 'ax5043_set_registers_rxcont_singleparamset'
+                                   4105 ;------------------------------------------------------------
+                           000316  4106 	G$ax5043_set_registers_rxcont_singleparamset$0$0 ==.
+                           000316  4107 	C$config.c$180$1$111 ==.
+                                   4108 ;	..\AX_Radio_Lab_output\config.c:180: __reentrantb void ax5043_set_registers_rxcont_singleparamset(void) __reentrant
+                                   4109 ;	-----------------------------------------
+                                   4110 ;	 function ax5043_set_registers_rxcont_singleparamset
+                                   4111 ;	-----------------------------------------
+      000677                       4112 _ax5043_set_registers_rxcont_singleparamset:
+                           000316  4113 	C$config.c$182$1$113 ==.
+                                   4114 ;	..\AX_Radio_Lab_output\config.c:182: AX5043_RXPARAMSETS             = 0xFF;
+      000677 90 41 17         [24] 4115 	mov	dptr,#_AX5043_RXPARAMSETS
+      00067A 74 FF            [12] 4116 	mov	a,#0xff
+      00067C F0               [24] 4117 	movx	@dptr,a
+                           00031C  4118 	C$config.c$183$1$113 ==.
+                                   4119 ;	..\AX_Radio_Lab_output\config.c:183: AX5043_FREQDEV13               = 0x00;
+      00067D 90 41 5C         [24] 4120 	mov	dptr,#_AX5043_FREQDEV13
+      000680 E4               [12] 4121 	clr	a
+      000681 F0               [24] 4122 	movx	@dptr,a
+                           000321  4123 	C$config.c$184$1$113 ==.
+                                   4124 ;	..\AX_Radio_Lab_output\config.c:184: AX5043_FREQDEV03               = 0x00;
+      000682 90 41 5D         [24] 4125 	mov	dptr,#_AX5043_FREQDEV03
+      000685 F0               [24] 4126 	movx	@dptr,a
+                           000325  4127 	C$config.c$185$1$113 ==.
+                                   4128 ;	..\AX_Radio_Lab_output\config.c:185: AX5043_AGCGAIN3                = 0xA5;
+      000686 90 41 50         [24] 4129 	mov	dptr,#_AX5043_AGCGAIN3
+      000689 74 A5            [12] 4130 	mov	a,#0xa5
+      00068B F0               [24] 4131 	movx	@dptr,a
+                           00032B  4132 	C$config.c$186$1$113 ==.
+                           00032B  4133 	XG$ax5043_set_registers_rxcont_singleparamset$0$0 ==.
+      00068C 22               [24] 4134 	ret
+                                   4135 ;------------------------------------------------------------
+                                   4136 ;Allocation info for local variables in function 'axradio_setup_pincfg1'
+                                   4137 ;------------------------------------------------------------
+                           00032C  4138 	G$axradio_setup_pincfg1$0$0 ==.
+                           00032C  4139 	C$config.c$190$1$113 ==.
+                                   4140 ;	..\AX_Radio_Lab_output\config.c:190: __reentrantb void axradio_setup_pincfg1(void) __reentrant
+                                   4141 ;	-----------------------------------------
+                                   4142 ;	 function axradio_setup_pincfg1
+                                   4143 ;	-----------------------------------------
+      00068D                       4144 _axradio_setup_pincfg1:
+                           00032C  4145 	C$config.c$192$1$115 ==.
+                                   4146 ;	..\AX_Radio_Lab_output\config.c:192: PALTRADIO = 0x00; //pass through  
+      00068D 90 70 46         [24] 4147 	mov	dptr,#_PALTRADIO
+      000690 E4               [12] 4148 	clr	a
+      000691 F0               [24] 4149 	movx	@dptr,a
+                           000331  4150 	C$config.c$193$1$115 ==.
+                           000331  4151 	XG$axradio_setup_pincfg1$0$0 ==.
+      000692 22               [24] 4152 	ret
+                                   4153 ;------------------------------------------------------------
+                                   4154 ;Allocation info for local variables in function 'axradio_setup_pincfg2'
+                                   4155 ;------------------------------------------------------------
+                           000332  4156 	G$axradio_setup_pincfg2$0$0 ==.
+                           000332  4157 	C$config.c$195$1$115 ==.
+                                   4158 ;	..\AX_Radio_Lab_output\config.c:195: __reentrantb void axradio_setup_pincfg2(void) __reentrant
+                                   4159 ;	-----------------------------------------
+                                   4160 ;	 function axradio_setup_pincfg2
+                                   4161 ;	-----------------------------------------
+      000693                       4162 _axradio_setup_pincfg2:
+                           000332  4163 	C$config.c$197$1$117 ==.
+                                   4164 ;	..\AX_Radio_Lab_output\config.c:197: PORTR = (PORTR & 0x3F) | 0x00; //AX8052F143 --> no pull-ups on PR6, PR7
+      000693 53 8C 3F         [24] 4165 	anl	_PORTR,#0x3f
+                           000335  4166 	C$config.c$198$1$117 ==.
+                           000335  4167 	XG$axradio_setup_pincfg2$0$0 ==.
+      000696 22               [24] 4168 	ret
+                                   4169 ;------------------------------------------------------------
+                                   4170 ;Allocation info for local variables in function 'axradio_conv_freq_fromhz'
+                                   4171 ;------------------------------------------------------------
+                                   4172 ;f                         Allocated to registers 
+                                   4173 ;------------------------------------------------------------
+                           000336  4174 	G$axradio_conv_freq_fromhz$0$0 ==.
+                           000336  4175 	C$config.c$603$1$117 ==.
+                                   4176 ;	..\AX_Radio_Lab_output\config.c:603: int32_t axradio_conv_freq_fromhz(int32_t f)
+                                   4177 ;	-----------------------------------------
+                                   4178 ;	 function axradio_conv_freq_fromhz
+                                   4179 ;	-----------------------------------------
+      000697                       4180 _axradio_conv_freq_fromhz:
+                           000336  4181 	C$config.c$609$1$119 ==.
+                                   4182 ;	..\AX_Radio_Lab_output\config.c:609: CONSTMULFIX24(0x597a7e);
+      000697 A8 82            [24] 4183 	mov r0,dpl 
+      000699 A9 83            [24] 4184 	mov r1,dph 
+      00069B AA F0            [24] 4185 	mov r2,b 
+      00069D FB               [12] 4186 	mov r3,a 
+      00069E C0 E0            [24] 4187 	push acc 
+      0006A0 30 E7 0D         [24] 4188 	jnb acc.7,00000$ 
+      0006A3 C3               [12] 4189 	clr c 
+      0006A4 E4               [12] 4190 	clr a 
+      0006A5 98               [12] 4191 	subb a,r0 
+      0006A6 F8               [12] 4192 	mov r0,a 
+      0006A7 E4               [12] 4193 	clr a 
+      0006A8 99               [12] 4194 	subb a,r1 
+      0006A9 F9               [12] 4195 	mov r1,a 
+      0006AA E4               [12] 4196 	clr a 
+      0006AB 9A               [12] 4197 	subb a,r2 
+      0006AC FA               [12] 4198 	mov r2,a 
+      0006AD E4               [12] 4199 	clr a 
+      0006AE 9B               [12] 4200 	subb a,r3 
+      0006AF FB               [12] 4201 	mov r3,a 
+      0006B0                       4202 	 00000$:
+      0006B0 E4               [12] 4203 	clr a 
+      0006B1 FC               [12] 4204 	mov r4,a 
+      0006B2 FD               [12] 4205 	mov r5,a 
+      0006B3 FE               [12] 4206 	mov r6,a 
+      0006B4 FF               [12] 4207 	mov r7,a 
+                                   4208 ;; stage -1 
+                           000001  4209 	.if (((0x597a7e)>>16)&0xff) 
+      0006B5 74 59            [12] 4210 	mov a,# (((0x597a7e)>>16)&0xff) 
+      0006B7 88 F0            [24] 4211 	mov b,r0 
+      0006B9 A4               [48] 4212 	mul ab 
+      0006BA FF               [12] 4213 	mov r7,a 
+      0006BB AC F0            [24] 4214 	mov r4,b 
+                                   4215 	.endif 
+                           000001  4216 	.if (((0x597a7e)>>8)&0xff) 
+      0006BD 74 7A            [12] 4217 	mov a,# (((0x597a7e)>>8)&0xff) 
+      0006BF 89 F0            [24] 4218 	mov b,r1 
+      0006C1 A4               [48] 4219 	mul ab 
+                           000001  4220 	.if (((0x597a7e)>>16)&0xff) 
+      0006C2 2F               [12] 4221 	add a,r7 
+      0006C3 FF               [12] 4222 	mov r7,a 
+      0006C4 E5 F0            [12] 4223 	mov a,b 
+      0006C6 3C               [12] 4224 	addc a,r4 
+      0006C7 FC               [12] 4225 	mov r4,a 
+      0006C8 E4               [12] 4226 	clr a 
+      0006C9 3D               [12] 4227 	addc a,r5 
+      0006CA FD               [12] 4228 	mov r5,a 
+                           000000  4229 	.else 
+                                   4230 	mov r7,a 
+                                   4231 	mov r4,b 
+                                   4232 	.endif 
+                                   4233 	.endif 
+                           000001  4234 	.if ((0x597a7e)&0xff) 
+      0006CB 74 7E            [12] 4235 	mov a,# ((0x597a7e)&0xff) 
+      0006CD 8A F0            [24] 4236 	mov b,r2 
+      0006CF A4               [48] 4237 	mul ab 
+                           000001  4238 	.if (((0x597a7e)>>8)&0xffff) 
+      0006D0 2F               [12] 4239 	add a,r7 
+      0006D1 FF               [12] 4240 	mov r7,a 
+      0006D2 E5 F0            [12] 4241 	mov a,b 
+      0006D4 3C               [12] 4242 	addc a,r4 
+      0006D5 FC               [12] 4243 	mov r4,a 
+      0006D6 E4               [12] 4244 	clr a 
+      0006D7 3D               [12] 4245 	addc a,r5 
+      0006D8 FD               [12] 4246 	mov r5,a 
+                           000000  4247 	.else 
+                                   4248 	mov r7,a 
+                                   4249 	mov r4,b 
+                                   4250 	.endif 
+                                   4251 	.endif 
+                                   4252 ;; clear precision extension 
+      0006D9 E4               [12] 4253 	clr a 
+      0006DA FF               [12] 4254 	mov r7,a 
+                                   4255 ;; stage 0 
+                           000000  4256 	.if (((0x597a7e)>>24)&0xff) 
+                                   4257 	mov a,# (((0x597a7e)>>24)&0xff) 
+                                   4258 	mov b,r0 
+                                   4259 	mul ab 
+                                   4260 	add a,r4 
+                                   4261 	mov r4,a 
+                                   4262 	mov a,b 
+                                   4263 	addc a,r5 
+                                   4264 	mov r5,a 
+                                   4265 	clr a 
+                                   4266 	addc a,r6 
+                                   4267 	mov r6,a 
+                                   4268 	.endif 
+                           000001  4269 	.if (((0x597a7e)>>16)&0xff) 
+      0006DB 74 59            [12] 4270 	mov a,# (((0x597a7e)>>16)&0xff) 
+      0006DD 89 F0            [24] 4271 	mov b,r1 
+      0006DF A4               [48] 4272 	mul ab 
+      0006E0 2C               [12] 4273 	add a,r4 
+      0006E1 FC               [12] 4274 	mov r4,a 
+      0006E2 E5 F0            [12] 4275 	mov a,b 
+      0006E4 3D               [12] 4276 	addc a,r5 
+      0006E5 FD               [12] 4277 	mov r5,a 
+      0006E6 E4               [12] 4278 	clr a 
+      0006E7 3E               [12] 4279 	addc a,r6 
+      0006E8 FE               [12] 4280 	mov r6,a 
+                                   4281 	.endif 
+                           000001  4282 	.if (((0x597a7e)>>8)&0xff) 
+      0006E9 74 7A            [12] 4283 	mov a,# (((0x597a7e)>>8)&0xff) 
+      0006EB 8A F0            [24] 4284 	mov b,r2 
+      0006ED A4               [48] 4285 	mul ab 
+      0006EE 2C               [12] 4286 	add a,r4 
+      0006EF FC               [12] 4287 	mov r4,a 
+      0006F0 E5 F0            [12] 4288 	mov a,b 
+      0006F2 3D               [12] 4289 	addc a,r5 
+      0006F3 FD               [12] 4290 	mov r5,a 
+      0006F4 E4               [12] 4291 	clr a 
+      0006F5 3E               [12] 4292 	addc a,r6 
+      0006F6 FE               [12] 4293 	mov r6,a 
+                                   4294 	.endif 
+                           000001  4295 	.if ((0x597a7e)&0xff) 
+      0006F7 74 7E            [12] 4296 	mov a,# ((0x597a7e)&0xff) 
+      0006F9 8B F0            [24] 4297 	mov b,r3 
+      0006FB A4               [48] 4298 	mul ab 
+      0006FC 2C               [12] 4299 	add a,r4 
+      0006FD FC               [12] 4300 	mov r4,a 
+      0006FE E5 F0            [12] 4301 	mov a,b 
+      000700 3D               [12] 4302 	addc a,r5 
+      000701 FD               [12] 4303 	mov r5,a 
+      000702 E4               [12] 4304 	clr a 
+      000703 3E               [12] 4305 	addc a,r6 
+      000704 FE               [12] 4306 	mov r6,a 
+                                   4307 	.endif 
+                                   4308 ;; stage 1 
+                           000000  4309 	.if (((0x597a7e)>>24)&0xff) 
+                                   4310 	mov a,# (((0x597a7e)>>24)&0xff) 
+                                   4311 	mov b,r1 
+                                   4312 	mul ab 
+                                   4313 	add a,r5 
+                                   4314 	mov r5,a 
+                                   4315 	mov a,b 
+                                   4316 	addc a,r6 
+                                   4317 	mov r6,a 
+                                   4318 	clr a 
+                                   4319 	addc a,r7 
+                                   4320 	mov r7,a 
+                                   4321 	.endif 
+                           000001  4322 	.if (((0x597a7e)>>16)&0xff) 
+      000705 74 59            [12] 4323 	mov a,# (((0x597a7e)>>16)&0xff) 
+      000707 8A F0            [24] 4324 	mov b,r2 
+      000709 A4               [48] 4325 	mul ab 
+      00070A 2D               [12] 4326 	add a,r5 
+      00070B FD               [12] 4327 	mov r5,a 
+      00070C E5 F0            [12] 4328 	mov a,b 
+      00070E 3E               [12] 4329 	addc a,r6 
+      00070F FE               [12] 4330 	mov r6,a 
+      000710 E4               [12] 4331 	clr a 
+      000711 3F               [12] 4332 	addc a,r7 
+      000712 FF               [12] 4333 	mov r7,a 
+                                   4334 	.endif 
+                           000001  4335 	.if (((0x597a7e)>>8)&0xff) 
+      000713 74 7A            [12] 4336 	mov a,# (((0x597a7e)>>8)&0xff) 
+      000715 8B F0            [24] 4337 	mov b,r3 
+      000717 A4               [48] 4338 	mul ab 
+      000718 2D               [12] 4339 	add a,r5 
+      000719 FD               [12] 4340 	mov r5,a 
+      00071A E5 F0            [12] 4341 	mov a,b 
+      00071C 3E               [12] 4342 	addc a,r6 
+      00071D FE               [12] 4343 	mov r6,a 
+      00071E E4               [12] 4344 	clr a 
+      00071F 3F               [12] 4345 	addc a,r7 
+      000720 FF               [12] 4346 	mov r7,a 
+                                   4347 	.endif 
+                                   4348 ;; stage 2 
+                           000000  4349 	.if (((0x597a7e)>>24)&0xff) 
+                                   4350 	mov a,# (((0x597a7e)>>24)&0xff) 
+                                   4351 	mov b,r2 
+                                   4352 	mul ab 
+                                   4353 	add a,r6 
+                                   4354 	mov r6,a 
+                                   4355 	mov a,b 
+                                   4356 	addc a,r7 
+                                   4357 	mov r7,a 
+                                   4358 	.endif 
+                           000001  4359 	.if (((0x597a7e)>>16)&0xff) 
+      000721 74 59            [12] 4360 	mov a,# (((0x597a7e)>>16)&0xff) 
+      000723 8B F0            [24] 4361 	mov b,r3 
+      000725 A4               [48] 4362 	mul ab 
+      000726 2E               [12] 4363 	add a,r6 
+      000727 FE               [12] 4364 	mov r6,a 
+      000728 E5 F0            [12] 4365 	mov a,b 
+      00072A 3F               [12] 4366 	addc a,r7 
+      00072B FF               [12] 4367 	mov r7,a 
+                                   4368 	.endif 
+                                   4369 ;; stage 3 
+                           000000  4370 	.if (((0x597a7e)>>24)&0xff) 
+                                   4371 	mov a,# (((0x597a7e)>>24)&0xff) 
+                                   4372 	mov b,r3 
+                                   4373 	mul ab 
+                                   4374 	add a,r7 
+                                   4375 	mov r7,a 
+                                   4376 	.endif 
+      00072C D0 E0            [24] 4377 	pop acc 
+      00072E 30 E7 11         [24] 4378 	jnb acc.7,00001$ 
+      000731 C3               [12] 4379 	clr c 
+      000732 E4               [12] 4380 	clr a 
+      000733 9C               [12] 4381 	subb a,r4 
+      000734 F5 82            [12] 4382 	mov dpl,a 
+      000736 E4               [12] 4383 	clr a 
+      000737 9D               [12] 4384 	subb a,r5 
+      000738 F5 83            [12] 4385 	mov dph,a 
+      00073A E4               [12] 4386 	clr a 
+      00073B 9E               [12] 4387 	subb a,r6 
+      00073C F5 F0            [12] 4388 	mov b,a 
+      00073E E4               [12] 4389 	clr a 
+      00073F 9F               [12] 4390 	subb a,r7 
+      000740 80 07            [24] 4391 	sjmp 00002$ 
+      000742                       4392 	 00001$:
+      000742 8C 82            [24] 4393 	mov dpl,r4 
+      000744 8D 83            [24] 4394 	mov dph,r5 
+      000746 8E F0            [24] 4395 	mov b,r6 
+      000748 EF               [12] 4396 	mov a,r7 
+      000749                       4397 	 00002$:
+                           0003E8  4398 	C$config.c$610$1$119 ==.
+                           0003E8  4399 	XG$axradio_conv_freq_fromhz$0$0 ==.
+      000749 22               [24] 4400 	ret
+                                   4401 ;------------------------------------------------------------
+                                   4402 ;Allocation info for local variables in function 'axradio_conv_freq_tohz'
+                                   4403 ;------------------------------------------------------------
+                                   4404 ;f                         Allocated to registers 
+                                   4405 ;------------------------------------------------------------
+                           0003E9  4406 	G$axradio_conv_freq_tohz$0$0 ==.
+                           0003E9  4407 	C$config.c$615$1$119 ==.
+                                   4408 ;	..\AX_Radio_Lab_output\config.c:615: int32_t axradio_conv_freq_tohz(int32_t f)
+                                   4409 ;	-----------------------------------------
+                                   4410 ;	 function axradio_conv_freq_tohz
+                                   4411 ;	-----------------------------------------
+      00074A                       4412 _axradio_conv_freq_tohz:
+                           0003E9  4413 	C$config.c$621$1$121 ==.
+                                   4414 ;	..\AX_Radio_Lab_output\config.c:621: CONSTMULFIX24(0x2dc6c00);
+      00074A A8 82            [24] 4415 	mov r0,dpl 
+      00074C A9 83            [24] 4416 	mov r1,dph 
+      00074E AA F0            [24] 4417 	mov r2,b 
+      000750 FB               [12] 4418 	mov r3,a 
+      000751 C0 E0            [24] 4419 	push acc 
+      000753 30 E7 0D         [24] 4420 	jnb acc.7,00000$ 
+      000756 C3               [12] 4421 	clr c 
+      000757 E4               [12] 4422 	clr a 
+      000758 98               [12] 4423 	subb a,r0 
+      000759 F8               [12] 4424 	mov r0,a 
+      00075A E4               [12] 4425 	clr a 
+      00075B 99               [12] 4426 	subb a,r1 
+      00075C F9               [12] 4427 	mov r1,a 
+      00075D E4               [12] 4428 	clr a 
+      00075E 9A               [12] 4429 	subb a,r2 
+      00075F FA               [12] 4430 	mov r2,a 
+      000760 E4               [12] 4431 	clr a 
+      000761 9B               [12] 4432 	subb a,r3 
+      000762 FB               [12] 4433 	mov r3,a 
+      000763                       4434 	 00000$:
+      000763 E4               [12] 4435 	clr a 
+      000764 FC               [12] 4436 	mov r4,a 
+      000765 FD               [12] 4437 	mov r5,a 
+      000766 FE               [12] 4438 	mov r6,a 
+      000767 FF               [12] 4439 	mov r7,a 
+                                   4440 ;; stage -1 
+                           000001  4441 	.if (((0x2dc6c00)>>16)&0xff) 
+      000768 74 DC            [12] 4442 	mov a,# (((0x2dc6c00)>>16)&0xff) 
+      00076A 88 F0            [24] 4443 	mov b,r0 
+      00076C A4               [48] 4444 	mul ab 
+      00076D FF               [12] 4445 	mov r7,a 
+      00076E AC F0            [24] 4446 	mov r4,b 
+                                   4447 	.endif 
+                           000001  4448 	.if (((0x2dc6c00)>>8)&0xff) 
+      000770 74 6C            [12] 4449 	mov a,# (((0x2dc6c00)>>8)&0xff) 
+      000772 89 F0            [24] 4450 	mov b,r1 
+      000774 A4               [48] 4451 	mul ab 
+                           000001  4452 	.if (((0x2dc6c00)>>16)&0xff) 
+      000775 2F               [12] 4453 	add a,r7 
+      000776 FF               [12] 4454 	mov r7,a 
+      000777 E5 F0            [12] 4455 	mov a,b 
+      000779 3C               [12] 4456 	addc a,r4 
+      00077A FC               [12] 4457 	mov r4,a 
+      00077B E4               [12] 4458 	clr a 
+      00077C 3D               [12] 4459 	addc a,r5 
+      00077D FD               [12] 4460 	mov r5,a 
+                           000000  4461 	.else 
+                                   4462 	mov r7,a 
+                                   4463 	mov r4,b 
+                                   4464 	.endif 
+                                   4465 	.endif 
+                           000000  4466 	.if ((0x2dc6c00)&0xff) 
+                                   4467 	mov a,# ((0x2dc6c00)&0xff) 
+                                   4468 	mov b,r2 
+                                   4469 	mul ab 
+                                   4470 	.if (((0x2dc6c00)>>8)&0xffff) 
+                                   4471 	add a,r7 
+                                   4472 	mov r7,a 
+                                   4473 	mov a,b 
+                                   4474 	addc a,r4 
+                                   4475 	mov r4,a 
+                                   4476 	clr a 
+                                   4477 	addc a,r5 
+                                   4478 	mov r5,a 
+                                   4479 	.else 
+                                   4480 	mov r7,a 
+                                   4481 	mov r4,b 
+                                   4482 	.endif 
+                                   4483 	.endif 
+                                   4484 ;; clear precision extension 
+      00077E E4               [12] 4485 	clr a 
+      00077F FF               [12] 4486 	mov r7,a 
+                                   4487 ;; stage 0 
+                           000001  4488 	.if (((0x2dc6c00)>>24)&0xff) 
+      000780 74 02            [12] 4489 	mov a,# (((0x2dc6c00)>>24)&0xff) 
+      000782 88 F0            [24] 4490 	mov b,r0 
+      000784 A4               [48] 4491 	mul ab 
+      000785 2C               [12] 4492 	add a,r4 
+      000786 FC               [12] 4493 	mov r4,a 
+      000787 E5 F0            [12] 4494 	mov a,b 
+      000789 3D               [12] 4495 	addc a,r5 
+      00078A FD               [12] 4496 	mov r5,a 
+      00078B E4               [12] 4497 	clr a 
+      00078C 3E               [12] 4498 	addc a,r6 
+      00078D FE               [12] 4499 	mov r6,a 
+                                   4500 	.endif 
+                           000001  4501 	.if (((0x2dc6c00)>>16)&0xff) 
+      00078E 74 DC            [12] 4502 	mov a,# (((0x2dc6c00)>>16)&0xff) 
+      000790 89 F0            [24] 4503 	mov b,r1 
+      000792 A4               [48] 4504 	mul ab 
+      000793 2C               [12] 4505 	add a,r4 
+      000794 FC               [12] 4506 	mov r4,a 
+      000795 E5 F0            [12] 4507 	mov a,b 
+      000797 3D               [12] 4508 	addc a,r5 
+      000798 FD               [12] 4509 	mov r5,a 
+      000799 E4               [12] 4510 	clr a 
+      00079A 3E               [12] 4511 	addc a,r6 
+      00079B FE               [12] 4512 	mov r6,a 
+                                   4513 	.endif 
+                           000001  4514 	.if (((0x2dc6c00)>>8)&0xff) 
+      00079C 74 6C            [12] 4515 	mov a,# (((0x2dc6c00)>>8)&0xff) 
+      00079E 8A F0            [24] 4516 	mov b,r2 
+      0007A0 A4               [48] 4517 	mul ab 
+      0007A1 2C               [12] 4518 	add a,r4 
+      0007A2 FC               [12] 4519 	mov r4,a 
+      0007A3 E5 F0            [12] 4520 	mov a,b 
+      0007A5 3D               [12] 4521 	addc a,r5 
+      0007A6 FD               [12] 4522 	mov r5,a 
+      0007A7 E4               [12] 4523 	clr a 
+      0007A8 3E               [12] 4524 	addc a,r6 
+      0007A9 FE               [12] 4525 	mov r6,a 
+                                   4526 	.endif 
+                           000000  4527 	.if ((0x2dc6c00)&0xff) 
+                                   4528 	mov a,# ((0x2dc6c00)&0xff) 
+                                   4529 	mov b,r3 
+                                   4530 	mul ab 
+                                   4531 	add a,r4 
+                                   4532 	mov r4,a 
+                                   4533 	mov a,b 
+                                   4534 	addc a,r5 
+                                   4535 	mov r5,a 
+                                   4536 	clr a 
+                                   4537 	addc a,r6 
+                                   4538 	mov r6,a 
+                                   4539 	.endif 
+                                   4540 ;; stage 1 
+                           000001  4541 	.if (((0x2dc6c00)>>24)&0xff) 
+      0007AA 74 02            [12] 4542 	mov a,# (((0x2dc6c00)>>24)&0xff) 
+      0007AC 89 F0            [24] 4543 	mov b,r1 
+      0007AE A4               [48] 4544 	mul ab 
+      0007AF 2D               [12] 4545 	add a,r5 
+      0007B0 FD               [12] 4546 	mov r5,a 
+      0007B1 E5 F0            [12] 4547 	mov a,b 
+      0007B3 3E               [12] 4548 	addc a,r6 
+      0007B4 FE               [12] 4549 	mov r6,a 
+      0007B5 E4               [12] 4550 	clr a 
+      0007B6 3F               [12] 4551 	addc a,r7 
+      0007B7 FF               [12] 4552 	mov r7,a 
+                                   4553 	.endif 
+                           000001  4554 	.if (((0x2dc6c00)>>16)&0xff) 
+      0007B8 74 DC            [12] 4555 	mov a,# (((0x2dc6c00)>>16)&0xff) 
+      0007BA 8A F0            [24] 4556 	mov b,r2 
+      0007BC A4               [48] 4557 	mul ab 
+      0007BD 2D               [12] 4558 	add a,r5 
+      0007BE FD               [12] 4559 	mov r5,a 
+      0007BF E5 F0            [12] 4560 	mov a,b 
+      0007C1 3E               [12] 4561 	addc a,r6 
+      0007C2 FE               [12] 4562 	mov r6,a 
+      0007C3 E4               [12] 4563 	clr a 
+      0007C4 3F               [12] 4564 	addc a,r7 
+      0007C5 FF               [12] 4565 	mov r7,a 
+                                   4566 	.endif 
+                           000001  4567 	.if (((0x2dc6c00)>>8)&0xff) 
+      0007C6 74 6C            [12] 4568 	mov a,# (((0x2dc6c00)>>8)&0xff) 
+      0007C8 8B F0            [24] 4569 	mov b,r3 
+      0007CA A4               [48] 4570 	mul ab 
+      0007CB 2D               [12] 4571 	add a,r5 
+      0007CC FD               [12] 4572 	mov r5,a 
+      0007CD E5 F0            [12] 4573 	mov a,b 
+      0007CF 3E               [12] 4574 	addc a,r6 
+      0007D0 FE               [12] 4575 	mov r6,a 
+      0007D1 E4               [12] 4576 	clr a 
+      0007D2 3F               [12] 4577 	addc a,r7 
+      0007D3 FF               [12] 4578 	mov r7,a 
+                                   4579 	.endif 
+                                   4580 ;; stage 2 
+                           000001  4581 	.if (((0x2dc6c00)>>24)&0xff) 
+      0007D4 74 02            [12] 4582 	mov a,# (((0x2dc6c00)>>24)&0xff) 
+      0007D6 8A F0            [24] 4583 	mov b,r2 
+      0007D8 A4               [48] 4584 	mul ab 
+      0007D9 2E               [12] 4585 	add a,r6 
+      0007DA FE               [12] 4586 	mov r6,a 
+      0007DB E5 F0            [12] 4587 	mov a,b 
+      0007DD 3F               [12] 4588 	addc a,r7 
+      0007DE FF               [12] 4589 	mov r7,a 
+                                   4590 	.endif 
+                           000001  4591 	.if (((0x2dc6c00)>>16)&0xff) 
+      0007DF 74 DC            [12] 4592 	mov a,# (((0x2dc6c00)>>16)&0xff) 
+      0007E1 8B F0            [24] 4593 	mov b,r3 
+      0007E3 A4               [48] 4594 	mul ab 
+      0007E4 2E               [12] 4595 	add a,r6 
+      0007E5 FE               [12] 4596 	mov r6,a 
+      0007E6 E5 F0            [12] 4597 	mov a,b 
+      0007E8 3F               [12] 4598 	addc a,r7 
+      0007E9 FF               [12] 4599 	mov r7,a 
+                                   4600 	.endif 
+                                   4601 ;; stage 3 
+                           000001  4602 	.if (((0x2dc6c00)>>24)&0xff) 
+      0007EA 74 02            [12] 4603 	mov a,# (((0x2dc6c00)>>24)&0xff) 
+      0007EC 8B F0            [24] 4604 	mov b,r3 
+      0007EE A4               [48] 4605 	mul ab 
+      0007EF 2F               [12] 4606 	add a,r7 
+      0007F0 FF               [12] 4607 	mov r7,a 
+                                   4608 	.endif 
+      0007F1 D0 E0            [24] 4609 	pop acc 
+      0007F3 30 E7 11         [24] 4610 	jnb acc.7,00001$ 
+      0007F6 C3               [12] 4611 	clr c 
+      0007F7 E4               [12] 4612 	clr a 
+      0007F8 9C               [12] 4613 	subb a,r4 
+      0007F9 F5 82            [12] 4614 	mov dpl,a 
+      0007FB E4               [12] 4615 	clr a 
+      0007FC 9D               [12] 4616 	subb a,r5 
+      0007FD F5 83            [12] 4617 	mov dph,a 
+      0007FF E4               [12] 4618 	clr a 
+      000800 9E               [12] 4619 	subb a,r6 
+      000801 F5 F0            [12] 4620 	mov b,a 
+      000803 E4               [12] 4621 	clr a 
+      000804 9F               [12] 4622 	subb a,r7 
+      000805 80 07            [24] 4623 	sjmp 00002$ 
+      000807                       4624 	 00001$:
+      000807 8C 82            [24] 4625 	mov dpl,r4 
+      000809 8D 83            [24] 4626 	mov dph,r5 
+      00080B 8E F0            [24] 4627 	mov b,r6 
+      00080D EF               [12] 4628 	mov a,r7 
+      00080E                       4629 	 00002$:
+                           0004AD  4630 	C$config.c$622$1$121 ==.
+                           0004AD  4631 	XG$axradio_conv_freq_tohz$0$0 ==.
+      00080E 22               [24] 4632 	ret
+                                   4633 ;------------------------------------------------------------
+                                   4634 ;Allocation info for local variables in function 'axradio_conv_freq_fromreg'
+                                   4635 ;------------------------------------------------------------
+                                   4636 ;f                         Allocated to registers 
+                                   4637 ;------------------------------------------------------------
+                           0004AE  4638 	G$axradio_conv_freq_fromreg$0$0 ==.
+                           0004AE  4639 	C$config.c$629$1$121 ==.
+                                   4640 ;	..\AX_Radio_Lab_output\config.c:629: int32_t axradio_conv_freq_fromreg(int32_t f)
+                                   4641 ;	-----------------------------------------
+                                   4642 ;	 function axradio_conv_freq_fromreg
+                                   4643 ;	-----------------------------------------
+      00080F                       4644 _axradio_conv_freq_fromreg:
+                           0004AE  4645 	C$config.c$635$1$123 ==.
+                                   4646 ;	..\AX_Radio_Lab_output\config.c:635: CONSTMULFIX16(0x1000000);
+      00080F A8 82            [24] 4647 	mov r0,dpl 
+      000811 E5 83            [12] 4648 	mov a,dph 
+      000813 F9               [12] 4649 	mov r1,a 
+      000814 C0 E0            [24] 4650 	push acc 
+      000816 30 E7 07         [24] 4651 	jnb acc.7,00000$ 
+      000819 C3               [12] 4652 	clr c 
+      00081A E4               [12] 4653 	clr a 
+      00081B 98               [12] 4654 	subb a,r0 
+      00081C F8               [12] 4655 	mov r0,a 
+      00081D E4               [12] 4656 	clr a 
+      00081E 99               [12] 4657 	subb a,r1 
+      00081F F9               [12] 4658 	mov r1,a 
+      000820                       4659 	 00000$:
+      000820 E4               [12] 4660 	clr a 
+      000821 FC               [12] 4661 	mov r4,a 
+      000822 FD               [12] 4662 	mov r5,a 
+      000823 FE               [12] 4663 	mov r6,a 
+      000824 FF               [12] 4664 	mov r7,a 
+                                   4665 ;; stage -1 
+                           000000  4666 	.if (((0x1000000)>>16)&0xff) 
+                                   4667 	mov a,# (((0x1000000)>>16)&0xff) 
+                                   4668 	mov b,r0 
+                                   4669 	mul ab 
+                                   4670 	mov r7,a 
+                                   4671 	mov r4,b 
+                                   4672 	.endif 
+                           000000  4673 	.if (((0x1000000)>>8)&0xff) 
+                                   4674 	mov a,# (((0x1000000)>>8)&0xff) 
+                                   4675 	mov b,r1 
+                                   4676 	mul ab 
+                                   4677 	.if (((0x1000000)>>16)&0xff) 
+                                   4678 	add a,r7 
+                                   4679 	mov r7,a 
+                                   4680 	mov a,b 
+                                   4681 	addc a,r4 
+                                   4682 	mov r4,a 
+                                   4683 	clr a 
+                                   4684 	addc a,r5 
+                                   4685 	mov r5,a 
+                                   4686 	.else 
+                                   4687 	mov r7,a 
+                                   4688 	mov r4,b 
+                                   4689 	.endif 
+                                   4690 	.endif 
+                                   4691 ;; clear precision extension 
+      000825 E4               [12] 4692 	clr a 
+      000826 FF               [12] 4693 	mov r7,a 
+                                   4694 ;; stage 0 
+                           000001  4695 	.if (((0x1000000)>>24)&0xff) 
+      000827 74 01            [12] 4696 	mov a,# (((0x1000000)>>24)&0xff) 
+      000829 88 F0            [24] 4697 	mov b,r0 
+      00082B A4               [48] 4698 	mul ab 
+      00082C 2C               [12] 4699 	add a,r4 
+      00082D FC               [12] 4700 	mov r4,a 
+      00082E E5 F0            [12] 4701 	mov a,b 
+      000830 3D               [12] 4702 	addc a,r5 
+      000831 FD               [12] 4703 	mov r5,a 
+      000832 E4               [12] 4704 	clr a 
+      000833 3E               [12] 4705 	addc a,r6 
+      000834 FE               [12] 4706 	mov r6,a 
+                                   4707 	.endif 
+                           000000  4708 	.if (((0x1000000)>>16)&0xff) 
+                                   4709 	mov a,# (((0x1000000)>>16)&0xff) 
+                                   4710 	mov b,r1 
+                                   4711 	mul ab 
+                                   4712 	add a,r4 
+                                   4713 	mov r4,a 
+                                   4714 	mov a,b 
+                                   4715 	addc a,r5 
+                                   4716 	mov r5,a 
+                                   4717 	clr a 
+                                   4718 	addc a,r6 
+                                   4719 	mov r6,a 
+                                   4720 	.endif 
+                                   4721 ;; stage 1 
+                           000001  4722 	.if (((0x1000000)>>24)&0xff) 
+      000835 74 01            [12] 4723 	mov a,# (((0x1000000)>>24)&0xff) 
+      000837 89 F0            [24] 4724 	mov b,r1 
+      000839 A4               [48] 4725 	mul ab 
+      00083A 2D               [12] 4726 	add a,r5 
+      00083B FD               [12] 4727 	mov r5,a 
+      00083C E5 F0            [12] 4728 	mov a,b 
+      00083E 3E               [12] 4729 	addc a,r6 
+      00083F FE               [12] 4730 	mov r6,a 
+      000840 E4               [12] 4731 	clr a 
+      000841 3F               [12] 4732 	addc a,r7 
+      000842 FF               [12] 4733 	mov r7,a 
+                                   4734 	.endif 
+      000843 D0 E0            [24] 4735 	pop acc 
+      000845 30 E7 11         [24] 4736 	jnb acc.7,00001$ 
+      000848 C3               [12] 4737 	clr c 
+      000849 E4               [12] 4738 	clr a 
+      00084A 9C               [12] 4739 	subb a,r4 
+      00084B F5 82            [12] 4740 	mov dpl,a 
+      00084D E4               [12] 4741 	clr a 
+      00084E 9D               [12] 4742 	subb a,r5 
+      00084F F5 83            [12] 4743 	mov dph,a 
+      000851 E4               [12] 4744 	clr a 
+      000852 9E               [12] 4745 	subb a,r6 
+      000853 F5 F0            [12] 4746 	mov b,a 
+      000855 E4               [12] 4747 	clr a 
+      000856 9F               [12] 4748 	subb a,r7 
+      000857 80 07            [24] 4749 	sjmp 00002$ 
+      000859                       4750 	 00001$:
+      000859 8C 82            [24] 4751 	mov dpl,r4 
+      00085B 8D 83            [24] 4752 	mov dph,r5 
+      00085D 8E F0            [24] 4753 	mov b,r6 
+      00085F EF               [12] 4754 	mov a,r7 
+      000860                       4755 	 00002$:
+                           0004FF  4756 	C$config.c$636$1$123 ==.
+                           0004FF  4757 	XG$axradio_conv_freq_fromreg$0$0 ==.
+      000860 22               [24] 4758 	ret
+                                   4759 ;------------------------------------------------------------
+                                   4760 ;Allocation info for local variables in function 'axradio_conv_timeinterval_totimer0'
+                                   4761 ;------------------------------------------------------------
+                                   4762 ;dt                        Allocated to registers r4 r5 r6 r7 
+                                   4763 ;r                         Allocated to registers r0 r1 r2 r3 
+                                   4764 ;------------------------------------------------------------
+                           000500  4765 	G$axradio_conv_timeinterval_totimer0$0$0 ==.
+                           000500  4766 	C$config.c$641$1$123 ==.
+                                   4767 ;	..\AX_Radio_Lab_output\config.c:641: int32_t axradio_conv_timeinterval_totimer0(int32_t dt)
+                                   4768 ;	-----------------------------------------
+                                   4769 ;	 function axradio_conv_timeinterval_totimer0
+                                   4770 ;	-----------------------------------------
+      000861                       4771 _axradio_conv_timeinterval_totimer0:
+      000861 AC 82            [24] 4772 	mov	r4,dpl
+      000863 AD 83            [24] 4773 	mov	r5,dph
+      000865 AE F0            [24] 4774 	mov	r6,b
+      000867 FF               [12] 4775 	mov	r7,a
+                           000507  4776 	C$config.c$648$1$125 ==.
+                                   4777 ;	..\AX_Radio_Lab_output\config.c:648: dt >>= 6;
+      000868 ED               [12] 4778 	mov	a,r5
+      000869 A2 E7            [12] 4779 	mov	c,acc.7
+      00086B CC               [12] 4780 	xch	a,r4
+      00086C 33               [12] 4781 	rlc	a
+      00086D CC               [12] 4782 	xch	a,r4
+      00086E 33               [12] 4783 	rlc	a
+      00086F A2 E7            [12] 4784 	mov	c,acc.7
+      000871 CC               [12] 4785 	xch	a,r4
+      000872 33               [12] 4786 	rlc	a
+      000873 CC               [12] 4787 	xch	a,r4
+      000874 33               [12] 4788 	rlc	a
+      000875 CC               [12] 4789 	xch	a,r4
+      000876 54 03            [12] 4790 	anl	a,#0x03
+      000878 FD               [12] 4791 	mov	r5,a
+      000879 EE               [12] 4792 	mov	a,r6
+      00087A 2E               [12] 4793 	add	a,r6
+      00087B 25 E0            [12] 4794 	add	a,acc
+      00087D 4D               [12] 4795 	orl	a,r5
+      00087E FD               [12] 4796 	mov	r5,a
+      00087F EF               [12] 4797 	mov	a,r7
+      000880 A2 E7            [12] 4798 	mov	c,acc.7
+      000882 CE               [12] 4799 	xch	a,r6
+      000883 33               [12] 4800 	rlc	a
+      000884 CE               [12] 4801 	xch	a,r6
+      000885 33               [12] 4802 	rlc	a
+      000886 A2 E7            [12] 4803 	mov	c,acc.7
+      000888 CE               [12] 4804 	xch	a,r6
+      000889 33               [12] 4805 	rlc	a
+      00088A CE               [12] 4806 	xch	a,r6
+      00088B 33               [12] 4807 	rlc	a
+      00088C CE               [12] 4808 	xch	a,r6
+      00088D 54 03            [12] 4809 	anl	a,#0x03
+      00088F 30 E1 02         [24] 4810 	jnb	acc.1,00103$
+      000892 44 FC            [12] 4811 	orl	a,#0xfc
+      000894                       4812 00103$:
+      000894 FF               [12] 4813 	mov	r7,a
+                           000534  4814 	C$config.c$649$1$125 ==.
+                                   4815 ;	..\AX_Radio_Lab_output\config.c:649: r = dt;
+      000895 8C 00            [24] 4816 	mov	ar0,r4
+      000897 8D 01            [24] 4817 	mov	ar1,r5
+      000899 8E 02            [24] 4818 	mov	ar2,r6
+                           00053A  4819 	C$config.c$650$1$125 ==.
+                                   4820 ;	..\AX_Radio_Lab_output\config.c:650: dt >>= 2;
+      00089B EF               [12] 4821 	mov	a,r7
+      00089C FB               [12] 4822 	mov	r3,a
+      00089D A2 E7            [12] 4823 	mov	c,acc.7
+      00089F 13               [12] 4824 	rrc	a
+      0008A0 FF               [12] 4825 	mov	r7,a
+      0008A1 EE               [12] 4826 	mov	a,r6
+      0008A2 13               [12] 4827 	rrc	a
+      0008A3 FE               [12] 4828 	mov	r6,a
+      0008A4 ED               [12] 4829 	mov	a,r5
+      0008A5 13               [12] 4830 	rrc	a
+      0008A6 FD               [12] 4831 	mov	r5,a
+      0008A7 EC               [12] 4832 	mov	a,r4
+      0008A8 13               [12] 4833 	rrc	a
+      0008A9 FC               [12] 4834 	mov	r4,a
+      0008AA EF               [12] 4835 	mov	a,r7
+      0008AB A2 E7            [12] 4836 	mov	c,acc.7
+      0008AD 13               [12] 4837 	rrc	a
+      0008AE FF               [12] 4838 	mov	r7,a
+      0008AF EE               [12] 4839 	mov	a,r6
+      0008B0 13               [12] 4840 	rrc	a
+      0008B1 FE               [12] 4841 	mov	r6,a
+      0008B2 ED               [12] 4842 	mov	a,r5
+      0008B3 13               [12] 4843 	rrc	a
+      0008B4 FD               [12] 4844 	mov	r5,a
+      0008B5 EC               [12] 4845 	mov	a,r4
+      0008B6 13               [12] 4846 	rrc	a
+      0008B7 FC               [12] 4847 	mov	r4,a
+                           000557  4848 	C$config.c$651$1$125 ==.
+                                   4849 ;	..\AX_Radio_Lab_output\config.c:651: r -= dt;
+      0008B8 E8               [12] 4850 	mov	a,r0
+      0008B9 C3               [12] 4851 	clr	c
+      0008BA 9C               [12] 4852 	subb	a,r4
+      0008BB F8               [12] 4853 	mov	r0,a
+      0008BC E9               [12] 4854 	mov	a,r1
+      0008BD 9D               [12] 4855 	subb	a,r5
+      0008BE F9               [12] 4856 	mov	r1,a
+      0008BF EA               [12] 4857 	mov	a,r2
+      0008C0 9E               [12] 4858 	subb	a,r6
+      0008C1 FA               [12] 4859 	mov	r2,a
+      0008C2 EB               [12] 4860 	mov	a,r3
+      0008C3 9F               [12] 4861 	subb	a,r7
+      0008C4 FB               [12] 4862 	mov	r3,a
+                           000564  4863 	C$config.c$652$1$125 ==.
+                                   4864 ;	..\AX_Radio_Lab_output\config.c:652: dt >>= 2;
+      0008C5 EF               [12] 4865 	mov	a,r7
+      0008C6 A2 E7            [12] 4866 	mov	c,acc.7
+      0008C8 13               [12] 4867 	rrc	a
+      0008C9 FF               [12] 4868 	mov	r7,a
+      0008CA EE               [12] 4869 	mov	a,r6
+      0008CB 13               [12] 4870 	rrc	a
+      0008CC FE               [12] 4871 	mov	r6,a
+      0008CD ED               [12] 4872 	mov	a,r5
+      0008CE 13               [12] 4873 	rrc	a
+      0008CF FD               [12] 4874 	mov	r5,a
+      0008D0 EC               [12] 4875 	mov	a,r4
+      0008D1 13               [12] 4876 	rrc	a
+      0008D2 FC               [12] 4877 	mov	r4,a
+      0008D3 EF               [12] 4878 	mov	a,r7
+      0008D4 A2 E7            [12] 4879 	mov	c,acc.7
+      0008D6 13               [12] 4880 	rrc	a
+      0008D7 FF               [12] 4881 	mov	r7,a
+      0008D8 EE               [12] 4882 	mov	a,r6
+      0008D9 13               [12] 4883 	rrc	a
+      0008DA FE               [12] 4884 	mov	r6,a
+      0008DB ED               [12] 4885 	mov	a,r5
+      0008DC 13               [12] 4886 	rrc	a
+      0008DD FD               [12] 4887 	mov	r5,a
+      0008DE EC               [12] 4888 	mov	a,r4
+      0008DF 13               [12] 4889 	rrc	a
+      0008E0 FC               [12] 4890 	mov	r4,a
+                           000580  4891 	C$config.c$653$1$125 ==.
+                                   4892 ;	..\AX_Radio_Lab_output\config.c:653: r -= dt;
+      0008E1 E8               [12] 4893 	mov	a,r0
+      0008E2 C3               [12] 4894 	clr	c
+      0008E3 9C               [12] 4895 	subb	a,r4
+      0008E4 F8               [12] 4896 	mov	r0,a
+      0008E5 E9               [12] 4897 	mov	a,r1
+      0008E6 9D               [12] 4898 	subb	a,r5
+      0008E7 F9               [12] 4899 	mov	r1,a
+      0008E8 EA               [12] 4900 	mov	a,r2
+      0008E9 9E               [12] 4901 	subb	a,r6
+      0008EA FA               [12] 4902 	mov	r2,a
+      0008EB EB               [12] 4903 	mov	a,r3
+      0008EC 9F               [12] 4904 	subb	a,r7
+      0008ED FB               [12] 4905 	mov	r3,a
+                           00058D  4906 	C$config.c$654$1$125 ==.
+                                   4907 ;	..\AX_Radio_Lab_output\config.c:654: dt >>= 3;
+      0008EE ED               [12] 4908 	mov	a,r5
+      0008EF C4               [12] 4909 	swap	a
+      0008F0 23               [12] 4910 	rl	a
+      0008F1 CC               [12] 4911 	xch	a,r4
+      0008F2 C4               [12] 4912 	swap	a
+      0008F3 23               [12] 4913 	rl	a
+      0008F4 54 1F            [12] 4914 	anl	a,#0x1f
+      0008F6 6C               [12] 4915 	xrl	a,r4
+      0008F7 CC               [12] 4916 	xch	a,r4
+      0008F8 54 1F            [12] 4917 	anl	a,#0x1f
+      0008FA CC               [12] 4918 	xch	a,r4
+      0008FB 6C               [12] 4919 	xrl	a,r4
+      0008FC CC               [12] 4920 	xch	a,r4
+      0008FD FD               [12] 4921 	mov	r5,a
+      0008FE EE               [12] 4922 	mov	a,r6
+      0008FF C4               [12] 4923 	swap	a
+      000900 23               [12] 4924 	rl	a
+      000901 54 E0            [12] 4925 	anl	a,#0xe0
+      000903 4D               [12] 4926 	orl	a,r5
+      000904 FD               [12] 4927 	mov	r5,a
+      000905 EF               [12] 4928 	mov	a,r7
+      000906 C4               [12] 4929 	swap	a
+      000907 23               [12] 4930 	rl	a
+      000908 CE               [12] 4931 	xch	a,r6
+      000909 C4               [12] 4932 	swap	a
+      00090A 23               [12] 4933 	rl	a
+      00090B 54 1F            [12] 4934 	anl	a,#0x1f
+      00090D 6E               [12] 4935 	xrl	a,r6
+      00090E CE               [12] 4936 	xch	a,r6
+      00090F 54 1F            [12] 4937 	anl	a,#0x1f
+      000911 CE               [12] 4938 	xch	a,r6
+      000912 6E               [12] 4939 	xrl	a,r6
+      000913 CE               [12] 4940 	xch	a,r6
+      000914 30 E4 02         [24] 4941 	jnb	acc.4,00104$
+      000917 44 E0            [12] 4942 	orl	a,#0xe0
+      000919                       4943 00104$:
+      000919 FF               [12] 4944 	mov	r7,a
+                           0005B9  4945 	C$config.c$655$1$125 ==.
+                                   4946 ;	..\AX_Radio_Lab_output\config.c:655: r += dt;
+      00091A EC               [12] 4947 	mov	a,r4
+      00091B 28               [12] 4948 	add	a,r0
+      00091C F8               [12] 4949 	mov	r0,a
+      00091D ED               [12] 4950 	mov	a,r5
+      00091E 39               [12] 4951 	addc	a,r1
+      00091F F9               [12] 4952 	mov	r1,a
+      000920 EE               [12] 4953 	mov	a,r6
+      000921 3A               [12] 4954 	addc	a,r2
+      000922 FA               [12] 4955 	mov	r2,a
+      000923 EF               [12] 4956 	mov	a,r7
+      000924 3B               [12] 4957 	addc	a,r3
+                           0005C4  4958 	C$config.c$656$1$125 ==.
+                                   4959 ;	..\AX_Radio_Lab_output\config.c:656: return r;
+      000925 88 82            [24] 4960 	mov	dpl,r0
+      000927 89 83            [24] 4961 	mov	dph,r1
+      000929 8A F0            [24] 4962 	mov	b,r2
+                           0005CA  4963 	C$config.c$657$1$125 ==.
+                           0005CA  4964 	XG$axradio_conv_timeinterval_totimer0$0$0 ==.
+      00092B 22               [24] 4965 	ret
+                                   4966 ;------------------------------------------------------------
+                                   4967 ;Allocation info for local variables in function 'axradio_byteconv'
+                                   4968 ;------------------------------------------------------------
+                                   4969 ;b                         Allocated to registers r7 
+                                   4970 ;------------------------------------------------------------
+                           0005CB  4971 	G$axradio_byteconv$0$0 ==.
+                           0005CB  4972 	C$config.c$659$1$125 ==.
+                                   4973 ;	..\AX_Radio_Lab_output\config.c:659: __reentrantb uint8_t axradio_byteconv(uint8_t b) __reentrant
+                                   4974 ;	-----------------------------------------
+                                   4975 ;	 function axradio_byteconv
+                                   4976 ;	-----------------------------------------
+      00092C                       4977 _axradio_byteconv:
+                           0005CB  4978 	C$config.c$661$1$127 ==.
+                                   4979 ;	..\AX_Radio_Lab_output\config.c:661: return b;
+                           0005CB  4980 	C$config.c$662$1$127 ==.
+                           0005CB  4981 	XG$axradio_byteconv$0$0 ==.
+      00092C 22               [24] 4982 	ret
+                                   4983 ;------------------------------------------------------------
+                                   4984 ;Allocation info for local variables in function 'axradio_byteconv_buffer'
+                                   4985 ;------------------------------------------------------------
+                                   4986 ;buflen                    Allocated to stack - _bp -4
+                                   4987 ;buf                       Allocated to registers 
+                                   4988 ;------------------------------------------------------------
+                           0005CC  4989 	G$axradio_byteconv_buffer$0$0 ==.
+                           0005CC  4990 	C$config.c$665$1$127 ==.
+                                   4991 ;	..\AX_Radio_Lab_output\config.c:665: __reentrantb void axradio_byteconv_buffer(uint8_t __xdata *buf, uint16_t buflen) __reentrant
+                                   4992 ;	-----------------------------------------
+                                   4993 ;	 function axradio_byteconv_buffer
+                                   4994 ;	-----------------------------------------
+      00092D                       4995 _axradio_byteconv_buffer:
+      00092D C0 22            [24] 4996 	push	_bp
+      00092F 85 81 22         [24] 4997 	mov	_bp,sp
+                           0005D1  4998 	C$config.c$667$1$127 ==.
+                                   4999 ;	..\AX_Radio_Lab_output\config.c:667: }
+      000932 D0 22            [24] 5000 	pop	_bp
+                           0005D3  5001 	C$config.c$667$1$127 ==.
+                           0005D3  5002 	XG$axradio_byteconv_buffer$0$0 ==.
+      000934 22               [24] 5003 	ret
+                                   5004 ;------------------------------------------------------------
+                                   5005 ;Allocation info for local variables in function 'axradio_framing_check_crc'
+                                   5006 ;------------------------------------------------------------
+                                   5007 ;cnt                       Allocated to stack - _bp -4
+                                   5008 ;pkt                       Allocated to registers r6 r7 
+                                   5009 ;------------------------------------------------------------
+                           0005D4  5010 	G$axradio_framing_check_crc$0$0 ==.
+                           0005D4  5011 	C$config.c$669$1$127 ==.
+                                   5012 ;	..\AX_Radio_Lab_output\config.c:669: __reentrantb uint16_t axradio_framing_check_crc(uint8_t __xdata *pkt, uint16_t cnt) __reentrant
+                                   5013 ;	-----------------------------------------
+                                   5014 ;	 function axradio_framing_check_crc
+                                   5015 ;	-----------------------------------------
+      000935                       5016 _axradio_framing_check_crc:
+      000935 C0 22            [24] 5017 	push	_bp
+      000937 85 81 22         [24] 5018 	mov	_bp,sp
+      00093A AE 82            [24] 5019 	mov	r6,dpl
+      00093C AF 83            [24] 5020 	mov	r7,dph
+                           0005DD  5021 	C$config.c$671$1$131 ==.
+                                   5022 ;	..\AX_Radio_Lab_output\config.c:671: if (crc_crc16(pkt, cnt, 0xFFFF) != 0xB001)
+      00093E 7D 00            [12] 5023 	mov	r5,#0x00
+      000940 74 FF            [12] 5024 	mov	a,#0xff
+      000942 C0 E0            [24] 5025 	push	acc
+      000944 C0 E0            [24] 5026 	push	acc
+      000946 E5 22            [12] 5027 	mov	a,_bp
+      000948 24 FC            [12] 5028 	add	a,#0xfc
+      00094A F8               [12] 5029 	mov	r0,a
+      00094B E6               [12] 5030 	mov	a,@r0
+      00094C C0 E0            [24] 5031 	push	acc
+      00094E 08               [12] 5032 	inc	r0
+      00094F E6               [12] 5033 	mov	a,@r0
+      000950 C0 E0            [24] 5034 	push	acc
+      000952 8E 82            [24] 5035 	mov	dpl,r6
+      000954 8F 83            [24] 5036 	mov	dph,r7
+      000956 8D F0            [24] 5037 	mov	b,r5
+      000958 12 49 4A         [24] 5038 	lcall	_crc_crc16
+      00095B AE 82            [24] 5039 	mov	r6,dpl
+      00095D AF 83            [24] 5040 	mov	r7,dph
+      00095F E5 81            [12] 5041 	mov	a,sp
+      000961 24 FC            [12] 5042 	add	a,#0xfc
+      000963 F5 81            [12] 5043 	mov	sp,a
+      000965 BE 01 05         [24] 5044 	cjne	r6,#0x01,00108$
+      000968 BF B0 02         [24] 5045 	cjne	r7,#0xb0,00108$
+      00096B 80 05            [24] 5046 	sjmp	00102$
+      00096D                       5047 00108$:
+                           00060C  5048 	C$config.c$672$1$131 ==.
+                                   5049 ;	..\AX_Radio_Lab_output\config.c:672: return 0;
+      00096D 90 00 00         [24] 5050 	mov	dptr,#0x0000
+      000970 80 0A            [24] 5051 	sjmp	00103$
+      000972                       5052 00102$:
+                           000611  5053 	C$config.c$673$1$131 ==.
+                                   5054 ;	..\AX_Radio_Lab_output\config.c:673: return cnt;
+      000972 E5 22            [12] 5055 	mov	a,_bp
+      000974 24 FC            [12] 5056 	add	a,#0xfc
+      000976 F8               [12] 5057 	mov	r0,a
+      000977 86 82            [24] 5058 	mov	dpl,@r0
+      000979 08               [12] 5059 	inc	r0
+      00097A 86 83            [24] 5060 	mov	dph,@r0
+      00097C                       5061 00103$:
+      00097C D0 22            [24] 5062 	pop	_bp
+                           00061D  5063 	C$config.c$674$1$131 ==.
+                           00061D  5064 	XG$axradio_framing_check_crc$0$0 ==.
+      00097E 22               [24] 5065 	ret
+                                   5066 ;------------------------------------------------------------
+                                   5067 ;Allocation info for local variables in function 'axradio_framing_append_crc'
+                                   5068 ;------------------------------------------------------------
+                                   5069 ;cnt                       Allocated to stack - _bp -4
+                                   5070 ;pkt                       Allocated to registers r6 r7 
+                                   5071 ;s                         Allocated to registers r4 r5 
+                                   5072 ;------------------------------------------------------------
+                           00061E  5073 	G$axradio_framing_append_crc$0$0 ==.
+                           00061E  5074 	C$config.c$676$1$131 ==.
+                                   5075 ;	..\AX_Radio_Lab_output\config.c:676: __reentrantb uint16_t axradio_framing_append_crc(uint8_t __xdata *pkt, uint16_t cnt) __reentrant
+                                   5076 ;	-----------------------------------------
+                                   5077 ;	 function axradio_framing_append_crc
+                                   5078 ;	-----------------------------------------
+      00097F                       5079 _axradio_framing_append_crc:
+      00097F C0 22            [24] 5080 	push	_bp
+      000981 85 81 22         [24] 5081 	mov	_bp,sp
+      000984 AE 82            [24] 5082 	mov	r6,dpl
+      000986 AF 83            [24] 5083 	mov	r7,dph
+                           000627  5084 	C$config.c$679$1$133 ==.
+                                   5085 ;	..\AX_Radio_Lab_output\config.c:679: s = crc_crc16(pkt, cnt, s);
+      000988 8E 03            [24] 5086 	mov	ar3,r6
+      00098A 8F 04            [24] 5087 	mov	ar4,r7
+      00098C 7D 00            [12] 5088 	mov	r5,#0x00
+      00098E C0 07            [24] 5089 	push	ar7
+      000990 C0 06            [24] 5090 	push	ar6
+      000992 74 FF            [12] 5091 	mov	a,#0xff
+      000994 C0 E0            [24] 5092 	push	acc
+      000996 C0 E0            [24] 5093 	push	acc
+      000998 E5 22            [12] 5094 	mov	a,_bp
+      00099A 24 FC            [12] 5095 	add	a,#0xfc
+      00099C F8               [12] 5096 	mov	r0,a
+      00099D E6               [12] 5097 	mov	a,@r0
+      00099E C0 E0            [24] 5098 	push	acc
+      0009A0 08               [12] 5099 	inc	r0
+      0009A1 E6               [12] 5100 	mov	a,@r0
+      0009A2 C0 E0            [24] 5101 	push	acc
+      0009A4 8B 82            [24] 5102 	mov	dpl,r3
+      0009A6 8C 83            [24] 5103 	mov	dph,r4
+      0009A8 8D F0            [24] 5104 	mov	b,r5
+      0009AA 12 49 4A         [24] 5105 	lcall	_crc_crc16
+      0009AD AC 82            [24] 5106 	mov	r4,dpl
+      0009AF AD 83            [24] 5107 	mov	r5,dph
+      0009B1 E5 81            [12] 5108 	mov	a,sp
+      0009B3 24 FC            [12] 5109 	add	a,#0xfc
+      0009B5 F5 81            [12] 5110 	mov	sp,a
+      0009B7 D0 06            [24] 5111 	pop	ar6
+      0009B9 D0 07            [24] 5112 	pop	ar7
+                           00065A  5113 	C$config.c$680$1$133 ==.
+                                   5114 ;	..\AX_Radio_Lab_output\config.c:680: pkt += cnt;
+      0009BB E5 22            [12] 5115 	mov	a,_bp
+      0009BD 24 FC            [12] 5116 	add	a,#0xfc
+      0009BF F8               [12] 5117 	mov	r0,a
+      0009C0 E6               [12] 5118 	mov	a,@r0
+      0009C1 2E               [12] 5119 	add	a,r6
+      0009C2 FE               [12] 5120 	mov	r6,a
+      0009C3 08               [12] 5121 	inc	r0
+      0009C4 E6               [12] 5122 	mov	a,@r0
+      0009C5 3F               [12] 5123 	addc	a,r7
+      0009C6 FF               [12] 5124 	mov	r7,a
+                           000666  5125 	C$config.c$681$1$133 ==.
+                                   5126 ;	..\AX_Radio_Lab_output\config.c:681: *pkt++ = ~(uint8_t)(s);
+      0009C7 8C 03            [24] 5127 	mov	ar3,r4
+      0009C9 EB               [12] 5128 	mov	a,r3
+      0009CA F4               [12] 5129 	cpl	a
+      0009CB 8E 82            [24] 5130 	mov	dpl,r6
+      0009CD 8F 83            [24] 5131 	mov	dph,r7
+      0009CF F0               [24] 5132 	movx	@dptr,a
+      0009D0 A3               [24] 5133 	inc	dptr
+      0009D1 AE 82            [24] 5134 	mov	r6,dpl
+      0009D3 AF 83            [24] 5135 	mov	r7,dph
+                           000674  5136 	C$config.c$682$1$133 ==.
+                                   5137 ;	..\AX_Radio_Lab_output\config.c:682: *pkt++ = ~(uint8_t)(s >> 8);
+      0009D5 8D 04            [24] 5138 	mov	ar4,r5
+      0009D7 EC               [12] 5139 	mov	a,r4
+      0009D8 F4               [12] 5140 	cpl	a
+      0009D9 8E 82            [24] 5141 	mov	dpl,r6
+      0009DB 8F 83            [24] 5142 	mov	dph,r7
+      0009DD F0               [24] 5143 	movx	@dptr,a
+                           00067D  5144 	C$config.c$683$1$133 ==.
+                                   5145 ;	..\AX_Radio_Lab_output\config.c:683: return cnt + 2;
+      0009DE E5 22            [12] 5146 	mov	a,_bp
+      0009E0 24 FC            [12] 5147 	add	a,#0xfc
+      0009E2 F8               [12] 5148 	mov	r0,a
+      0009E3 86 82            [24] 5149 	mov	dpl,@r0
+      0009E5 08               [12] 5150 	inc	r0
+      0009E6 86 83            [24] 5151 	mov	dph,@r0
+      0009E8 A3               [24] 5152 	inc	dptr
+      0009E9 A3               [24] 5153 	inc	dptr
+      0009EA D0 22            [24] 5154 	pop	_bp
+                           00068B  5155 	C$config.c$684$1$133 ==.
+                           00068B  5156 	XG$axradio_framing_append_crc$0$0 ==.
+      0009EC 22               [24] 5157 	ret
+                                   5158 	.area CSEG    (CODE)
+                                   5159 	.area CONST   (CODE)
+                           000000  5160 G$axradio_phy_innerfreqloop$0$0 == .
+      0055B3                       5161 _axradio_phy_innerfreqloop:
+      0055B3 00                    5162 	.db #0x00	; 0
+                           000001  5163 G$axradio_phy_pn9$0$0 == .
+      0055B4                       5164 _axradio_phy_pn9:
+      0055B4 00                    5165 	.db #0x00	; 0
+                           000002  5166 G$axradio_phy_nrchannels$0$0 == .
+      0055B5                       5167 _axradio_phy_nrchannels:
+      0055B5 01                    5168 	.db #0x01	; 1
+                           000003  5169 G$axradio_phy_chanfreq$0$0 == .
+      0055B6                       5170 _axradio_phy_chanfreq:
+      0055B6 EF EE 16 12           5171 	.byte #0xef,#0xee,#0x16,#0x12	; 303492847
+                           000007  5172 G$axradio_phy_chanpllrnginit$0$0 == .
+      0055BA                       5173 _axradio_phy_chanpllrnginit:
+      0055BA 0A                    5174 	.db #0x0a	; 10
+                           000008  5175 G$axradio_phy_chanvcoiinit$0$0 == .
+      0055BB                       5176 _axradio_phy_chanvcoiinit:
+      0055BB 99                    5177 	.db #0x99	; 153
+                           000009  5178 G$axradio_phy_vcocalib$0$0 == .
+      0055BC                       5179 _axradio_phy_vcocalib:
+      0055BC 00                    5180 	.db #0x00	; 0
+                           00000A  5181 G$axradio_phy_maxfreqoffset$0$0 == .
+      0055BD                       5182 _axradio_phy_maxfreqoffset:
+      0055BD 22 47 00 00           5183 	.byte #0x22,#0x47,#0x00,#0x00	;  18210
+                           00000E  5184 G$axradio_phy_rssioffset$0$0 == .
+      0055C1                       5185 _axradio_phy_rssioffset:
+      0055C1 40                    5186 	.db #0x40	;  64
+                           00000F  5187 G$axradio_phy_rssireference$0$0 == .
+      0055C2                       5188 _axradio_phy_rssireference:
+      0055C2 39                    5189 	.db #0x39	;  57	'9'
+                           000010  5190 G$axradio_phy_channelbusy$0$0 == .
+      0055C3                       5191 _axradio_phy_channelbusy:
+      0055C3 EB                    5192 	.db #0xeb	; -21
+                           000011  5193 G$axradio_phy_cs_period$0$0 == .
+      0055C4                       5194 _axradio_phy_cs_period:
+      0055C4 07 00                 5195 	.byte #0x07,#0x00	; 7
+                           000013  5196 G$axradio_phy_cs_enabled$0$0 == .
+      0055C6                       5197 _axradio_phy_cs_enabled:
+      0055C6 00                    5198 	.db #0x00	; 0
+                           000014  5199 G$axradio_phy_lbt_retries$0$0 == .
+      0055C7                       5200 _axradio_phy_lbt_retries:
+      0055C7 00                    5201 	.db #0x00	; 0
+                           000015  5202 G$axradio_phy_lbt_forcetx$0$0 == .
+      0055C8                       5203 _axradio_phy_lbt_forcetx:
+      0055C8 00                    5204 	.db #0x00	; 0
+                           000016  5205 G$axradio_phy_preamble_wor_longlen$0$0 == .
+      0055C9                       5206 _axradio_phy_preamble_wor_longlen:
+      0055C9 5D 00                 5207 	.byte #0x5d,#0x00	; 93
+                           000018  5208 G$axradio_phy_preamble_wor_len$0$0 == .
+      0055CB                       5209 _axradio_phy_preamble_wor_len:
+      0055CB E0 00                 5210 	.byte #0xe0,#0x00	; 224
+                           00001A  5211 G$axradio_phy_preamble_longlen$0$0 == .
+      0055CD                       5212 _axradio_phy_preamble_longlen:
+      0055CD 00 00                 5213 	.byte #0x00,#0x00	; 0
+                           00001C  5214 G$axradio_phy_preamble_len$0$0 == .
+      0055CF                       5215 _axradio_phy_preamble_len:
+      0055CF 20 00                 5216 	.byte #0x20,#0x00	; 32
+                           00001E  5217 G$axradio_phy_preamble_byte$0$0 == .
+      0055D1                       5218 _axradio_phy_preamble_byte:
+      0055D1 55                    5219 	.db #0x55	; 85	'U'
+                           00001F  5220 G$axradio_phy_preamble_flags$0$0 == .
+      0055D2                       5221 _axradio_phy_preamble_flags:
+      0055D2 38                    5222 	.db #0x38	; 56	'8'
+                           000020  5223 G$axradio_phy_preamble_appendbits$0$0 == .
+      0055D3                       5224 _axradio_phy_preamble_appendbits:
+      0055D3 00                    5225 	.db #0x00	; 0
+                           000021  5226 G$axradio_phy_preamble_appendpattern$0$0 == .
+      0055D4                       5227 _axradio_phy_preamble_appendpattern:
+      0055D4 00                    5228 	.db #0x00	; 0
+                           000022  5229 G$axradio_framing_maclen$0$0 == .
+      0055D5                       5230 _axradio_framing_maclen:
+      0055D5 03                    5231 	.db #0x03	; 3
+                           000023  5232 G$axradio_framing_addrlen$0$0 == .
+      0055D6                       5233 _axradio_framing_addrlen:
+      0055D6 02                    5234 	.db #0x02	; 2
+                           000024  5235 G$axradio_framing_destaddrpos$0$0 == .
+      0055D7                       5236 _axradio_framing_destaddrpos:
+      0055D7 01                    5237 	.db #0x01	; 1
+                           000025  5238 G$axradio_framing_sourceaddrpos$0$0 == .
+      0055D8                       5239 _axradio_framing_sourceaddrpos:
+      0055D8 FF                    5240 	.db #0xff	; 255
+                           000026  5241 G$axradio_framing_lenpos$0$0 == .
+      0055D9                       5242 _axradio_framing_lenpos:
+      0055D9 00                    5243 	.db #0x00	; 0
+                           000027  5244 G$axradio_framing_lenoffs$0$0 == .
+      0055DA                       5245 _axradio_framing_lenoffs:
+      0055DA 00                    5246 	.db #0x00	; 0
+                           000028  5247 G$axradio_framing_lenmask$0$0 == .
+      0055DB                       5248 _axradio_framing_lenmask:
+      0055DB FF                    5249 	.db #0xff	; 255
+                           000029  5250 G$axradio_framing_swcrclen$0$0 == .
+      0055DC                       5251 _axradio_framing_swcrclen:
+      0055DC 00                    5252 	.db #0x00	; 0
+                           00002A  5253 G$axradio_framing_synclen$0$0 == .
+      0055DD                       5254 _axradio_framing_synclen:
+      0055DD 20                    5255 	.db #0x20	; 32
+                           00002B  5256 G$axradio_framing_syncword$0$0 == .
+      0055DE                       5257 _axradio_framing_syncword:
+      0055DE CC                    5258 	.db #0xcc	; 204
+      0055DF AA                    5259 	.db #0xaa	; 170
+      0055E0 CC                    5260 	.db #0xcc	; 204
+      0055E1 AA                    5261 	.db #0xaa	; 170
+                           00002F  5262 G$axradio_framing_syncflags$0$0 == .
+      0055E2                       5263 _axradio_framing_syncflags:
+      0055E2 18                    5264 	.db #0x18	; 24
+                           000030  5265 G$axradio_framing_enable_sfdcallback$0$0 == .
+      0055E3                       5266 _axradio_framing_enable_sfdcallback:
+      0055E3 00                    5267 	.db #0x00	; 0
+                           000031  5268 G$axradio_framing_ack_timeout$0$0 == .
+      0055E4                       5269 _axradio_framing_ack_timeout:
+      0055E4 04 00 00 00           5270 	.byte #0x04,#0x00,#0x00,#0x00	; 4
+                           000035  5271 G$axradio_framing_ack_delay$0$0 == .
+      0055E8                       5272 _axradio_framing_ack_delay:
+      0055E8 39 01 00 00           5273 	.byte #0x39,#0x01,#0x00,#0x00	; 313
+                           000039  5274 G$axradio_framing_ack_retransmissions$0$0 == .
+      0055EC                       5275 _axradio_framing_ack_retransmissions:
+      0055EC 00                    5276 	.db #0x00	; 0
+                           00003A  5277 G$axradio_framing_ack_seqnrpos$0$0 == .
+      0055ED                       5278 _axradio_framing_ack_seqnrpos:
+      0055ED FF                    5279 	.db #0xff	; 255
+                           00003B  5280 G$axradio_framing_minpayloadlen$0$0 == .
+      0055EE                       5281 _axradio_framing_minpayloadlen:
+      0055EE 00                    5282 	.db #0x00	; 0
+                           00003C  5283 G$axradio_wor_period$0$0 == .
+      0055EF                       5284 _axradio_wor_period:
+      0055EF 80 00                 5285 	.byte #0x80,#0x00	; 128
+                           00003E  5286 G$axradio_sync_period$0$0 == .
+      0055F1                       5287 _axradio_sync_period:
+      0055F1 30 05 00 00           5288 	.byte #0x30,#0x05,#0x00,#0x00	; 1328
+                           000042  5289 G$axradio_sync_xoscstartup$0$0 == .
+      0055F5                       5290 _axradio_sync_xoscstartup:
+      0055F5 31 00 00 00           5291 	.byte #0x31,#0x00,#0x00,#0x00	; 49
+                           000046  5292 G$axradio_sync_slave_syncwindow$0$0 == .
+      0055F9                       5293 _axradio_sync_slave_syncwindow:
+      0055F9 8E 0F 00 00           5294 	.byte #0x8e,#0x0f,#0x00,#0x00	; 3982
+                           00004A  5295 G$axradio_sync_slave_initialsyncwindow$0$0 == .
+      0055FD                       5296 _axradio_sync_slave_initialsyncwindow:
+      0055FD 00 00 5A 00           5297 	.byte #0x00,#0x00,#0x5a,#0x00	; 5898240
+                           00004E  5298 G$axradio_sync_slave_syncpause$0$0 == .
+      005601                       5299 _axradio_sync_slave_syncpause:
+      005601 00 00 2C 01           5300 	.byte #0x00,#0x00,#0x2c,#0x01	; 19660800
+                           000052  5301 G$axradio_sync_slave_maxperiod$0$0 == .
+      005605                       5302 _axradio_sync_slave_maxperiod:
+      005605 51 06                 5303 	.byte #0x51,#0x06	;  1617
+                           000054  5304 G$axradio_sync_slave_resyncloss$0$0 == .
+      005607                       5305 _axradio_sync_slave_resyncloss:
+      005607 0B                    5306 	.db #0x0b	; 11
+                           000055  5307 G$axradio_sync_slave_nrrx$0$0 == .
+      005608                       5308 _axradio_sync_slave_nrrx:
+      005608 03                    5309 	.db #0x03	; 3
+                           000056  5310 G$axradio_sync_slave_rxadvance$0$0 == .
+      005609                       5311 _axradio_sync_slave_rxadvance:
+      005609 85 00 00 00           5312 	.byte #0x85,#0x00,#0x00,#0x00	; 133
+      00560D 61 00 00 00           5313 	.byte #0x61,#0x00,#0x00,#0x00	; 97
+      005611 8B 00 00 00           5314 	.byte #0x8b,#0x00,#0x00,#0x00	; 139
+                           000062  5315 G$axradio_sync_slave_rxwindow$0$0 == .
+      005615                       5316 _axradio_sync_slave_rxwindow:
+      005615 86 00 00 00           5317 	.byte #0x86,#0x00,#0x00,#0x00	; 134
+      005619 3E 00 00 00           5318 	.byte #0x3e,#0x00,#0x00,#0x00	; 62
+      00561D 92 00 00 00           5319 	.byte #0x92,#0x00,#0x00,#0x00	; 146
+                           00006E  5320 G$axradio_sync_slave_rxtimeout$0$0 == .
+      005621                       5321 _axradio_sync_slave_rxtimeout:
+      005621 33 00 00 00           5322 	.byte #0x33,#0x00,#0x00,#0x00	; 51
+                                   5323 	.area XINIT   (CODE)
+                                   5324 	.area CABS    (ABS,CODE)

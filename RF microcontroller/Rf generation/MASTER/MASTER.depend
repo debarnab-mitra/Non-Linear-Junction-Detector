@@ -1,0 +1,74 @@
+# depslib dependency file v1.0
+1503484170 source:c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\ax_radio_lab_output\config.c
+	"../COMMON/easyax5043.h"
+	<libmftypes.h>
+	<libmfcrc.h>
+
+1503482494 c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\common\easyax5043.h
+	"axradio.h"
+	<ax8052f143.h>
+	<libmftypes.h>
+
+1503482494 c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\common\axradio.h
+	<libmftypes.h>
+
+1503484170 source:c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\ax_radio_lab_output\configmaster.c
+	"../COMMON/axradio.h"
+
+1503482494 source:c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\common\display_com0.c
+	"display_com0.h"
+	<ax8052f143.h>
+	<libmf.h>
+	<libmfuart.h>
+	<libmfuart0.h>
+
+1503482494 c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\common\display_com0.h
+	<libmf.h>
+
+1503482494 source:c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\common\easyax5043.c
+	"easyax5043.h"
+	<libmfcrc.h>
+	<libmfradio.h>
+	<libmfwtimer.h>
+	<stdlib.h>
+	<string.h>
+	<libmfdbglink.h>
+
+1503482494 source:c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\common\misc.c
+	<ax8052.h>
+	<libmftypes.h>
+	<libmfwtimer.h>
+	<libaxlcd2.h>
+	"misc.h"
+	"../COMMON/axradio.h"
+	"display_com0.h"
+
+1503482494 c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\common\misc.h
+	<libmftypes.h>
+	"../COMMON/axradio.h"
+
+1503483846 source:c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\master\main.c
+	"../AX_Radio_Lab_output/configmaster.h"
+	<ax8052f143.h>
+	<libmftypes.h>
+	<libmfradio.h>
+	<libmfflash.h>
+	<libmfwtimer.h>
+	<libmfuart0.h>
+	<libaxlcd2.h>
+	<libmfdbglink.h>
+	"../COMMON/display_com0.h"
+	"../COMMON/libminidvkled.h"
+	<libdvk2leds.h>
+	<string.h>
+	"../COMMON/misc.h"
+	"../COMMON/configcommon.h"
+
+1503484271 c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\ax_radio_lab_output\configmaster.h
+	"../COMMON/axradio.h"
+
+1503482494 c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\common\libminidvkled.h
+	"libmftypes.h"
+
+1503482494 c:\users\user\desktop\7th sem\ee459\rf microcontroller\projects\rf generation\common\configcommon.h
+
