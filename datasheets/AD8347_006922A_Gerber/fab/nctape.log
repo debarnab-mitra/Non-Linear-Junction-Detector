@@ -1,0 +1,52 @@
+(------------------------------------------------------------)
+(                                                            )
+(                    LOG FILE                                )
+(                                                            )
+(        Drawing    : pcb.brd                                )
+(        Date/Time  : Tue Jan 18 00:19:56 2005               )
+(                                                            )
+(------------------------------------------------------------)
+
+
+
+     NCDRILL  PARAMETERS
+     -------------------
+
+ FORMAT   		2.4
+ MACHINE-OFFSET		x:0.000000	y:0.000000
+ FEEDRATE		1
+ COORDINATES		ABSOLUTE
+ OUTPUT-UNITS		ENGLISH
+ TOOL-ORDER		INCREASING
+ REPEAT-CODES		YES
+ SUPPRESS-LEAD-ZEROES	NO
+ SUPPRESS-TRAIL-ZEROES	NO
+ SUPPRESS-EQUAL		NO
+ TOOL-SELECT		NO
+ DIP-PATTERN		NO
+ HEADER			006922 A
+ LEADER			12
+ CODE			ASCII
+ LENGTH			9999
+ UNIT-LENGTH		FEET
+ SEPARATE		NO
+ SCALE			1.000000
+
+
+
+
+
+     'ncdrill1.tap' created for holes connecting TOP and BOTTOM 
+     ---------------------------------------------
+
+     Num     Size         Plating   Quantity
+      1.     18.0          PLATED        363
+      2.     32.0          PLATED          3
+      3.     42.0          PLATED         18
+      4.    120.0      NON_PLATED          4
+     ---- total holes:                   388
+
+     ---- total head travel:                10.36 ft. (3.16 m) 
+
+     ---- approx. length of paper tape:     44.5 feet  /  13.5 meters 
+

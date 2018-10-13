@@ -1,0 +1,60 @@
+
+INPUT-UNITS     INCHES
+
+WHEEL     1
+
+LINE             0.1            D54
+LINE               4            D55
+LINE               6            D56
+LINE               8            D57
+LINE              10            D58
+LINE              12            D53
+LINE              14            D63
+LINE              15            D62
+LINE              20            D61
+LINE              25            D59
+LINE              50            D60
+CIRCLE            30            D10
+CIRCLE            60            D12
+CIRCLE            62            D17
+CIRCLE            75            D19
+CIRCLE            85            D31
+CIRCLE           180            D15
+CIRCLE           200            D16
+SQUARE            43         0            D43
+SQUARE            51         0            D22
+SQUARE            55         0            D44
+SQUARE            60         0            D23
+RECTANGLE         12        70         0  D51
+RECTANGLE         15       175         0  D37
+RECTANGLE         22        80         0  D52
+RECTANGLE         25       185         0  D38
+RECTANGLE         28        36         0  D28
+RECTANGLE         30        55         0  D20
+RECTANGLE         36        28         0  D24
+RECTANGLE         40        45         0  D29
+RECTANGLE         40        65         0  D21
+RECTANGLE         45        40         0  D25
+RECTANGLE         55        30         0  D49
+RECTANGLE         55        60         0  D45
+RECTANGLE         60        55         0  D47
+RECTANGLE         65        40         0  D50
+RECTANGLE         65        70         0  D46
+RECTANGLE         70        12         0  D26
+RECTANGLE         70        65         0  D48
+RECTANGLE         80        22         0  D27
+RECTANGLE        100       200         0  D35
+RECTANGLE        110       210         0  D36
+RECTANGLE        175        15         0  D41
+RECTANGLE        185        25         0  D42
+RECTANGLE        200       100         0  D39
+RECTANGLE        210       110         0  D40
+FLASH     CIRCLE40                   0  D14
+FLASH     DIRECT                     0  D11
+FLASH     T-REL-65                   0  D18
+FLASH     T-REL-75                   0  D30
+FLASH     DIRECT                    90  D13
+FLASH     T-REL-75                  90  D33
+FLASH     T-REL-75                 180  D34
+FLASH     T-REL-75                 270  D32
+
